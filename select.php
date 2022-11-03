@@ -38,8 +38,8 @@ if (isset($_GET["x"])) {
                         </div>
                         <div>
                             <div class="head-filter">Municipio</div>
-                            <input name="municipio" id="select-municipio" disabled placeholder=" Municipio">
-                            <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Municipio">
+                            <input name="municipio" id="select-municipio" disabled placeholder=" Seleccione un municipio">
+                            <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
                         </div>
                         <!--<div>
                             <div class="head-filter">Seleccione el Localidad</div>
@@ -47,16 +47,16 @@ if (isset($_GET["x"])) {
                             <input type="hidden" name="id_localidad" id="select-localidad-id">
                         </div>-->
                         <div>
-                            <div class="head-filter">Seleccione la Localidad</div>
+                            <div class="head-filter">Localidad</div>
                             <select name="id_localidad" id="select-localidad" placeholder="Localidad" multiple ></select>
                         </div>
                         <div>
-                            <div class="head-filter">Seleccione un tema</div>
+                            <div class="head-filter">Tema</div>
                             <select name="id_tema" id="select-tema">
                             </select>
                         </div>
                         <div class="anio">
-                            <div class="head-filter">Seleccione el año de consulta</div>
+                            <div class="head-filter">Año de consulta</div>
                             <select name="anio" id=anio>
                                 <option value="2010">2010</option>
                                 <option value="2020">2020</option>
@@ -71,12 +71,12 @@ if (isset($_GET["x"])) {
                             <input type="hidden" name="id_subtema" id="select-subtema-id">
                         </div>
                         <div class="descsubtema">
-                            <div class="head-filter">Seleccione un subtema</div>
+                            <div class="head-filter">Subtema</div>
                             <select name="id_descsubtema" id="select-descsubtema">
                             </select>
                         </div>
                         <div>
-                            <div class="head-filter head-indicadores">Seleccione los indicadores a consultar</div>
+                            <div class="head-filter head-indicadores">Indicadores</div>
                             <div class="content-indicadores">
                                 <div id="check-ind-var">
                                     <div><input type="checkbox" class="indicadores-check-var" id="check-all-var">Seleccionar todos</div>
