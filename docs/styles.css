@@ -1,0 +1,55 @@
+body {
+  padding: 20px;}
+
+h1, h2 {
+  font-family: Impact, serif;
+}
+
+h1 {
+  font-size: 40px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+h2 { 
+  font-size: 30px;
+}
+
+hr {
+  height: 2px;
+  background-color: black;
+  border-color: white;
+}
+
+p {
+  font-size: 18px;
+}
+
+div {
+    text-align: center;
+    background-color: white;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: grey;
+}
+
+a:hover {
+  color: pink;
+}
+
+a:active {
+  color: white;
+}
+/* FOOTER */
+footer {
+  font-size: 14px;
+}
