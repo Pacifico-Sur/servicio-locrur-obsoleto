@@ -1,7 +1,5 @@
 <?php
 
-
-
 $host = "localhost";
 $username = "postgres";
 $password = "zeppelin";
@@ -21,9 +19,6 @@ try {
 } catch (PDOException $e){
     echo "Conexión falló: ".$e->getMessage();
 }
-
-
-
 
 $sql = 'SELECT 
 	*
