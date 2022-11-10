@@ -101,7 +101,7 @@ if (isset($_GET["x"])) {
                     <!--<div id="icono-excel"><img src="images/excel.png"> Exportar a excel</div>
                     <div id="icono-pdf"><img src="images/pdf.png"> Exportar a pdf</div>-->
 
-                    <!--<div class="content-tab-problemas">
+                    <div class="content-tab-problemas">
                         <div class="tab-prob-title">Posibles problemas principales declarados por el informante</div>
                         <div>1.CARENCIA DE AGUA Y MALA CALIDAD</div>
                         <div>2.CARENCIA O MAL ESTADO DE CAMINOS</div>
@@ -110,7 +110,7 @@ if (isset($_GET["x"])) {
                         <div>5.CARENCIA O FALLAS DE ENERGÍA ELÉCTRICA Y ALUMBRADO PÚBLICO</div>
                         <div>6.OTRO PROBLEMA</div>
                         <div>7.SIN INFORMACIÓN</div>
-                    </div>-->
+                    </div>
 
                     <button id="icono-export"> Exportar  <img src="images/export.png"></button>
 
