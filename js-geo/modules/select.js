@@ -450,7 +450,7 @@ var select = (function() {
             render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + '</span></div>' } },
             onInitialize: function () {
                 var selectize = this;
-                selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+                selectize.addOption({id_localidad: -1, localidad: 'Todas'});
                 callSetTime(selectize, -1);
             },
 			onChange: function(value) {
@@ -459,7 +459,7 @@ var select = (function() {
 				var selectize = this;
 				if (value == null) {
 					console.log("vacio");
-					selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+					selectize.addOption({id_localidad: -1, localidad: 'Todas'});
 				}else if (value.indexOf(-1) != -1 && value.length == 1) {
 					console.log("encontrado");
 					/*$('#select-submarca').prop("disabled", false);
@@ -1027,12 +1027,13 @@ var select = (function() {
 
 	var l;
 
+	// Función para realizar la consulta hecha en el formulario de la opción 1
 	var buscarRes = function() {
 		
 		//return;
 		/*btn_excel.hide();
 		btn_pdf.hide();*/
-		$(".content-tab-problemas").show(500);
+		//$(".content-tab-problemas").show(500);
 		btn_export.hide();
 		l = $(this).ladda();
 		l.ladda( 'start' );
@@ -1061,6 +1062,7 @@ var select = (function() {
 		}
 		if (choice_tab == "desarrollo_local") {
 			getInitResponseCube();//
+			$(".content-tab-problemas").show(500); // Muestra la tabla de los posibles problemas principales declarados por el usuario cuando se escoge el tema de desarrollo local.
 		}else {
 			getInitResponse();//
 		}
