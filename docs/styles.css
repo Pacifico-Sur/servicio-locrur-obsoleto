@@ -1,7 +1,7 @@
 body {
   padding: 10px;
-  margin: auto;}
-
+  margin: auto;
+}
 h1, h2 {
   font-family: Impact, serif;
 }
@@ -15,7 +15,9 @@ h1 {
 h2 { 
   font-size: 30px;
 }
-
+h3 {
+  font-size: 28px;
+}
 hr {
   height: 2px;
   background-color: black;
@@ -23,7 +25,7 @@ hr {
 }
 
 p {
-  font-size: 18px;
+  font-size: 24px;
   text-align: justify;
 }
 
