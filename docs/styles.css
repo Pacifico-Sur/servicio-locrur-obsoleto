@@ -1,5 +1,6 @@
 body {
-  padding: 20px;}
+  padding: 10px;
+  margin: auto;}
 
 h1, h2 {
   font-family: Impact, serif;
@@ -23,15 +24,29 @@ hr {
 
 p {
   font-size: 18px;
+  text-align: justify;
 }
 
 div {
     text-align: center;
     background-color: white;
-    width: 50%;
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
+}
+
+/* Remove default bullets */
+ul, #myUL {
+  list-style-type: none;
+  font-family: monospace;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 20px;
+  text-align: left;
 }
 
 a {
@@ -52,4 +67,5 @@ a:active {
 /* FOOTER */
 footer {
   font-size: 14px;
+  text-align: center;
 }
