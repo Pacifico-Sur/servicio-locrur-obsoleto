@@ -360,21 +360,24 @@ var mapa = (function() {
     var changeMetodo = function() {
     	//selectTema();
     	//select_tema.val(1).trigger('change');
-    	var id_n = $(this).val();
+    	var id_n = $(this).val(); // optiene la opción seleccionada;
+    	console.log({id_n})
     	if (id_n == 1) {
     		$(".na").show();
 	    	$(".mapats").hide();
 	    	selectNa();
-    	}else if (id_n == 2) {
+    	}else if (id_n == 2) { // la opción 2 es la que despliega el mapa;
     		$(".na").hide();
 	    	$(".mapats").show();
 	    	mapProp = {
-		      	container: 'poligonos-maps',
-		        style: 'mapbox://styles/mapbox/streets-v10',
+	    		container: 'poligonos-maps',
+		        //style: 'mapbox://styles/mapbox/streets-v10',
+		        style: 'mapbox://styles/mapbox/outdoors-v11',
 		        //center: [-99.1344835, 19.4288867],
 		        //center: [-68.137343, 45.137451],
 		        //center: [-71.177684852, 42.390289651],
-		        center: [-91.97363682, 17.91143118],
+		        //center: [-91.97363682, 17.91143118],
+		        center: [-89.7808483,21.1309389],
 				zoom: 5
 		    };
 	    	map = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
