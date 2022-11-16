@@ -360,25 +360,21 @@ var mapa = (function() {
     var changeMetodo = function() {
     	//selectTema();
     	//select_tema.val(1).trigger('change');
-    	var id_n = $(this).val();
+    	var id_n = $(this).val(); // optiene la opción seleccionada;
+    	console.log({id_n})
     	if (id_n == 1) {
-    		$(".na").show();
+			$(".na").show();
 	    	$(".mapats").hide();
 	    	selectNa();
-    	}else if (id_n == 2) {
-    		$(".na").hide();
+		}else if (id_n == 2) { // la opción 2 es la que despliega el mapa;	
+			$(".na").hide();
 	    	$(".mapats").show();
-	    	mapProp = {
-		      	container: 'poligonos-maps',
-		        style: 'mapbox://styles/mapbox/streets-v10',
-		        //center: [-99.1344835, 19.4288867],
-		        //center: [-68.137343, 45.137451],
-		        //center: [-71.177684852, 42.390289651],
-		        center: [-91.97363682, 17.91143118],
-				zoom: 5
-		    };
-	    	map = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
 
+	    	map = L.map('poligonos-maps').setView([21.1309389, -89.7808483], 5);
+			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				maxZoom: 19,
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			}).addTo(map);
 	        if ($("#select-municipio-id").val() != "" && select_estado.val() != "") {
 	        	apiDataCoords.methods['coords']['data'] = {
 					id_municipio: $("#select-municipio-id").val(),
