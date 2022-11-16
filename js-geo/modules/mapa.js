@@ -360,13 +360,12 @@ var mapa = (function() {
     var changeMetodo = function() {
     	//selectTema();
     	//select_tema.val(1).trigger('change');
-    	var id_n = $(this).val(); // optiene la opción seleccionada;
-    	console.log({id_n})
-    	if (id_n == 1) {
-			$(".na").show();
-	    	$(".mapats").hide();
+    	var id_n = $(this).val();
+		if (id_n == 1) {
+    		$(".na").show();
+			$(".mapats").hide();
 	    	selectNa();
-		}else if (id_n == 2) { // la opción 2 es la que despliega el mapa;	
+		}else if (id_n == 2) {
 			$(".na").hide();
 	    	$(".mapats").show();
 
