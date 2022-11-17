@@ -875,7 +875,8 @@ var select = (function() {
     var changeDescSubtema = function() {
     	var value = $(this).val();
     	if (value != "") {
-    		console.log("fdsafdsafds");
+			// Pongo esta variable como global para saber si el usuario escogió el subtema de Problema Principal en la función buscarRes.
+			globalThis.subtema_desarrollo_local = value;
     		indicadores(value);
     	}else {
     		//select_subtema.prop("disabled", true);
@@ -1062,7 +1063,10 @@ var select = (function() {
 		}
 		if (choice_tab == "desarrollo_local") {
 			getInitResponseCube();//
-			$(".content-tab-problemas").show(500); // Muestra la tabla de los posibles problemas principales declarados por el usuario cuando se escoge el tema de desarrollo local.
+			// Aquí uso la variable global para saber si mostrar, o no, la tabla de posible problema principal.
+			if (subtema_desarrollo_local == "PRP_01") {
+				$(".content-tab-problemas").show(500); // Muestra la tabla de los posibles problemas principales declarados por el usuario cuando se escoge el tema de desarrollo local.
+			}
 		}else {
 			getInitResponse();//
 		}
