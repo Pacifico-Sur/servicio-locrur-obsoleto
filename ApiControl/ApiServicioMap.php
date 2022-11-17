@@ -44,15 +44,13 @@ class ApiServicioMap extends ApiMain {
 		if ($x['tab'] == 'desarrollo_local') {
 			$tab = ' ivp.des_local_' . $anio;
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
 		//$sql = 'SELECT a."ID",a."CGLOC",b."ID_ENT",b."ID_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" ' . $filed_d . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
