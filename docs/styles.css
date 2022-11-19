@@ -10,13 +10,16 @@ h1 {
   font-size: 40px;
   margin-top: 0px;
   margin-bottom: 15px;
+  left: 100px;
 }
 
 h2 { 
   font-size: 30px;
+  left: 100px;
 }
 h3 {
   font-size: 28px;
+  left: 100px;
 }
 hr {
   height: 2px;
@@ -30,7 +33,7 @@ p {
 }
 
 div {
-    text-align: center;
+    text-align: auto;
     background-color: white;
     width: 75%;
     margin-left: auto;
@@ -38,6 +41,13 @@ div {
     padding: 20px;
 }
 
+img, #imagenes {
+    text-align: center;
+}
+
+figcaption {
+  text-align: center;
+}
 /* Remove default bullets */
 ul, #myUL {
   list-style-type: none;

@@ -45,15 +45,13 @@ class ApiMapa extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
 		//$sql = 'SELECT a."ID",a."CGLOC",b."CVE_ENT",b."CVE_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" ' . $filed_d . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
@@ -467,14 +465,12 @@ class ApiMapa extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."CVE_ENT" AS "Estado",b."CVE_MUN" AS "Municipio",b."NOM_LOC" AS "Localidad" ' . $filed_d . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID",b."CVE_ENT" AS "Estado",b."CVE_MUN" AS "Municipio",b."NOM_LOC" AS "Localidad" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
@@ -653,14 +649,12 @@ class ApiMapa extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" , "CVE_ENT", "CVE_MUN" ' . $filed_d . ' ' . $x['indicadores'] . '  FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" , "CVE_ENT", "CVE_MUN" ' . ' ' . $x['indicadores'] . '  FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 

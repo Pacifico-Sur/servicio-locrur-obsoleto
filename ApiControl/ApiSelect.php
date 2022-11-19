@@ -45,15 +45,13 @@ class ApiSelect extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
 		//$sql = 'SELECT a."ID",a."CGLOC",b."ID_ENT",b."ID_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
-		$sql = 'SELECT b."NOM_LOC" ' . $filed_d . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT b."NOM_LOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
@@ -295,7 +293,6 @@ class ApiSelect extends ApiMain {
 		
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 
 		//$sql = 'SELECT a."ID",a."CGLOC",b."ID_ENT",b."ID_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
 		$sql = 'SELECT ST_AsGeoJSON(ST_Transform(b."GEOM",4326)) AS "COORDS"  FROM ' . $tab . ' a 
@@ -561,14 +558,12 @@ class ApiSelect extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."ID_MUN" AS "Municipio",d."ID_ENT" AS "Estado",b."NOM_LOC" AS "Localidad" ' . $filed_d . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id .  ' AS "ID",b."ID_MUN" AS "Municipio",d."ID_ENT" AS "Estado",b."NOM_LOC" AS "Localidad" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		INNER JOIN edo_mun.municipios c ON b."ID_MUN" = c."ID_MUN"
 		INNER JOIN edo_mun.estados d ON c."ID_ENT" = d."ID_ENT"
@@ -748,14 +743,12 @@ class ApiSelect extends ApiMain {
 			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
-			$filed_d = ' ,"PRP_0101" ';
 		}else {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
-			$filed_d = '';
 		}
 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" , "ID_MUN" ' . $filed_d . ' ' . $x['indicadores'] . '  FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID",b."NOM_LOC" , "ID_MUN" ' . ' ' . $x['indicadores'] . '  FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 

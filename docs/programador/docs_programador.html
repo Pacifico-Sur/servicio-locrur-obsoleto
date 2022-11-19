@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>            
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <title></title>
 </head>
 
@@ -19,24 +19,29 @@
                 </h2>
 
                 <p>
-                    El servicio de información y conocimiento de localidades rurales (SICLR) es una aplicación cuyo código se encuentra principalmente en código <tt>PHP</tt>, que se usa para la vista y para el controlador. Existen también archivos <tt>JavaScript</tt>, los cuales sirven para dar interactividad a la aplicación a medida que el usuario está navegando dentro de ella.
+                    El servicio de información y conocimiento de localidades rurales (SICLR) es una aplicación que está
+                    hecha en <tt>PHP</tt>, que se usa para la vista y para el controlador. Existen también archivos
+                    <tt>JavaScript</tt>, los cuales sirven para dar interactividad
+                    a la aplicación a medida que el usuario está navegando dentro de ella. Finalmente, hay archivos
+                    <tt>CSS</tt> que le dan el estilo a la aplicación.
                 </p>
-                <p>Enseguida se muestra la estructura de la aplicación y la descripción de cada uno de sus archivos y componentes.</p>
+                <p>Enseguida se muestra la estructura de la aplicación y la descripción de cada uno de sus archivos y
+                    componentes.</p>
 
                 <ul id="myUL">
-                    <li><span class="caret">ApiControl</span>
+                    <li><span class="caret">ApiControl/</span>
                         <ul class="nested">
-                            <li>ApiControl.php</li>
+                            <li><b>ApiControl.php</b></li>
                             <li>ApiMain.php</li>
                             <li>ApiMapa.php</li>
-                            <li>ApiSelect.php</li>
-                            <li>ApiServicioMap.php</li>
+                            <li><b>ApiSelect.php</b></li>
+                            <li><b>ApiServicioMap.php</b></li>
                             <li>ApiSessionSecurity.php</li>
                             <li>index.php</li>
                             <li>Router.php</li>
                         </ul>
                     </li>
-                    <li><span class="caret">assets</span>
+                    <li><span class="caret">assets/</span>
                         <ul class="nested">
                             <li>jquery-1.9.1.min.js</li>
                             <li>nicepage.css</li>
@@ -56,18 +61,18 @@
                     </li>
                     <li><span class="caret">Database/</span>
                         <ul class="nested">
-                            <li>Database.php</li>
+                            <li><b>Database.php</b></li>
                         </ul>
                     </li>
                     <li><span class="caret">docs/</span>
                         <ul class="nested">
                             <li><span class="caret">programador/</span>
-                                <ul class="nested"> 
+                                <ul class="nested">
                                     <li>docs_programador.html</li>
                                 </ul>
                             </li>
                             <li><span class="caret">usuario/</span>
-                                <ul class="nested"> 
+                                <ul class="nested">
                                     <li>docs_usuario.html</li>
                                 </ul>
                             </li>
@@ -96,10 +101,8 @@
                             <li><span class="caret">modules</span>
                                 <ul class="nested">
                                     <li>inicio.js</li>
-                                    <li>mapa.js</li>
-                                    <li>select - copia.js</li>
-                                    <li>select.js</li>
-                                    <li>servicioMap.js</li>
+                                    <li><b>select.js</b></li>
+                                    <li><b>servicioMap.js</b></li>
                                 </ul>
                             </li>
                             <li><span class="caret">plugins/*</span>
@@ -117,7 +120,7 @@
                             <li>Item</li>
                         </ul>
                     </li>
-                    <li><span class="caret">php-getting-started/</span>
+                    <li><span class="caret">php-getting-started/*</span>
                         <ul class="nested">
                             <li>Item</li>
                             <li>Item</li>
@@ -127,33 +130,78 @@
                     <li><span class="caret">block.php</span></li>
                     <li><span class="caret">composer.json</span></li>
                     <li><span class="caret">Database.php</span></li>
-                    <li><span class="caret">footer.php</span></li>
-                    <li><span class="caret">header.php</span></li>
+                    <li><span class="caret"><b>footer.php</b></span></li>
+                    <li><span class="caret"><b>header.php</b></span></li>
                     <li><span class="caret">index.php</span></li>
                     <li><span class="caret">info.php</span></li>
                     <li><span class="caret">LICENSE</span></li>
                     <li><span class="caret">mapa.php</span></li>
-                    <li><span class="caret">README.md</span></li>
-                    <li><span class="caret">select.php</span></li>
-                    <li><span class="caret">servicio-map.php</span></li>
-                  </ul>
-                
-                  <p>El SICLR cuenta con dos opciones o formas de acceso a la información y descarga de datos: opción 1 y opción 2.</p>
+                    <li><span class="caret"><b>README.md</b></span></li>
+                    <li><span class="caret"><b>select.php</b></span></li>
+                    <li><span class="caret"><b>servicio-map.php</b></span></li>
+                </ul>
+
+                <div>
+                    <p>El SICLR cuenta con dos opciones o formas de acceso a la información y descarga de datos: opción
+                        1, de búsqueda por localidad, y opción 2, de búsqueda por territorio o tipo de tenencia de la
+                        tierra.
+                    </p>
+                    <p>
+                        En ambas opciones, el usuario accede a la información a través de un formulario en donde, en los
+                        primeros dos elementos, el usuario debe escoger el estado y municipio de interés. Después de
+                        eso, la aplicación muestra distintos modos de acceso a la información.
+                    </p>
+                </div>
             </section>
 
-            <section id="#opcion-1">
-                <h2>Opción 1 del SICLR</h2>
+            <hr>
+            <div>
+                <section id="#opcion-1">
+                    <h2>1. Opción 1: búsqueda por localidades</h2>
 
-                <p>Mediante la opción 1 el usuario accede a la información a través del estado y municipio y tiene la posibilidad de seleccionar una, varias o todas las localidades del municipio a través de un cuadro de búsqueda con una lista desplegable de localidades, en donde el usuario puede escribir y seleccionar, ya que tiene la función de autocompletado.</p>
+                    <p>El siguiente diagrama muestra los archivos relacionados para la opción 1 del SICLR.</p>
 
-                <p>El siguiente diagrama muestra los archivos relacionados para la opción 1 del SICLR</p>
+                    <img id="imagenes" src="./imgs/diagrama-opcion-1.png" alt="Diagrama opción 1 del servicio"
+                        style="width:500px;height:300px;">
+                    <figcaption>Fig.1 - Esquema de la interacción de los scripts para la opción 1.</figcaption>
 
-                <img src="./imgs/diagrama-opcion-1.png" alt="Diagrama opción 1 del servicio" style="width:500px;height:300px;">
+                    <p>
+                        El archivo <tt>select.php</tt> es el que se encarga de la vista de la opción 1 (Fig 2). En la vista se pueden ver los elementos del formualario como son: Estado, Municipio, Localidad, Tema, Año de consulta, Subtema e Indicadores; una vez que el usuario realizó la selección de interés, dará click al botón <i>Ver indicadores</i> y posteriormente podrá dar click al botón <i>Exportar</i>.
+                    </p>
 
-                <h3>Tema Desarrollo Local</h3>
+                    <img src="./imgs/vista_general_opcion_1.png" alt="Vista general de la opción 1"
+                        style="width:500px;height:300px;">
+                    <figcaption>Fig.2 - Vista general de la opción 1, creada por el archivo select.php.</figcaption>
 
-                    <p>EL tema de Desarrollo Local tiene 13 subtemas. Cuando el usuario escoge el subtema de <tt>Problema Principal, 2020</tt>, se muestra una tabla con los posibles problemas principales declarados por el usuario. Esta interacción ocurre en la función <tt>buscarRes</tt> del archivo <tt>select.js</tt>; en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la cual, si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <tt>Problema principal, 2020</tt>, se muestar la tabla.</p>
-            </section>
+                    <hr width="50%" size="50">
+
+                    <h3>1.1 Inicialización de la aplicación</h3>
+
+                    <p>
+                        Cuando la aplicación inicializa se ejecuta la función <tt>init</tt>. Esta función se encuentra en el archivo <tt>footer.php</tt> y en la función <tt>js-geo/modules/select.js</tt>
+                    </p>
+                    
+                    <p>
+                        La función <tt>init</tt> dentro del archivo <tt>js-geo/modules/select.js</tt> usa las funciones <tt>initAlterData()</tt> y <tt>bindFilters()</tt>. La función <tt>initAlterData()</tt> se usa para inicializar todas las variables que se usan en cada uno de los elementos del formulario y realiza la conexión con la base de datos. La función <tt>bindFilters()</tt> se usa para ir filtrando los valores de interés, a medida que el usuario está interactuando con el formulario; esta función utiliza a su vez las funciones de: <tt>changeEstado()</tt>, <tt>changeAnio()</tt>, <tt>changeTema()</tt>, <tt>changeSubtema()</tt>, <tt>checkAllIndicadores()</tt> y <tt>checkAllIndicadoresVar()</tt> para estar realizando los cambios de valores (desde la base de datos) cuando el usuario realiza una selección o realiza un cambio de selección; también utiliza la función <tt>buscarRes()</tt>, que se encarga de realizar la búsqueda de los valores de interés cuando el usuario da click al botón <i>Ver indicadores</i>.
+                    </p>
+
+                    <hr width="50%" size="50">
+                    
+                    <h3>1.2 Tema Desarrollo Local</h3>
+
+                    <p>EL tema de Desarrollo Local tiene 13 subtemas. Cuando el usuario escoge el subtema de
+                        <tt>Problema
+                            Principal, 2020</tt>, se muestra una tabla con los posibles problemas principales declarados
+                        por
+                        el usuario. Esta interacción ocurre en la función <tt>buscarRes</tt> del archivo
+                        <tt>select.js</tt>;
+                        en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la
+                        cual,
+                        si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <tt>Problema principal,
+                            2020</tt>, se muestar la tabla.
+                    </p>
+                </section>
+            </div>
 
             <hr>
             <section id="#opcion-2">
@@ -161,7 +209,8 @@
 
                 <p>El siguiente diagrama muestra los archivos relacionados para la opción 2 del SICLR</p>
 
-                <img src="./imgs/diagrama-opcion-2.png" alt="Diagrama opción 2 del servicio" style="width:700px;height:400px;">
+                <img src="./imgs/diagrama-opcion-2.png" alt="Diagrama opción 2 del servicio"
+                    style="width:700px;height:400px;">
             </section>
 
         </main>
