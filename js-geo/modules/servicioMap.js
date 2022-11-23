@@ -578,11 +578,11 @@ var servicioMap = (function() {
 	    		console.log("bout");
 		    	mapProp = {
 			      	container: 'poligonos-maps',
-			        style: 'mapbox://styles/mapbox/streets-v10',
+			        style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=06zOCKtkxeyIoiFMws3p',
 			        center: [-91.97363682, 17.91143118],
 					zoom: 5
 			    };
-		    	map = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
+		    	map = $("#poligonos-maps").length ?  new maplibregl.Map(mapProp) : false;
 
 		    	var coords_estados;
 		    	var coords_municipios;
@@ -655,9 +655,8 @@ var servicioMap = (function() {
 		});
     }
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZmVhbm9ycmFuZ2VsIiwiYSI6ImNrNnIxYzVmdzAwdWszaHFpcndyandwbmcifQ.0yZCD9xMEiLEAzeut0pzuw';
-	var mapProp;
-    var map;// = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
+    var mapProp;
+    var map;
     var hoveredStateId = null;
 
 	var getPoligonShapes = function(jsonPol) {

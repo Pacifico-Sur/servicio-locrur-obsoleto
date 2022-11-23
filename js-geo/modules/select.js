@@ -474,10 +474,6 @@ var select = (function() {
         });
     };
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZmVhbm9ycmFuZ2VsIiwiYSI6ImNrNnIxYzVmdzAwdWszaHFpcndyandwbmcifQ.0yZCD9xMEiLEAzeut0pzuw';
-
-    
-
     var callMapPrint = function() {
     	/*var coords_estados = res.estados.features;
 		id_source_collection.features = id_source_collection.features.concat(coords_estados);
@@ -490,12 +486,12 @@ var select = (function() {
 		}
 		mapProp = {
 	      	container: 'poligonos-maps',
-	        style: 'mapbox://styles/mapbox/streets-v10',
+	        style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=${key}',
 	        center: [-91.97363682, 17.91143118],
 			zoom: 5,
 			preserveDrawingBuffer: true
 	    };
-    	map = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
+    	map = $("#poligonos-maps").length ?  new maplibregl.Map(mapProp) : false;
 		var id_source_collection = { type: 'FeatureCollection', features: [] };
     	initMod.apiCall(apiDataCoords).then(function(res){
     		console.log("res mmm");
@@ -612,7 +608,7 @@ var select = (function() {
     }
     
 	var mapProp;
-    var map;// = $("#poligonos-maps").length ?  new mapboxgl.Map(mapProp) : false;
+    var map;
     var hoveredStateId = null;
 
     var getPoligonShapes = function(jsonPol) {
