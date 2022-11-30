@@ -379,6 +379,7 @@
 			    	clearInterval(currentSetTime);
 			    };
 
+				/* Función que permite iniciar sesión en la página de inicio */
 			    var btnSalir = function() {
 			        apiCall(apiJsonLogOut).then(function(res){
 						location.href = "login.php";
@@ -388,6 +389,7 @@
 					});
 	      		};
 
+				/* Esta función le pone tema y estilo a los botones cuando son seleccionados */
 			    var btnThemes = function() {
 			    	if (this.id == 'b-theme') {
 			    		$("body").addClass("b-theme");
@@ -417,6 +419,7 @@
 				};
 
 				var themeSelect = function() {
+					console.log("Chico che");
 					var id_theme = $(this).attr('data-theme');
 					apiSetTheme.methods['theme']['data'] = {theme: id_theme};
 					apiCall(apiSetTheme).then(function(res){

@@ -135,7 +135,6 @@
                     <li><span class="caret">index.php</span></li>
                     <li><span class="caret">info.php</span></li>
                     <li><span class="caret">LICENSE</span></li>
-                    <li><span class="caret">mapa.php</span></li>
                     <li><span class="caret"><b>README.md</b></span></li>
                     <li><span class="caret"><b>select.php</b></span></li>
                     <li><span class="caret"><b>servicio-map.php</b></span></li>
@@ -166,7 +165,11 @@
                     <figcaption>Fig.1 - Esquema de la interacción de los scripts para la opción 1.</figcaption>
 
                     <p>
-                        El archivo <tt>select.php</tt> es el que se encarga de la vista de la opción 1 (Fig 2). En la vista se pueden ver los elementos del formualario como son: Estado, Municipio, Localidad, Tema, Año de consulta, Subtema e Indicadores; una vez que el usuario realizó la selección de interés, dará click al botón <i>Ver indicadores</i> y posteriormente podrá dar click al botón <i>Exportar</i>.
+                        El archivo <tt>select.php</tt> es el que se encarga de la vista de la opción 1 (Fig 2). En la
+                        vista se pueden ver los elementos del formualario como son: Estado, Municipio, Localidad, Tema,
+                        Año de consulta, Subtema e Indicadores. Una vez que el usuario realizó la selección de interés,
+                        dará click al botón <i>Ver indicadores</i> y posteriormente podrá dar click al botón
+                        <i>Exportar</i>.
                     </p>
 
                     <img src="./imgs/vista_general_opcion_1.png" alt="Vista general de la opción 1"
@@ -175,31 +178,122 @@
 
                     <hr width="50%" size="50">
 
-                    <h3>1.1 Inicialización de la aplicación</h3>
+                    <div>
+                        <h3>1.1 Inicialización de la aplicación</h3>
 
-                    <p>
-                        Cuando la aplicación inicializa se ejecuta la función <tt>init</tt>. Esta función se encuentra en el archivo <tt>footer.php</tt> y en la función <tt>js-geo/modules/select.js</tt>
-                    </p>
-                    
-                    <p>
-                        La función <tt>init</tt> dentro del archivo <tt>js-geo/modules/select.js</tt> usa las funciones <tt>initAlterData()</tt> y <tt>bindFilters()</tt>. La función <tt>initAlterData()</tt> se usa para inicializar todas las variables que se usan en cada uno de los elementos del formulario y realiza la conexión con la base de datos. La función <tt>bindFilters()</tt> se usa para ir filtrando los valores de interés, a medida que el usuario está interactuando con el formulario; esta función utiliza a su vez las funciones de: <tt>changeEstado()</tt>, <tt>changeAnio()</tt>, <tt>changeTema()</tt>, <tt>changeSubtema()</tt>, <tt>checkAllIndicadores()</tt> y <tt>checkAllIndicadoresVar()</tt> para estar realizando los cambios de valores (desde la base de datos) cuando el usuario realiza una selección o realiza un cambio de selección; también utiliza la función <tt>buscarRes()</tt>, que se encarga de realizar la búsqueda de los valores de interés cuando el usuario da click al botón <i>Ver indicadores</i>.
-                    </p>
+                        <p>
+                            Cuando la aplicación inicializa se ejecuta la función <tt>init</tt>. Esta función se
+                            encuentra en el archivo <tt>footer.php</tt> y en la función
+                            <tt>js-geo/modules/select.js</tt>
+                        </p>
+                        <p>
+                            La función <tt>init</tt>, en el archivo <tt>foooter.php</tt>, usa la función
+                            <tt>bindTheme</tt>, que tiene interaccin con:
 
-                    <hr width="50%" size="50">
-                    
-                    <h3>1.2 Tema Desarrollo Local</h3>
+                        <ul>
+                            <li>
+                                <tt>btnThemes</tt>. Esta función se encarga de ponerle estilo a los botones cuando el
+                                usuario da click a cada uno de ellos.
+                            </li>
+                            <li>
+                                <tt>btnSalir</tt>. Esta función fue creada en el caso futuro de que exista una página de
+                                inicio donde el usuario pueda iniciar sesión (<i>log in</i>) en el servicio.
+                            </li>
+                            <li><tt>themeSelect</tt>. <b>Esta aún no sé qué hace.</b></li>
+                        </ul>
 
-                    <p>EL tema de Desarrollo Local tiene 13 subtemas. Cuando el usuario escoge el subtema de
-                        <tt>Problema
-                            Principal, 2020</tt>, se muestra una tabla con los posibles problemas principales declarados
-                        por
-                        el usuario. Esta interacción ocurre en la función <tt>buscarRes</tt> del archivo
-                        <tt>select.js</tt>;
-                        en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la
-                        cual,
-                        si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <tt>Problema principal,
-                            2020</tt>, se muestar la tabla.
-                    </p>
+
+                        </p>
+                        <p>
+                            La función <tt>init</tt> dentro del archivo <tt>js-geo/modules/select.js</tt> usa las
+                            funciones <tt>initAlterData()</tt> y <tt>bindFilters()</tt>.
+                        </p>
+                        <p>
+                            La función <tt>initAlterData()</tt> se usa para inicializar todas las variables que se usan
+                            en cada uno de los elementos del formulario y realiza la llamada a la BD con la función
+                            <tt>apiCall</tt>.
+                        </p>
+                        <p>
+                            La función <tt>bindFilters()</tt> se usa para ir filtrando los valores de interés, a medida
+                            que el
+                            usuario está interactuando con el formulario. Esta función utiliza a su vez las funciones
+                            de: <tt>changeEstado()</tt>, <tt>changeAnio()</tt>, <tt>changeTema()</tt>,
+                            <tt>changeSubtema()</tt>, <tt>checkAllIndicadores()</tt> y <tt>checkAllIndicadoresVar()</tt>
+                            para estar realizando los cambios de valores (desde la base de datos) cuando el usuario
+                            realiza una selección o realiza un cambio de selección; también utiliza la función
+                            <tt>buscarRes()</tt>, que se encarga de realizar la búsqueda de los valores de interés
+                            cuando el usuario da click al botón <i>Ver indicadores</i>.
+                        </p>
+
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.2 Casilla <b>Estado</b></h3>
+
+                        <p>
+                            Cuando el usuario interatúa con la casilla de <b>Estado</b> la función encargada de esta
+                            interacción es <tt>changeEstado</tt>. Esta función recibe, desde la base de datos, el ID del
+                            estado que se está seleccionando para hacer el cambio. Cuando la aplicación se inicializa en
+                            primera instancia o cuando está seleccionado <i>Selecciona una opción</i>, la casilla de
+                            Municipio está deshabilitada.
+                        </p>
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.3 Casilla de <b>Municipio</b></h3>
+
+                        <p>
+                            Cuando el usuario interatúa con la casilla de <b>Municipio</b> la función encargada de esta
+                            interacción es <tt>selectMunicipio</tt>. Esta función es utilizada dentro de la función
+                            <tt>changeEstado</tt> y recibe como argumento de entrada el ID del estado seleccionado. De
+                            esta forma realiza el filtrado de los municipios del estado para mostrar en la lista
+                            desplegable. Cuando la aplicación se inicializa en primera instancia o cuando está
+                            seleccionado <i>Selecciona una opción</i>, la casilla de Municipio está deshabilitada.
+                        </p>
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.4 Casilla de <b>Localidad</b></h3>
+
+                        <p>
+                            Cuando el usuario interactúa con la casilla de <tt>Localidad</tt> la función encargada de
+                            esta interacción es <tt>selectLocalidad</tt>. Esta función es utilizada dentro de la función
+                            <tt>selectMunicipio</tt>. Recibe como argumento de entrada el ID del municipio seleccionado
+                            por el usuario. De esta forma, realiza el filtrado de todas las localidades que pertenecen
+                            al municipio de interés. En este momento, esta función selecciona por defecto todas las
+                            localidades filtradas.
+                        </p>
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.5 Casilla de <b>Tema</b></h3>
+
+                        <p>
+                            Cuando la aplicación inicializa, la función que trabaja es <tt>selectTema</tt>. Esta función crea una lista de todos los temas de la BD y los muestra en la casilla en forma de lista desplegable. Cuando el usuario interactúa con la casilla y realiza un cambio de tema, la función que realiza esta interacción es <tt>changeTema</tt>. Esta función captura la selección del usuario. Si la selección es uno de los 8 factores, la casilla de subtema muestra el subtema relacionado al tema seleccionado; si la selección del subtema es <b>Desarrollo Local</b>, la casilla de <b>Subtema</b> se activa para mostrar las 12 opciones de este tema.
+                        </p>
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.6 Tema Desarrollo Local</h3>
+
+                        <p>EL tema de Desarrollo Local tiene 13 subtemas. Cuando el usuario escoge el subtema de
+                            <tt>Problema
+                                Principal, 2020</tt>, se muestra una tabla con los posibles problemas principales
+                            declarados
+                            por
+                            el usuario. Esta interacción ocurre en la función <tt>buscarRes</tt> del archivo
+                            <tt>select.js</tt>;
+                            en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la
+                            cual,
+                            si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <tt>Problema principal,
+                                2020</tt>, se muestar la tabla.
+                        </p>
+                    </div>
                 </section>
             </div>
 

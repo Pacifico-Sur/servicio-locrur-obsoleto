@@ -28,14 +28,14 @@ hr {
 }
 
 p {
-  font-size: 24px;
+  font-size: 20px;
   text-align: justify;
 }
 
 div {
     text-align: auto;
     background-color: white;
-    width: 75%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -49,7 +49,7 @@ figcaption {
   text-align: center;
 }
 /* Remove default bullets */
-ul, #myUL {
+#myUL {
   list-style-type: none;
   font-family: monospace;
 }
