@@ -11,10 +11,10 @@ use PDO;
  */
 class Database {
 
-    private $host = "localhost";
+    private $host = "database";
     private $username = "postgres";
     private $password = "postgres";
-    private $db_name = "adesur";
+    private $db_name = "siclr_db";
 
     /*private $host = "localhost";
     private $username = "postgres";
