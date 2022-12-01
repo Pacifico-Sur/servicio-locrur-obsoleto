@@ -14,8 +14,8 @@ services:
       POSTGRES_PASSWORD: postgres
       #POSTGRES_DB: adesur
     volumes:
-      - ${PWD}/Database/siclr_db_respaldo:/docker-entrypoint-initdb.d/siclr_db_respaldo
-      - ${PWD}/psql.sh:/docker-entrypoint-initdb.d/psql.sh
+      - ${PWD}/app/Database/siclr_db_respaldo:/docker-entrypoint-initdb.d/siclr_db_respaldo
+      - ${PWD}/app/Database/psql.sh:/docker-entrypoint-initdb.d/psql.sh
 
   www:
     container_name: cont-apache
@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - $PWD:/var/www/html
+      - $PWD/app:/var/www/html
     links:
       - database
     networks:
