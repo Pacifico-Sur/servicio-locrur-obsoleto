@@ -232,7 +232,7 @@
                         <h3>1.2 Casilla <b>Estado</b></h3>
 
                         <p>
-                            Cuando el usuario interatúa con la casilla de <b>Estado</b> la función encargada de esta
+                            Cuando el usuario interactúa con la casilla de <b>Estado</b>, la función encargada de esta
                             interacción es <tt>changeEstado</tt>. Esta función recibe, desde la base de datos, el ID del
                             estado que se está seleccionando para hacer el cambio. Cuando la aplicación se inicializa en
                             primera instancia o cuando está seleccionado <i>Selecciona una opción</i>, la casilla de
@@ -245,12 +245,16 @@
                         <h3>1.3 Casilla de <b>Municipio</b></h3>
 
                         <p>
-                            Cuando el usuario interatúa con la casilla de <b>Municipio</b> la función encargada de esta
+                            Cuando el usuario interactúa con la casilla de <b>Municipio</b>, la función encargada de esta
                             interacción es <tt>selectMunicipio</tt>. Esta función es utilizada dentro de la función
                             <tt>changeEstado</tt> y recibe como argumento de entrada el ID del estado seleccionado. De
                             esta forma realiza el filtrado de los municipios del estado para mostrar en la lista
-                            desplegable. Cuando la aplicación se inicializa en primera instancia o cuando está
+                            desplegable.
+                        </p>
+                            <p>
+                                Cuando la aplicación se inicializa en primera instancia o cuando está
                             seleccionado <i>Selecciona una opción</i>, la casilla de Municipio está deshabilitada.
+
                         </p>
                         <hr width="50%" size="50">
                     </div>
@@ -259,7 +263,7 @@
                         <h3>1.4 Casilla de <b>Localidad</b></h3>
 
                         <p>
-                            Cuando el usuario interactúa con la casilla de <tt>Localidad</tt> la función encargada de
+                            Cuando el usuario interactúa con la casilla de <b>Localidad</b>, la función encargada de
                             esta interacción es <tt>selectLocalidad</tt>. Esta función es utilizada dentro de la función
                             <tt>selectMunicipio</tt>. Recibe como argumento de entrada el ID del municipio seleccionado
                             por el usuario. De esta forma, realiza el filtrado de todas las localidades que pertenecen
@@ -273,42 +277,72 @@
                         <h3>1.5 Casilla de <b>Tema</b></h3>
 
                         <p>
-                            Cuando la aplicación inicializa, la función que trabaja es <tt>selectTema</tt>. Esta función crea una lista de todos los temas de la BD y los muestra en la casilla en forma de lista desplegable. Cuando el usuario interactúa con la casilla y realiza un cambio de tema, la función que realiza esta interacción es <tt>changeTema</tt>. Esta función captura la selección del usuario. Si la selección es uno de los 8 factores, la casilla de subtema muestra el subtema relacionado al tema seleccionado; si la selección del subtema es <b>Desarrollo Local</b>, la casilla de <b>Subtema</b> se activa para mostrar las 12 opciones de este tema.
+                            Cuando la aplicación inicializa, la función que trabaja es <tt>selectTema</tt>. Esta función crea una lista de todos los temas de la BD y los muestra en la casilla en forma de lista desplegable. La función <tt>selectTema</tt> interactúa dentro de la función <tt>initAlterData</tt> en donde se muestra por defecto el factor dos.
+                        </p>
+                        <p>
+                            Cuando el usuario interactúa con la casilla y realiza un cambio de tema, la función que realiza esta interacción es <tt>changeTema</tt>. Esta función captura la selección del usuario. Si la selección es uno de los 8 factores, la casilla de subtema muestra el subtema relacionado al tema seleccionado; si la selección del subtema es <b>Desarrollo Local</b>, la casilla de <b>Subtema</b> se activa para mostrar las 12 opciones de este tema.
                         </p>
                         <hr width="50%" size="50">
                     </div>
 
                     <div>
-                        <h3>1.5 Casilla de <b>Año</b></h3>
+                        <h3>1.6 Casilla de <b>Año</b></h3>
 
                         <p>
                             Cuando la aplicación inicializa, la función que trabaja es <tt>changeAnio</tt>. Esta función utiliza inmediatamente la función <tt>selectSubtema</tt>, que muestra por defecto el factor 2 y el subtema asociado a este factor.
                         </p>
+
+                        <p>
+                            Una vez que el año es seleccionado, la variable guardada (<tt>#anio</tt>) es utilizada dentro de las funciones: 
+                            
+                            <ul>
+                                <li><tt>apiDataAllFilter</tt>: esta función realiza el filtrado de todas las variables seleccionadas en la consulta.</li>
+                                <li><tt>callMapPrint</tt>: esta función realiza la creación del mapa cartográfico.</li>
+                                <li><tt>generateExcel</tt>: esta función crea la tabla de datos y la exporta.</li>
+                                <li><tt>generatePdf</tt>: esta función genera el pdf, descriptor de datos, y lo exporta.</li>
+                            </ul>
+                        </p>
                         <hr width="50%" size="50">
                     </div>
 
                     <div>
-                        <h3>1.6 Tema Desarrollo Local</h3>
+                        <h3>1.7 Casilla de Subtema</h3>
 
-                        <p>EL tema de Desarrollo Local tiene 13 subtemas. Cuando el usuario escoge el subtema de
-                            <tt>Problema
-                                Principal, 2020</tt>, se muestra una tabla con los posibles problemas principales
-                            declarados
-                            por
-                            el usuario. Esta interacción ocurre en la función <tt>buscarRes</tt> del archivo
-                            <tt>select.js</tt>;
-                            en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la
-                            cual,
-                            si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <tt>Problema principal,
-                                2020</tt>, se muestar la tabla.
+                        <p>
+                           Esta función se utiliza dentro de la función <tt>changeTema</tt> y dentro de la función <tt>changeAnio</tt>. 
                         </p>
+
+                        <p>
+                            Si el tema <b>Desarrollo Local</b> ha sido seleccionado en la casilla <b>Tema</b>, la función usa la clase <tt>.descsubtema</tt>, la cual muestra la lista de subtemas asociados a <b>Desarrollo Local</b>.
+                        </p>
+
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.8 Botón Ver Indicadores</h3>
+
+                        <p>
+                            Cuando el usuario interactúa con el botón <b>Ver indicadores</b>, la función encargada de esta interacción es <tt>getInitResponse</tt>. Esta función utiliza la función <tt>apiDataAllFilter</tt> para filtrar todas las variables seleccionadas en la consulta.
+                        </p>
+                        
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.9 Tema Desarrollo Local</h3>
+
+                        <p>
+                            El tema de <b>Desarrollo Local</b> tiene 12 subtemas. Cuando el usuario escoge el subtema de <b>Problema Principal, 2020</b>, se muestra una tabla con los posibles problemas principales declarados por el informante de la localidad. Esta interacción ocurre  en la función <tt>buscarRes</tt> del archivo <tt>select.js</tt>; en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la cual, si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <b>Problema principal, 2020</b>, se muesta la tabla.
+                        </p>
+
                     </div>
                 </section>
             </div>
 
             <hr>
             <section id="#opcion-2">
-                <h2>Opción 2 del SICLR</h2>
+                <h2>2. Búsqueda por Territorio o Tenencia de la tierra</h2>
 
                 <p>El siguiente diagrama muestra los archivos relacionados para la opción 2 del SICLR</p>
 
