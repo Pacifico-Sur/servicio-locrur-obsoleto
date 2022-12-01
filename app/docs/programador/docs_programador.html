@@ -156,7 +156,7 @@
             <hr>
             <div>
                 <section id="#opcion-1">
-                    <h2>1. Opción 1: búsqueda por localidades</h2>
+                    <h2>1. Búsqueda por localidades</h2>
 
                     <p>El siguiente diagrama muestra los archivos relacionados para la opción 1 del SICLR.</p>
 
@@ -274,6 +274,15 @@
 
                         <p>
                             Cuando la aplicación inicializa, la función que trabaja es <tt>selectTema</tt>. Esta función crea una lista de todos los temas de la BD y los muestra en la casilla en forma de lista desplegable. Cuando el usuario interactúa con la casilla y realiza un cambio de tema, la función que realiza esta interacción es <tt>changeTema</tt>. Esta función captura la selección del usuario. Si la selección es uno de los 8 factores, la casilla de subtema muestra el subtema relacionado al tema seleccionado; si la selección del subtema es <b>Desarrollo Local</b>, la casilla de <b>Subtema</b> se activa para mostrar las 12 opciones de este tema.
+                        </p>
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.5 Casilla de <b>Año</b></h3>
+
+                        <p>
+                            Cuando la aplicación inicializa, la función que trabaja es <tt>changeAnio</tt>. Esta función utiliza inmediatamente la función <tt>selectSubtema</tt>, que muestra por defecto el factor 2 y el subtema asociado a este factor.
                         </p>
                         <hr width="50%" size="50">
                     </div>
