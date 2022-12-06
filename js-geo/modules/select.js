@@ -1,9 +1,9 @@
-var servicioMap = (function() {
+var select = (function() {
 	"use strict"
 
-	var this_module = "servicioMap",
-		module_upper = "ServicioMap",
-		module_one = "servicioMap",
+	var this_module = "select",
+		module_upper = "Select",
+		module_one = "select",
 		apiDataAll = {
 			controller: module_upper,
 			methods: {
@@ -20,43 +20,17 @@ var servicioMap = (function() {
             	'json': ''
             },
 		},
-		apiDataCoords = {
-			controller: module_upper,
-			methods: {
-            	['coords']: { data: ""},
-            	'json': ''
-            },
-		},
 		apiDataLate = {
 			controller: module_upper,
 			methods: {
 				'estados': '',
 				'municipios': '',
-				//'localidades': '',
+				'localidades': '',
 				'temas': '',
 				'subtemas': '',
 				'indicadores': '',
-            	'json': ''
-            },
-		},
-		apiDataLateNA = {
-			controller: module_upper,
-			methods: {
-				'na':  { data: ''},
-            	'json': ''
-            },
-		},
-		apiDataLateMore = {
-			controller: module_upper,
-			methods: {
-				'some_localidades':  { data: ''},
-            	'json': ''
-            },
-		},
-		apiDataInfografia = {
-			controller: module_upper,
-			methods: {
-            	['infografias']: { data: ""},
+				'desc_subtemas': '',
+				'desc_indicadores': '',
             	'json': ''
             },
 		},
@@ -72,6 +46,13 @@ var servicioMap = (function() {
 			controller: module_upper,
 			methods: {
 				'localidades': '',
+            	'json': ''
+            },
+		},
+		apiDataCoords = {
+			controller: module_upper,
+			methods: {
+            	['coords']: { data: ""},
             	'json': ''
             },
 		},
@@ -118,11 +99,12 @@ var servicioMap = (function() {
 		all_temas,
 		all_subtemas,
 		all_indicadores,
-		all_na,
+		all_descsubtemas,
 		all_descindicadores,
 		all_estados_format,
 		all_municipios_format,
-		nom_ind = {NOM_LOC : "LOCALIDAD"},
+		//nom_ind = {ID: "ID", CGLOC: "CGLOC", NOM_LOC : "LOCALIDAD", ID_ENT : "estado", clave_estado : "clave estado", ID_MUN : "municipio", clave_municipio : "clave municipio"},
+		nom_ind = { NOM_LOC : "LOCALIDAD"},
 		select_estado = $("#select-estado"),
 		select_municipio = $("#select-municipio"),
 		select_localidad = $("#select-localidad"),
@@ -131,15 +113,15 @@ var servicioMap = (function() {
 		select_subtema = $("#select-subtema"),
 		select_subtema_id = $("#select-subtema-id"),
 		select_anio = $("#anio"),
-		select_anio_na = $("#anio-na"),
-		select_metodo = $("#select-metodo"),
-		select_na = $("#select-na"),
 		btn_excel = $("#icono-excel"),
 		btn_pdf = $("#icono-pdf"),
 		btn_export = $("#icono-export"),
+		check_ind_var = $("#check-ind-var"),
+		check_ind_none = $("#check-ind-none"),
 		check_all = $("#check-all"),
-		loc_pp,
-		check_indicadores = $("#check-indicadores");
+		check_all_var = $("#check-all-var"),
+		check_indicadores = $("#check-indicadores"),
+		check_indicadores_var = $("#check-indicadores-var");
 
 	var limit_in,
 		long_data = 10000,		//set max res for request
@@ -187,7 +169,6 @@ var servicioMap = (function() {
 			console.log("res de nuestro nuevo modulo" + module_upper);
 			console.log(res);
 			$(".res-error").hide();
-			$(".res-x").show(500);
 			if ($("#debug").val() == 'debug') {
 				$(".res-x").html("send: " + JSON.stringify(res.x));
 				$(".res-sql").html("sql: " + res.sql);
@@ -199,13 +180,13 @@ var servicioMap = (function() {
 					var width = 100; 
 					if (i == "ID") {
 						width = 20;
-						return;
-					}
-			        var yeison = { "name": i,"title": nom_ind[i], "style":{"width":width,"maxWidth":width} };
-					/*if (i == "ID_ENT") yeison.formatter = "select.getEstadoFormat";
-					if (i == "ID_MUN") yeison.formatter = "select.getMunicipioFormat";*/
-			        if (ii > 4) yeison.breakpoints = "all";
-			        header.push(yeison);
+					}else {
+				        var yeison = { "name": i,"title": nom_ind[i], "style":{"width":width,"maxWidth":width} };
+						/*if (i == "ID_ENT") yeison.formatter = "select.getEstadoFormat";
+						if (i == "ID_MUN") yeison.formatter = "select.getMunicipioFormat";*/
+				        if (ii > 4) yeison.breakpoints = "all";
+				        header.push(yeison);
+				    }
 			        ii++;
 			    });
 			}else {
@@ -315,17 +296,13 @@ var servicioMap = (function() {
     }
 
     var changeEstado = function() {
-    	id_source_collection = "";
-    	$(".na").hide(400);
-	    $(".mapats").hide(400);
-	    select_metodo.val("");
     	var value = $(this).val();
     	console.log("value");
 	    console.log(value);
-	    select_municipio.val("");
-	    /*$("#select-localidad").val("");
+	    $("#select-municipio").val("");
+	    $("#select-localidad").val("");
 	    $("#select-localidad-id").val("");
-	    select_localidad.prop("disabled", true);*/
+	    select_localidad.prop("disabled", true);
     	if (value != "") {
     		selectMunicipio(value);
     		select_municipio.prop("disabled", false);
@@ -344,19 +321,16 @@ var servicioMap = (function() {
 	            }
 			}
         });
-        select_municipio.autocomplete({
+        $("#select-municipio").autocomplete({
 	      	minLength: 0,
 	      	source: indata,
 	      	select: function( event, ui ) {
 	      		if (ui.item.value > 0) {
-	      			$(".na").hide(400);
-	    			$(".mapats").hide(400);
-	    			select_metodo.val("");
 	      			console.log("change select");
 	      			console.log(ui.item.value);
-	      			//selectNa();
+	      			selectLocalidad(ui.item.value);
 	      		}
-		        select_municipio.val( ui.item.label );
+		        $("#select-municipio").val( ui.item.label );
 		        $("#select-municipio-id").val( ui.item.value );
 		        return false;
 	      	},
@@ -366,7 +340,7 @@ var servicioMap = (function() {
 	      		}
 	      	},
 	      	close: function( event, ui ) {
-	      		if (select_municipio.val() == "") {
+	      		if ($("#select-municipio").val() == "") {
 	      			$("#select-municipio-id").val("");
 	      		}
 	      	}
@@ -380,7 +354,7 @@ var servicioMap = (function() {
 	        .appendTo( ul );
 	    };
 	    if (typeof x !== 'undefined') {
-	    	//select_municipio.data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:x}});
+	    	//$("#select-municipio").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:x}});
 	    }
     }
 
@@ -476,7 +450,7 @@ var servicioMap = (function() {
             render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + '</span></div>' } },
             onInitialize: function () {
                 var selectize = this;
-                selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+                selectize.addOption({id_localidad: -1, localidad: 'Todas'});
                 callSetTime(selectize, -1);
             },
 			onChange: function(value) {
@@ -485,7 +459,7 @@ var servicioMap = (function() {
 				var selectize = this;
 				if (value == null) {
 					console.log("vacio");
-					selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+					selectize.addOption({id_localidad: -1, localidad: 'Todas'});
 				}else if (value.indexOf(-1) != -1 && value.length == 1) {
 					console.log("encontrado");
 					/*$('#select-submarca').prop("disabled", false);
@@ -499,6 +473,241 @@ var servicioMap = (function() {
           	},
         });
     };
+
+    var callMapPrint = function() {
+    	/*var coords_estados = res.estados.features;
+		id_source_collection.features = id_source_collection.features.concat(coords_estados);
+    	getPoligonShapes(id_source_collection);*/
+    	apiDataCoords.methods['coords']['data'] = {
+			localidades: $("#select-localidad").val(),
+			id_municipio: $("#select-municipio-id").val(),
+			id_estado: select_estado.val(),
+			anio: $("#anio").val()
+		}
+		mapProp = {
+	      	container: 'poligonos-maps',
+	        style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=${key}',
+	        center: [-91.97363682, 17.91143118],
+			zoom: 5,
+			preserveDrawingBuffer: true
+	    };
+    	map = $("#poligonos-maps").length ?  new maplibregl.Map(mapProp) : false;
+		var id_source_collection = { type: 'FeatureCollection', features: [] };
+    	initMod.apiCall(apiDataCoords).then(function(res){
+    		console.log("res mmm");
+    		console.log(res);
+    		var coords_municipios = res.municipios.features;
+
+    		$(".title-map-edo span").html($('#select-estado').find(":selected").text());
+    		$(".title-map-mun span").html($('#select-municipio').val());
+
+    		id_source_collection.features = id_source_collection.features.concat(coords_municipios);
+
+    		setTimeout(function() {
+	        	getPoligonShapes(id_source_collection);
+	    		mapFlyTo(res.municipios_center, 10.5, 0, 0);
+	        }, 300);
+
+
+	        /*setTimeout(function() {
+	        	var coords_estado = res.estados.features;
+
+    			id_source_collection.features = id_source_collection.features.concat(coords_estado);
+	        	getPoligonShapesAddLoop(id_source_collection);
+	        }, 1500);*/
+
+    		
+
+	    	setTimeout(function() {
+	        	var coords_loc = res.lodalidades_1349.features;
+				id_source_collection.features = id_source_collection.features.concat(coords_loc);
+	          	getPoligonShapesAddLoop(id_source_collection);
+	        }, 600);
+	        //return;
+	        setTimeout(function(){
+	        	var mapsyeahyeahs = $('#poligonos-maps');
+	            html2canvas([mapsyeahyeahs.get(0)], {
+	            	useCORS: true,
+			        optimized: false,
+			        allowTaint: false,
+			      	onrendered: function (canvas) {
+			        	/*document.body.appendChild(canvas);
+			        	var a = document.createElement('a');
+			        	// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+			        	a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+			        	a.download = 'somefilename.jpg';
+			        	a.click();*/
+
+			        	var tempcanvas=document.createElement('canvas');
+			            tempcanvas.width=700;
+			            tempcanvas.height=500;
+			            var context=tempcanvas.getContext('2d');
+			            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+			            var link=document.createElement("a");
+			            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
+			            link.download = 'mapa.jpg';
+			            link.click();
+			            generateExport();
+			      	}
+			    });
+	        },1000);
+    		
+		}, function(reason, json){
+		 	initMod.debugThemes(reason, json);
+		});
+		return;
+    	setTimeout(function(){
+            html2canvas([mapsyeahyeahs.get(0)], {
+            	useCORS: true,
+		        optimized: false,
+		        allowTaint: false,
+		      	onrendered: function (canvas) {
+		        	/*document.body.appendChild(canvas);
+		        	var a = document.createElement('a');
+		        	// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+		        	a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+		        	a.download = 'somefilename.jpg';
+		        	a.click();*/
+
+		        	var tempcanvas=document.createElement('canvas');
+		            tempcanvas.width=1350;
+		            tempcanvas.height=700;
+		            var context=tempcanvas.getContext('2d');
+		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+		            var link=document.createElement("a");
+		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
+		            link.download = 'fdsa.jpg';
+		            link.click();
+		      	}
+		    });
+        },3000);
+    }
+
+    
+    var getPoligonShapesAddLoop = function(jsonPol) {
+    	map.getSource('diamolical').setData(jsonPol);
+		/*map.addLayer({
+			'id': 'poligonobbb',
+			'type': 'fill',
+			'source': 'diamolical',
+			'layout': {},
+			//"source-layer": "waterway",
+			'paint': {
+				'fill-color': [
+					'interpolate',
+					['linear'],
+					['get', 'agalloch'],
+					2,
+					'#23527c'
+				],
+				'fill-opacity': 0.5
+				},
+				'circle-radius': 4,
+		      	//'circle-color': '#063153'
+		});*/
+    }
+    
+	var mapProp;
+    var map;
+    var hoveredStateId = null;
+
+    var getPoligonShapes = function(jsonPol) {
+		map.addSource('diamolical', {
+            'type': 'geojson',
+            'data': jsonPol,
+            'generateId': true
+        });
+        /*map.addLayer({
+			'id': 'poligonoaaaa',
+			'type': 'fill',
+			'source': 'diamolical',
+			'layout': {},
+			//"source-layer": "waterway",
+			'paint': {
+				'fill-color': [
+					'interpolate',
+					['linear'],
+					['get', 'agalloch'],
+					1,
+					'#ff2204',
+					93,
+					'#276252',
+				],
+				'fill-opacity': 0.5
+			},
+			//'circle-radius': 4,
+	      	//'circle-color': '#063153'
+		});*/
+		map.addLayer({
+		  'id': 'poligonoaaaa',
+		  'type': 'line',
+		  'source': 'diamolical',
+		  'layout': {},
+		  'paint': {
+				'line-width': 1,
+				'line-color':'#525252'
+			},
+			//'filter': ['==', '$type', 'Point']
+		});        
+		map.addLayer({
+		  	'id': 'poligonobbbbb',
+		  	'type': 'circle',
+		  	'source': 'diamolical',
+		  	'layout': {},
+		  	'circle-radius': .1,
+		  	'circle-stroke-width': .1,
+	      	'circle-color': '#393838',
+	      	'filter': ['==', '$type', 'Point']
+		});
+    }
+
+    var ventana_ancho = $(window).width(), str_len_cin = 90, str_len_ses = 160, str_len_cua = 40;
+    var allPage = $('html, body');
+
+    var mapFlyTo = function(center, z, b, p) {
+
+    	//if (ventana_ancho <= 600) {
+    		//var winTam = ventana_ancho <= 600 ? 530 : ventana_ancho < 1680 ? 530 : 530;
+			//allPage.stop().animate({scrollTop: 490}, 1400);
+    	//}
+
+    	if (b > 0) {
+    		var beari = b,
+    			pit = p,
+    			offs = [-50, -50];
+    		if (ventana_ancho <= 600) {
+	    		offs = [120, 50];
+	    	}
+    	}else {
+    		var beari = 0,
+    			pit = 0,
+    			offs = [0, 0];
+    	}
+    	map.flyTo({
+			// These options control the ending camera position: centered at
+			// the target, at zoom level 9, and north up.
+			center: center,
+			zoom: z,
+			bearing: beari,
+			pitch: pit,
+			offset: offs,
+			 
+			// These options control the flight curve, making it move
+			// slowly and zoom out almost completely before starting
+			// to pan.
+			speed: 5, // make the flying slow
+			//curve: 1, // change the speed at which it zooms out
+			 
+			// This can be any easing function: it takes a number between
+			// 0 and 1 and returns another number between 0 and 1.
+			easing: function(t) {
+				return t;
+			},
+			 
+			// this animation is considered essential with respect to prefers-reduced-motion
+			essential: true
+		});
+    }
 
     var split = function( val ) {
 		return val.split( /,\s*/ );
@@ -530,422 +739,27 @@ var servicioMap = (function() {
     }
 
     var changeAnio = function() {
-    	selectSubtema(1);
+    	selectSubtema(2);
     	//selectSubtema.val(1).trigger('change');
-    }
-
-    var changeAnioNA = function() {
-    	apiDataLateNA.methods['na']['data'] = {
-    		anio: select_anio_na.val(),
-			id_estado: select_estado.val(),
-			id_municipio: $("#select-municipio-id").val()
-		}
-		console.log("apiDataLateNA na");
-    	console.log(apiDataLateNA);
-
-    	initMod.apiCall(apiDataLateNA).then(function(res){
-    		console.log("ressssa na");
-    		console.log(res);
-    		$(".na").show(500);
-    		all_na = res.na;
-    		selectNa();
-		}, function(reason, json){
-		 	initMod.debugThemes(reason, json);
-		});
-    }
-
-    var id_source_collection;
-
-    var active_map_btns = true;
-
-    var changeMetodo = function() {
-    	var id_n = $(this).val();
-    	$(".na").hide();
-	    $(".mapats").hide();
-	    $(".depend-anio").hide();
-	    $("figure.depend-content").hide();
-	    $('#footable-list').hide();
-	    $('.anio-na').hide();
-    	if (id_n == 1) {
-    		
-	    	//selectNa();
-	    	$('.anio-na').show(500);
-	    	changeAnioNA();
-
-	    	
-    	}else if (id_n == 2) {
-	    	$(".mapats").show(500, function() {
-	    		console.log("bout");
-		    	mapProp = {
-			      	container: 'poligonos-maps',
-			        style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=06zOCKtkxeyIoiFMws3p',
-			        center: [-91.97363682, 17.91143118],
-					zoom: 5
-			    };
-		    	map = $("#poligonos-maps").length ?  new maplibregl.Map(mapProp) : false;
-
-		    	var coords_estados;
-		    	var coords_municipios;
-		    	var coords_pp;
-		    	if (1) {
-		    		active_map_btns = false;
-			    	map.on('mousemove', 'poligonoaaaa', map_mousemove);
-			        map.on('mouseleave', 'poligonoaaaa', map_mouseleave);
-			        map.on('click', 'poligonoaaaa', map_click);
-			    }
-
-		        if ($("#select-municipio-id").val() != "" && select_estado.val() != "") {
-		        	apiDataCoords.methods['coords']['data'] = {
-						id_municipio: $("#select-municipio-id").val(),
-						id_estado: select_estado.val(),
-					}
-		        	initMod.apiCall(apiDataCoords).then(function(res){
-		        		id_source_collection = { type: 'FeatureCollection', features: [] };
-						console.log("ress coords");
-	    				console.log(res);
-	    				coords_estados = res.estados.features;
-						id_source_collection.features = id_source_collection.features.concat(coords_estados);
-
-				        getPoligonShapes(id_source_collection);
-
-				        setTimeout(function() {
-				        	coords_municipios = res.municipios.features;
-							id_source_collection.features = id_source_collection.features.concat(coords_municipios);
-				          	getPoligonShapesAddLoop(id_source_collection);
-				          	mapFlyTo(res.municipios_center, 9, 0, 0);
-				          	//map.setPaintProperty("test", 'fill-color', '#ffffcc');
-				          	
-				        }, 500);
-
-				        setTimeout(function() {
-				        	coords_pp = res.agrupaciones.features;
-							id_source_collection.features = id_source_collection.features.concat(coords_pp);
-				          	getPoligonShapesAddLoop(id_source_collection);
-				          	//map.setPaintProperty("poligonccc", 'fill-color', '#f03b20');
-				        }, 3000);
-					}, function(reason, json){
-					 	initMod.debugThemes(reason, json);
-					});
-		        	
-		        }
-	        });
-
-    	}
-    }
-
-    var getPoligonShapesAddLoop = function(jsonPol) {
-    	map.getSource('diamolical').setData(jsonPol);
-    }
-
-    var getPoligonShapesAddLoop2 = function(jsonPol) {
-    	map.addSource('dimmu', {
-            'type': 'geojson',
-            'data': jsonPol,
-            'generateId': true
-        });
-
-		map.addLayer({
-			'id': 'poligonccc',
-			'type': 'fill',
-			'source': 'dimmu',
-			'layout': {},
-			'paint': {
-				'fill-color': '#bd0026'
-			}
-		});
-    }
-
-    var mapProp;
-    var map;
-    var hoveredStateId = null;
-
-	var getPoligonShapes = function(jsonPol) {
-		map.addSource('diamolical', {
-            'type': 'geojson',
-            'data': jsonPol,
-            'generateId': true
-        });
-        map.addLayer({
-			'id': 'poligonoaaaa',
-			'type': 'fill',
-			'source': 'diamolical',
-			'layout': {},
-			//"source-layer": "waterway",
-			'paint': {
-				'fill-color': [
-					'interpolate',
-					['linear'],
-					['get', 'agalloch'],
-					1,
-					"#73AF48",
-					2,
-					"#EDAD08",
-					3,
-					"#94346E",
-					4,
-					"#E17C05",
-					5,
-					"#CC503E",
-					6,
-					"#0F8554",
-					7,
-					"#1D6996",
-					8,
-					"#38A6A5",
-					9,
-					"#5F4690",
-					93,
-					'#276252',
-					1349,
-					'#e24e4d'
-				],
-				'fill-opacity': 0.5
-				}
-		});
-    }
-
-    var ventana_ancho = $(window).width(), str_len_cin = 90, str_len_ses = 160, str_len_cua = 40;
-    var allPage = $('html, body');
-
-    var mapFlyTo = function(center, z, b, p) {
-
-    	//if (ventana_ancho <= 600) {
-    		//var winTam = ventana_ancho <= 600 ? 530 : ventana_ancho < 1680 ? 530 : 530;
-			allPage.stop().animate({scrollTop: 490}, 1400);
-    	//}
-
-    	if (b > 0) {
-    		var beari = b,
-    			pit = p,
-    			offs = [-50, -50];
-    		if (ventana_ancho <= 600) {
-	    		offs = [120, 50];
-	    	}
-    	}else {
-    		var beari = 0,
-    			pit = 0,
-    			offs = [0, 0];
-    	}
-    	map.flyTo({
-			// These options control the ending camera position: centered at
-			// the target, at zoom level 9, and north up.
-			center: center,
-			zoom: z,
-			bearing: beari,
-			pitch: pit,
-			offset: offs,
-			 
-			// These options control the flight curve, making it move
-			// slowly and zoom out almost completely before starting
-			// to pan.
-			speed: 0.9, // make the flying slow
-			//curve: 1, // change the speed at which it zooms out
-			 
-			// This can be any easing function: it takes a number between
-			// 0 and 1 and returns another number between 0 and 1.
-			easing: function(t) {
-				return t;
-			},
-			 
-			// this animation is considered essential with respect to prefers-reduced-motion
-			essential: true
-		});
-    }
-
-    var map_mousemove = function(e) {
-    	console.log("moussss");
-    	map.getCanvas().style.cursor = 'pointer';
-		if (e.features.length > 0) {
-			if (hoveredStateId) {
-				map.setFeatureState(
-					{ source: 'diamolical', id: hoveredStateId },
-					{ hover: false }
-				);
-			}
-			hoveredStateId = e.features[0].id;
-			map.setFeatureState(
-				{ source: 'diamolical', id: hoveredStateId },
-				{ hover: true }
-			);
-		}
-	};
-
-	var map_mouseleave =  function() {
-		console.log("moussss 2click");
-		map.getCanvas().style.cursor = '';
-		if (hoveredStateId) {
-			map.setFeatureState(
-				{ source: 'diamolical', id: hoveredStateId },
-				{ hover: false }
-			);
-		}
-		hoveredStateId = null;
-	};
-
-	var html_done,
-    	listenerValidation = false,
-    	center_ring;
-
-	var map_click = function(e) {
-		console.log("moussss lclick");
-
-  		/*map.getSource('diamolical').setData({
-	      "type": "FeatureCollection",
-	      "features": e.features
-	    });*/
-        var id_ = e.features[0].properties.id_poligono_pp;
-        console.log("id_ isengard");
-  		console.log(id_);
-  		if (typeof id_ === 'undefined') {
-  			return;
-  		}
-  		var label = id_.split("-");
-  		$("#res-click-map").html(label[1]);
-
-  		btn_export.hide();
-		$('#footable-list').hide(200);
-    	if (listenerValidation) {
-  			//return;
-  		}else {
-  			listenerValidation = true;
-  		}
-  		
-
-		apiDataLateMore.methods['some_localidades']['data'] = {
-				id: label[0]
-			}
-
-  		initMod.apiCall(apiDataLateMore).then(function(res){
-  			console.log("res one norvid");
-  			console.log(res);
-  			$("figure.depend-content").show(500);
-  			loc_pp = res.localidades;
-		}, function(reason, json){
-		 	initMod.debugThemes(reason, json);
-		});
-    };
-
-    select_na = $('#select-na');
-    var selectNa = function() {
-    	var indata = $.map(all_na, function( item ) {
-			return {
-             	nucleo: item.NOM_NUCLEO,
-	            id_nucleo: item.ID,
-            }
-        });
-        var keys = ['id_nucleo', 'nucleo', select_na,indata];
-        var selectForm = resetSelect(keys[2]);
-        selectForm.selectize({
-            valueField: keys[0],labelField: keys[1],searchField: keys[1], options: keys[3],
-            persist: false,
-            create: false,
-            sortField: "id_localidad",
-            render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + '</span></div>' } },
-            onInitialize: function () {
-                var selectize = this;
-                //selectize.addOption({id_localidad: -1, localidad: 'Todos'});
-                //callSetTime(selectize, -1);
-            },
-			onChange: function(value) {
-				/*console.log("valll");
-				console.log(value);
-				var selectize = this;
-				if (value == null) {
-					console.log("vacio");
-					selectize.addOption({id_localidad: -1, localidad: 'Todos'});
-				}else if (value.indexOf(-1) != -1 && value.length == 1) {
-					console.log("encontrado");
-				}else if (value.length > 1) {
-					console.log("tiene 2");
-					selectize.removeItem(-1);
-				}*/
-				console.log("value");
-				console.log(value);
-				//return;
-				apiDataInfografia.methods['infografias']['data'] = {
-					id: value,
-					anio: $("#anio").val()
-				}
-				/*console.log("changueii");
-				return;*/
-				initMod.apiCall(apiDataInfografia).then(function(res){
-      				console.log("res infograf");
-					console.log(res);
-
-					var infografia = res.infografia;
-
-      				var html_infog = ``;
-      				
-      				var color = ["#ff007d","#8800ff","#ff8b00","#930000","#005593","#00936a","#930045","#116469"],i=0;
-                    $.each(infografia, function(k, v) {
-					  	html_infog+= `
-					  	<article class="content-infografia">
-	                        <div class="title-infografia" style="background:` + color[i] + `;"><div>` + k + `</div></div>
-	                        <div class="content-data-infografia">
-	                            <!--<div class="subtitle-infografia">Factor carencia de bienes y medios de comunicación</div>-->`;
-	                            console.log("k");
-								console.log(k);
-	                            console.log("v");
-								console.log(v);
-                            	$.each(v, function(k_i, v_i) {
-                            		console.log("k_i");
-									console.log(k_i);
-									console.log("v_i");
-									console.log(v_i);
-	                              	html_infog+= `
-	                              	<div><i style="background:` + color[i] + `;"></i>` + v_i.label + `:<span>` + v_i.value + `</span></div>`;
-	                            });
-	                        html_infog+= `</div>
-	                    </article>`;
-	                    i++;
-					});
-      				$("#infografia").html(html_infog);
-      				printInfog();
-      			}, function(reason, json){
-					console.log("non");
-				 	initMod.debugThemes(reason, json);
-				});
-          	},
-        });
-    };
-
-    var printInfog = function() {
-    	setTimeout(function(){
-        	var mapsyeahyeahs = $('#infografia');
-            html2canvas([mapsyeahyeahs.get(0)], {
-            	useCORS: true,
-		        optimized: false,
-		        allowTaint: false,
-		      	onrendered: function (canvas) {
-		        	/*document.body.appendChild(canvas);
-		        	var a = document.createElement('a');
-		        	// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-		        	a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-		        	a.download = 'somefilename.jpg';
-		        	a.click();*/
-
-		        	var tempcanvas=document.createElement('canvas');
-		            tempcanvas.width=1450;
-		            tempcanvas.height=620;
-		            var context=tempcanvas.getContext('2d');
-		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
-		            var link=document.createElement("a");
-		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
-		            link.download = 'infografia.jpg';
-		            link.click();
-		            generateExport();
-		      	}
-		    });
-        },1000);
     }
 
     var selectTema = function(x) {
     	select_tema.html("");
 	    var i = 1, len = all_temas.length;
+	    console.log("len");
+	    console.log(len);
+	    console.log("all_temas");
+	    console.log(all_temas);
 	    while (i < len) {
-	       	select_tema.append(new Option(all_temas[i].tema, all_temas[i].cve_tem));
+	    	//if (i != 0) {
+	       		select_tema.append(new Option(all_temas[i].tema, all_temas[i].cve_tem));
+	       	//}
 	        i++
 	    }
+	    /*if ($("#anio").val() == 2020) {
+	    	select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
+	    }*/
+	    select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
     }
 
     var choice_tab = "";
@@ -966,12 +780,22 @@ var servicioMap = (function() {
     	}else {
     		select_subtema.prop("disabled", true);
     	}
-		select_subtema.val(select_subtema.val()).trigger('change');
+    	if (value != "desarrollo_local") {
+    		$(".anio").show();
+			select_subtema.val(select_subtema.val()).trigger('change');
+		}else {
+			$(".anio").hide();
+			select_descsubtema.val(select_descsubtema.val()).trigger('change');
+		}
     }
 
     var selectSubtema = function(x) {
+    	console.log("tesbit select subbb");
     	var anio_selected = select_anio.val();
-		select_subtema.html("");
+    	console.log(anio_selected);
+		select_subtema.val("");
+		select_subtema_id.val("");
+		select_descsubtema.html("");
         /*$.each(all_subtemas, function(i, v) {
 
          	if (v.subtema != null) {
@@ -987,8 +811,16 @@ var servicioMap = (function() {
 		    }
 	    });*/
 
-    	var res_subtema = all_subtemas;
-    	$(".subtema").show();
+	    if (choice_tab == "desarrollo_local") {
+	    	console.log("dessss");
+	    	var res_subtema = all_descsubtemas;
+	    	$(".subtema").hide();
+	    	$(".descsubtema").show();
+	    }else {
+	    	var res_subtema = all_subtemas;
+	    	$(".subtema").show();
+	    	$(".descsubtema").hide();
+	    }
 
         var i = 0, len = res_subtema.length;
 
@@ -996,15 +828,29 @@ var servicioMap = (function() {
         console.log(res_subtema);
 
 	    while (i < len) {
-	       	if (res_subtema[i].subtema != null) {
-		        if (res_subtema[i].cve_tem == x && anio_selected == res_subtema[i].anio) {
-		        	select_subtema.val(res_subtema[i].subtema);
-		        	select_subtema_id.val(res_subtema[i].cve_sub);
-		        	indicadores(res_subtema[i].cve_sub);
-		        	check_all.prop('checked', false);
-    				$("#indicadores-0").prop('checked', true);
-		        }
-		    }
+	    	if (choice_tab == "desarrollo_local") {
+	    		/*select_descsubtema.val(res_subtema[i].subtema);
+	        	indicadores(res_subtema[i].cve_sub);
+	        	check_all.prop('checked', false);
+				$("#indicadores-0").prop('checked', true);*/
+
+			    select_descsubtema.append(new Option(res_subtema[i].subtema, res_subtema[i].cve_sub));
+			    //indicadores(res_subtema[i].cve_sub);
+	        	/*check_all.prop('checked', false);
+				$("#indicadores-0").prop('checked', true);*/
+	    	}else {
+		       	if (res_subtema[i].subtema != null) {
+		       		console.log("okeyyy nullbit");
+			        if (res_subtema[i].cve_tem == x && anio_selected == res_subtema[i].anio) {
+
+			        	select_subtema.val(res_subtema[i].subtema);
+			        	select_subtema_id.val(res_subtema[i].cve_sub);
+			        	indicadores(res_subtema[i].cve_sub);
+			        	check_all.prop('checked', false);
+	    				$("#indicadores-0").prop('checked', true);
+			        }
+			    }
+			}
 	        i++
 	    }
     }
@@ -1013,18 +859,20 @@ var servicioMap = (function() {
     	var value = $(this).val();
     	if (value != "") {
 
-    		indicadores(value);
+    		//indicadores(value);
     	}else {
     		//select_subtema.prop("disabled", true);
     	}
     	check_all.prop('checked', false);
+    	check_all_var.prop('checked', false);
     	$("#indicadores-0").prop('checked', true);
     }
 
     var changeDescSubtema = function() {
     	var value = $(this).val();
     	if (value != "") {
-    		console.log("fdsafdsafds");
+			// Pongo esta variable como global para saber si el usuario escogió el subtema de Problema Principal en la función buscarRes.
+			globalThis.subtema_desarrollo_local = value;
     		indicadores(value);
     	}else {
     		//select_subtema.prop("disabled", true);
@@ -1035,10 +883,7 @@ var servicioMap = (function() {
 
     var indicadores = function(x ="") {
     	if (choice_tab == "desarrollo_local") {
-	    	console.log("des llll");
-	    	console.log(x);
 	    	var res_indi = all_descindicadores;
-	    	console.log(res_indi);
 	    }else {
 	    	var res_indi = all_indicadores;
 	    }
@@ -1047,27 +892,46 @@ var servicioMap = (function() {
 				return {
 	             	label: item.indicadores,
 		            value: item.cve_ind,
+		            type: item.type,
 	            }
 			}
         });
         check_indicadores.html("");
-        check_indicadores.hide(300, function() {
+        check_indicadores_var.html("");
+
+        check_ind_var.hide(300);
+        check_ind_none.hide(300, function() {
 			if (x != "") {
 				$.each(indata, function(i, v) {
 					var che = "";
-					if (i == 0)	che = "checked"; 
-			        check_indicadores.append('<div><input type="checkbox" class="indicadores-check" name="indicadores-' + i + '" id="indicadores-' + i + '" value="' + v.value + '" ' + che + '> ' + v.label + '</div>')
+					if (i == 0)	che = "checked";
+
+					if (v.type == "var") {
+						check_indicadores_var.append('<div><input type="checkbox" class="indicadores-check-var" name="indicadores-' + i + '" id="indicadores-' + i + '" value="' + v.value + '" ' + che + '> ' + v.label + '</div>')
+					}else {
+						check_indicadores.append('<div><input type="checkbox" class="indicadores-check" name="indicadores-' + i + '" id="indicadores-' + i + '" value="' + v.value + '" ' + che + '> ' + v.label + '</div>')
+					}
+			        
 			    });
-			    check_indicadores.show(600);
+			    if ($(".indicadores-check").length > 1) check_ind_none.show(600);
+			    if ($(".indicadores-check-var").length > 1) check_ind_var.show(600);
+			    
 			}
         });
     }
 
     var checkAllIndicadores = function() {
-    	$('input:checkbox').not(this).prop('checked', this.checked);
+    	$('#check-ind-none input:checkbox').not(this).prop('checked', this.checked);
+    	$('#check-ind-var input:checkbox').prop('checked', false);
+    }
+
+    var checkAllIndicadoresVar = function() {
+    	$('#check-ind-var input:checkbox').not(this).prop('checked', this.checked);
+    	$('#check-ind-none input:checkbox').prop('checked', false);
     }
 
     var checkVisible = function() {
+    	$('#check-ind-var input:checkbox').prop('checked', false);
     	var one_true = false;
     	$('input[type=checkbox]:not(#check-all)').each(function () {
 		    if (this.checked) one_true = true;
@@ -1078,17 +942,38 @@ var servicioMap = (function() {
 		}
     }
 
+    var checkVisibleVar = function() {
+    	$('#check-ind-none input:checkbox').prop('checked', false);
+    	var one_true = false;
+    	$('input[type=checkbox]:not(#check-all-var)').each(function () {
+		    if (this.checked) one_true = true;
+		});
+		if (!one_true) {
+			check_all_var.prop('checked', false);
+			$("#indicadores-0").prop('checked', true);
+		}
+    }
+
+    var checkOne = function() {
+    	
+    }
+
+    var checkOneVar = function() {
+    	
+    }
+
 	var initAlterData = function() {
 		initMod.apiCall(apiDataLate).then(function(res){
 			console.log("res alter a");
 			console.log(res);
         	all_municipios = res.municipios;
-        	//all_localidades = res.localidades;
+        	all_localidades = res.localidades;
         	all_estados = res.estados;
         	all_temas = res.temas;
         	all_subtemas = res.subtemas;
         	all_indicadores = res.indicadores;
-        	
+        	all_descsubtemas = res.descsubtemas;
+        	all_descindicadores = res.descindicadores;
         	selectEstado();
         	selectTema();
         	select_tema.val(2).trigger('change');
@@ -1097,6 +982,10 @@ var servicioMap = (function() {
 				nom_ind[all_indicadores[i].cve_ind] = all_indicadores[i].indicadores;
 			}
 
+			for (var i = all_descindicadores.length - 1; i >= 0; i--) {
+				nom_ind[all_descindicadores[i].cve_ind] = all_descindicadores[i].indicadores;
+			}
+        	
         	$(".load-data").hide(300, function() {
 				$(".content-filters").show(600, function() {
 	      			/*initMod.apiCall(apiDataLocalidades).then(function(res){
@@ -1110,6 +999,15 @@ var servicioMap = (function() {
 					});*/
 				});
 			});
+			/*initMod.apiCall(apiDataLateFormat).then(function(res){
+				console.log("res alter 222");
+				console.log(res);
+				all_municipios_format = res.municipios_format;
+	        	all_estados_format = res.estados_format;
+			}, function(reason, json){
+				console.log("non");
+			 	initMod.debugThemes(reason, json);
+			});*/
         }, function(reason, json){
 			console.log("non");
 		 	initMod.debugThemes(reason, json);
@@ -1126,16 +1024,23 @@ var servicioMap = (function() {
 
 	var l;
 
+	// Función para realizar la consulta hecha en el formulario de la opción 1
 	var buscarRes = function() {
+		
+		//return;
 		/*btn_excel.hide();
 		btn_pdf.hide();*/
+		//$(".content-tab-problemas").show(500);
 		btn_export.hide();
-		$('#footable-list').show(300);
-		$('#footable-list').empty();
 		l = $(this).ladda();
 		l.ladda( 'start' );
 		var sList = [];
 		$('#check-indicadores input').each(function () {
+		    if (this.checked) {
+		    	sList.push('"' + $(this).val() + '"');
+		    }
+		});
+		$('#check-indicadores-var input').each(function () {
 		    if (this.checked) {
 		    	sList.push('"' + $(this).val() + '"');
 		    }
@@ -1147,13 +1052,17 @@ var servicioMap = (function() {
 			anio: $("#anio").val(),
 			indicadores: in_end,
 			debug: $("#debug").val(),
-			tab: "none",
-			localidades: loc_pp
+			tab: choice_tab,
+			localidades: $("#select-localidad").val(),
+			id_estado: $("#select-estado").val(),
+			id_municipio: $("#select-municipio-id").val()
 		}
-		console.log("apiDataAllFilterapiDataAllFilter");
-		console.log(apiDataAllFilter);
 		if (choice_tab == "desarrollo_local") {
 			getInitResponseCube();//
+			// Aquí uso la variable global para saber si mostrar, o no, la tabla de posible problema principal.
+			if (subtema_desarrollo_local == "PRP_01") {
+				$(".content-tab-problemas").show(500); // Muestra la tabla de los posibles problemas principales declarados por el usuario cuando se escoge el tema de desarrollo local.
+			}
 		}else {
 			getInitResponse();//
 		}
@@ -1188,7 +1097,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+				$(".res-error-2").html("Error en la consulta").show(1000);
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1222,7 +1131,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+				$(".res-error-2").html("Error en la consulta").show(1000);
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1231,20 +1140,27 @@ var servicioMap = (function() {
 	}
 
 	var generateExport = function() {
+		//callMapPrint();
 		var sList = [];
 		$('#check-indicadores input').each(function () {
 		    if (this.checked) {
 		    	sList.push('"' + $(this).val() + '"');
 		    }
 		});
+		$('#check-indicadores-var input').each(function () {
+		    if (this.checked) {
+		    	sList.push('"' + $(this).val() + '"');
+		    }
+		});
 		var in_end= sList.join(",");
 		apiDataExport.methods['export']['data'] = {
-			//id_localidad: $("#select-localidad-id").val(),
 			anio: $("#anio").val(),
 			indicadores: in_end,
 			debug: $("#debug").val(),
-			tab: "none",
-			localidades: loc_pp
+			tab: choice_tab,
+			localidades: $("#select-localidad").val(),
+			id_estado: $("#select-estado").val(),
+			id_municipio: $("#select-municipio-id").val()
 		}
 		var l = $(this).ladda();
 		l.ladda( 'start' );
@@ -1263,7 +1179,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+				$(".res-error-2").html("Error en la consulta").show(1000);
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1275,20 +1191,19 @@ var servicioMap = (function() {
         $("#btn-buscar").on("click", buscarRes);
         select_estado.on("change", changeEstado);
         select_anio.on("change", changeAnio);
-        select_anio_na.on("change", changeAnioNA);
-        select_metodo.on("change", changeMetodo);
         select_tema.on("change", changeTema);
         select_subtema.on("change", changeSubtema);
         select_descsubtema.on("change", changeDescSubtema);
         check_all.on("click", checkAllIndicadores);
+        check_all_var.on("click", checkAllIndicadoresVar);
         $(document).on('click','.indicadores-check', checkVisible);
+        $(document).on('click','.indicadores-check-var', checkVisibleVar);
+
+        $(document).on('click','#check-ind-none input:checkbox', checkOne);
+        $(document).on('click','#check-ind-var input:checkbox', checkOneVar);
         /*btn_excel.on('click', generateExcel);
         btn_pdf.on('click', generatePdf);*/
-        btn_export.on('click', generateExport);
-
-        $(document).on('mousemove', 'poligonoaaaa', map_mousemove);
-        $(document).on('mouseleave', 'poligonoaaaa', map_mouseleave);
-        $(document).on('click', 'poligonoaaaa', map_click);
+        btn_export.on('click', callMapPrint);
     };
 
 	var init = function () {

@@ -28,8 +28,8 @@
 		<script src="js-geo/plugins/ladda/spin.min.js"></script>
 	    <script src="js-geo/plugins/ladda/ladda.min.js"></script>
 	    <script src="js-geo/plugins/ladda/ladda.jquery.min.js"></script>
-	    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+	    <script src="https://cdn.maptiler.com/maplibre-gl-js/v2.4.0/maplibre-gl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 	 	<script type="text/javascript">
 	 		var initMod = (function() {
 				"use strict"
