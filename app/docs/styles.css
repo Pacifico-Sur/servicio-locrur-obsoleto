@@ -2,7 +2,10 @@ body {
   padding: 10px;
   margin: auto;
 }
-h1, h2 {
+
+h1,
+h2,
+h3 {
   font-family: Impact, serif;
 }
 
@@ -13,14 +16,16 @@ h1 {
   left: 100px;
 }
 
-h2 { 
+h2 {
   font-size: 30px;
   left: 100px;
 }
+
 h3 {
   font-size: 28px;
   left: 100px;
 }
+
 hr {
   height: 2px;
   background-color: black;
@@ -33,21 +38,23 @@ p {
 }
 
 div {
-    text-align: auto;
-    background-color: white;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
+  text-align: auto;
+  background-color: white;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
 }
 
-img, #imagenes {
-    text-align: center;
+img,
+#imagenes {
+  text-align: center;
 }
 
 figcaption {
   text-align: center;
 }
+
 /* Remove default bullets */
 #myUL {
   list-style-type: none;
@@ -76,6 +83,7 @@ a:hover {
 a:active {
   color: white;
 }
+
 /* FOOTER */
 footer {
   font-size: 14px;
