@@ -1,0 +1,91 @@
+body {
+  padding: 10px;
+  margin: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Impact, serif;
+}
+
+h1 {
+  font-size: 40px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  left: 100px;
+}
+
+h2 {
+  font-size: 30px;
+  left: 100px;
+}
+
+h3 {
+  font-size: 28px;
+  left: 100px;
+}
+
+hr {
+  height: 2px;
+  background-color: black;
+  border-color: white;
+}
+
+p {
+  font-size: 20px;
+  text-align: justify;
+}
+
+div {
+  text-align: auto;
+  background-color: white;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+img,
+#imagenes {
+  text-align: center;
+}
+
+figcaption {
+  text-align: center;
+}
+
+/* Remove default bullets */
+#myUL {
+  list-style-type: none;
+  font-family: monospace;
+}
+
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 20px;
+  text-align: left;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: grey;
+}
+
+a:hover {
+  color: pink;
+}
+
+a:active {
+  color: white;
+}
+
+/* FOOTER */
+footer {
+  font-size: 14px;
+  text-align: center;
+}

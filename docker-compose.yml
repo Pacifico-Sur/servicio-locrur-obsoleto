@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  database:
+    image: postgis/postgis:12-3.3-alpine
+    container_name: cont-postgis
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      DATABASE_HOST: 127.0.0.1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      #POSTGRES_DB: adesur
+    volumes:
+      - ${PWD}/app/Database/siclr_db_respaldo:/docker-entrypoint-initdb.d/siclr_db_respaldo
+      - ${PWD}/app/Database/psql.sh:/docker-entrypoint-initdb.d/psql.sh
+
+  www:
+    container_name: cont-apache
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - $PWD/app:/var/www/html
+    links:
+      - database
+    networks:
+      - default
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: cont-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
