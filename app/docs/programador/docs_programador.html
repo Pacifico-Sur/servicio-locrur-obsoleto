@@ -156,6 +156,7 @@
             <hr>
             <div>
                 <section id="#opcion-1">
+                    <div>
                     <h2>1. Búsqueda por localidades</h2>
 
                     <p>El siguiente diagrama muestra los archivos relacionados para la opción 1 del SICLR.</p>
@@ -177,7 +178,7 @@
                     <figcaption>Fig.2 - Vista general de la opción 1, creada por el archivo select.php.</figcaption>
 
                     <hr width="50%" size="50">
-
+                </div>
                     <div>
                         <h3>1.1 Inicialización de la aplicación</h3>
 
@@ -346,14 +347,113 @@
             </div>
 
             <hr>
+            <div>
             <section id="#opcion-2">
+                <div>
                 <h2>2. Búsqueda por Territorio o Tenencia de la tierra</h2>
 
                 <p>El siguiente diagrama muestra los archivos relacionados para la opción 2 del SICLR</p>
 
                 <img src="./imgs/diagrama-opcion-2.png" alt="Diagrama opción 2 del servicio"
-                    style="width:700px;height:400px;">
+                    style="width:500px;height:300px;">
+
+                <p>
+                    El archivo <tt>servicio-map.php</tt> es el que se encarga de la vista de esta búsqueda (Fig. 1). En la figura 2 se puede ver de manera general los elementos de esta opción: <tt>Estado</tt>, <tt>Municipio</tt> y <tt>Territorio o Tenencia de la tierra</tt>.
+                </p>
+
+                <hr width="50%" size="50">
+            </div>
+
+            <div>
+                <h3>2.1. Inicialización de la aplicación</h3>
+
+                <p>
+                    Cuando la aplicación inicializa, se ejecuta la función <tt>init</tt>. Esta función se encuentra en el archivo <tt>footer.php</tt> y en la función <tt>servicioMap.js</tt>.
+                </p>
+                <p>
+                    La función <tt>init</tt>, en el archivo <tt>foooter.php</tt>, usa la función
+                    <tt>bindTheme</tt>, que tiene interaccin con:
+
+                <ul>
+                    <li>
+                        <tt>btnThemes</tt>. Esta función se encarga de ponerle estilo a los botones cuando el
+                        usuario da click a cada uno de ellos.
+                    </li>
+                    <li>
+                        <tt>btnSalir</tt>. Esta función fue creada en el caso futuro de que exista una página de
+                        inicio donde el usuario pueda iniciar sesión (<i>log in</i>) en el servicio.
+                    </li>
+                    <li><tt>themeSelect</tt>. <b></b></li>
+                </ul>
+                </p>
+                <p>
+                    La función <tt>init</tt> dentro del archivo <tt>js-geo/modules/select.js</tt> usa las
+                    funciones <tt>initAlterData()</tt> y <tt>bindFilters()</tt>.
+                </p>
+                <p>
+                    La función <tt>initAlterData()</tt> se usa para inicializar todas las variables que se usan
+                    en cada uno de los elementos del formulario y realiza la llamada a la BD con la función
+                    <tt>apiCall</tt>. Esta función también utiliza la función <tt>selectEstado</tt>,  para mostrar los tres estados en la lista, y la función <tt>selectTema</tt>, con la selección por defecto del tema 2.
+                </p>
+                <p>
+                    La función <tt>bindFilters()</tt> se usa para ir filtrando los valores de interés, a medida
+                    que el
+                    usuario está interactuando con el formulario. Esta función utiliza a su vez las funciones
+                    de: <tt>changeEstado()</tt>, <tt>changeAnio()</tt>, <tt>changeTema()</tt>,
+                    <tt>changeSubtema()</tt>, <tt>checkAllIndicadores()</tt> y <tt>checkAllIndicadoresVar()</tt>
+                    para estar realizando los cambios de valores (desde la base de datos) cuando el usuario
+                    realiza una selección o realiza un cambio de selección; también utiliza la función
+                    <tt>buscarRes()</tt>, que se encarga de realizar la búsqueda de los valores de interés
+                    cuando el usuario da click al botón <i>Ver indicadores</i>.
+                </p>
+
+                <hr width="50%" size="50">
+            </div>
+
+            <div>
+                <h3>2.2 Casilla Estado</h3>
+
+                <p>
+                    Cuando el usuario interactúa con la casilla de <b>Estado</b>, la función encargada de esta
+                            interacción es <tt>changeEstado</tt>. Esta función recibe, desde la base de datos, el ID del
+                            estado que se está seleccionando para hacer el cambio. Cuando la aplicación se inicializa en
+                            primera instancia o cuando está seleccionado <i>Selecciona una opción</i>, la casilla de
+                            Municipio está deshabilitada.
+                </p>
+
+                <hr width="50%" size="50">
+            </div>
+
+            <div>
+                <h3>2.3 Casilla Municipio</h3>
+
+                <p>
+                    Cuando el usuario interactúa con la casilla de <b>Municipio</b>, la función encargada de esta
+                    interacción es <tt>selectMunicipio</tt>. Esta función es utilizada dentro de la función
+                    <tt>changeEstado</tt> y recibe como argumento de entrada el ID del estado seleccionado. De
+                    esta forma realiza el filtrado de los municipios del estado para mostrar en la lista
+                    desplegable.
+                </p>
+                    <p>
+                        Cuando la aplicación se inicializa en primera instancia o cuando está
+                    seleccionado <i>Selecciona una opción</i>, la casilla de Municipio está deshabilitada.
+
+                </p>
+
+                <hr width="50%" size="50">
+            </div>
+
+            <div>
+                <h3>2.4 Casilla Territorio o tenencia</h3>
+
+                <p>
+
+                </p>
+
+                <hr width="50%" size="50">
+            </div>
             </section>
+        </div>
 
         </main>
         <hr>
