@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: postgres
       #POSTGRES_DB: adesur
     volumes:
-      - ${PWD}/app/Database/siclr_db_respaldo:/docker-entrypoint-initdb.d/siclr_db_respaldo
+      - ${PWD}/app/Database/siclr_db_respaldo.tar:/docker-entrypoint-initdb.d/siclr_db_respaldo.tar
       - ${PWD}/app/Database/psql.sh:/docker-entrypoint-initdb.d/psql.sh
 
   www:
