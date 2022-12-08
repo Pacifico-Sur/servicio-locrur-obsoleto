@@ -333,9 +333,14 @@
                         <h3>1.9 Tema Desarrollo Local</h3>
 
                         <p>
-                            El tema de <b>Desarrollo Local</b> tiene 12 subtemas. Cuando el usuario escoge el subtema de <b>Problema Principal, 2020</b>, se muestra una tabla con los posibles problemas principales declarados por el informante de la localidad. Esta interacción ocurre  en la función <tt>buscarRes</tt> del archivo <tt>select.js</tt>; en ese archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, en la cual, si el usuario escoge el tema <tt>Desarrollo Local</tt> y el subtema <b>Problema principal, 2020</b>, se muesta la tabla.
+                            A diferencia del resto de los temas, el tema de <b>Desarrollo Local</b> tiene 12 subtemas. Ya que, en este caso, el usuario tiene la posibilidad de seleccionar un subtema, cuando el usuario escoge el tema de <b>Desarrollo Local</b>, se activa la casilla de <tt>Subtema</tt>, con una lista desplegable, para que el usuario pueda interactuar con ella y seleccione el subtema.
+                        <p>
+                            La función <tt>selectTema</tt> se encarga de lo anterior. Cuando el usuario escoge un tema distinto a <b>Desarrollo local</b>, la casilla de <tt>Año</tt> sigue activa en el formulario; cuando el usuario escoge el tema de <b>Desarrollo local</b>, la casilla de <tt>Año</tt> se desactiva y la casilla de <tt>Subtema</tt> se activa para mostrar los 12 subtemas.
                         </p>
-
+                        </p>
+                        <p>
+                            Dentro de los subtemas en <b>Desarrollo local</b> se encuentra <b>Problema Principal, 2020</b>. Cuando el usuario selecciona este subtema, se muestra una tabla con los posibles problemas principales declarados por el informante de la localidad. Esta interacción ocurre  en la función <tt>buscarRes</tt>; en este archivo existe una condicional (<tt>if (choice_tab == "desarrollo_local")</tt>, que hace que se muestre la tabla.
+                        </p>
                     </div>
                 </section>
             </div>
