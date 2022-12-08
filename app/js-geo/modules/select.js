@@ -759,7 +759,7 @@ var select = (function () {
 		/*if ($("#anio").val() == 2020) {
 			select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
 		}*/
-		select_tema.append(new Option("DESARROLLO LOCAL", "desarrollo_local"));
+		select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
 	}
 
 	var choice_tab = "";
