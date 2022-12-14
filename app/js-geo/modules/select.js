@@ -486,7 +486,7 @@ var select = (function () {
 		}
 		mapProp = {
 			container: 'poligonos-maps',
-			style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=${key}',
+			style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=06zOCKtkxeyIoiFMws3p',
 			center: [-91.97363682, 17.91143118],
 			zoom: 5,
 			preserveDrawingBuffer: true
@@ -759,7 +759,7 @@ var select = (function () {
 		/*if ($("#anio").val() == 2020) {
 			select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
 		}*/
-		select_tema.append(new Option("Desarrollo local", "desarrollo_local"));
+		select_tema.append(new Option("Aspectos cualitativos de vulnerabilidad", "desarrollo_local"));
 	}
 
 	var choice_tab = "";
