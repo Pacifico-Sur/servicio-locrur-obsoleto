@@ -539,6 +539,7 @@ class ApiSelect extends ApiMain {
 	}
 
 	public function getExportExcel($x) {
+		/* Genera la tabla producto que el usuario recibe como descarga */
 
 		if ($x['anio'] == 2020) {
 			$anio = 2020;
@@ -563,7 +564,7 @@ class ApiSelect extends ApiMain {
 			$id = '"ID"';
 		}
 
-		$sql = 'SELECT a.' . $id .  ' AS "ID",b."ID_MUN" AS "Municipio",d."ID_ENT" AS "Estado",b."NOM_LOC" AS "Localidad" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id .  ' AS "ID", b."ID_MUN" AS "Municipio", d."ID_ENT" AS "Estado", b."NOM_LOC" AS "Localidad", b."CGLOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		INNER JOIN edo_mun.municipios c ON b."ID_MUN" = c."ID_MUN"
 		INNER JOIN edo_mun.estados d ON c."ID_ENT" = d."ID_ENT"
@@ -610,6 +611,7 @@ class ApiSelect extends ApiMain {
 				$row['Estado'] = utf8_decode($estado[$row['Estado']]);
 				$row['Municipio'] = utf8_decode($municipio[$kee]);
 				$row['Localidad'] = utf8_decode($row['Localidad']);
+				$row['CGLOC'] = utf8_decode($row['CGLOC']);
 				$this->items_arr['vulnerabilidad'][] = $row;
 			}
 		}
@@ -664,7 +666,7 @@ class ApiSelect extends ApiMain {
 					//$a.= implode("\t", array_keys($row)) . "\n";
 					$asd = array();
 					for ($i=0; $i < count(array_keys($row)); $i++) {
-						if (array_keys($row)[$i] != "ID" && array_keys($row)[$i] != "Estado" && array_keys($row)[$i] != "Municipio" && array_keys($row)[$i] != "Localidad" && array_keys($row)[$i] != "PRP_0101") {
+						if (array_keys($row)[$i] != "ID" && array_keys($row)[$i] != "Estado" && array_keys($row)[$i] != "Municipio" && array_keys($row)[$i] != "Localidad" && array_keys($row)[$i] != "CGLOC" && array_keys($row)[$i] != "PRP_0101") {
 							$asd[] = utf8_decode($res_in['"'.array_keys($row)[$i].'"']);
 						}else {
 							$asd[] = array_keys($row)[$i];
