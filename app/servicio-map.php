@@ -64,6 +64,14 @@ if (isset($_GET["x"])) {
                                 <option value="">Seleccione una opción</option>
                             </select>
                         </div>
+                        <div class="anio-municipio">
+                            <div class="head-filter">Año de consulta</div>
+                            <select name="anio_municipio" id="anio-municipio">
+                                <option value="2010">2010</option>
+                                <option value="2020">2020</option>
+                                <!--<option value="20102020">2010-2020</option>-->
+                            </select>
+                        </div>
 
                         <div class="mapats hide-depend-nucleo">
                             <div id="poligonos-maps"> meipin</div>

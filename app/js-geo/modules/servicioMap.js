@@ -46,6 +46,13 @@ var servicioMap = (function() {
             	'json': ''
             },
 		},
+		apiDataLateMunicipio = {
+			controller: module_upper,
+			methods: {
+				'municipio':  { data: ''},
+            	'json': ''
+            },
+		},
 		apiDataLateMore = {
 			controller: module_upper,
 			methods: {
@@ -57,6 +64,13 @@ var servicioMap = (function() {
 			controller: module_upper,
 			methods: {
             	['infografias']: { data: ""},
+            	'json': ''
+            },
+		},
+		apiDataInfografiaMunicipio = {
+			controller: module_upper,
+			methods: {
+            	['infografias_municipio']: { data: ""},
             	'json': ''
             },
 		},
@@ -132,6 +146,7 @@ var servicioMap = (function() {
 		select_subtema_id = $("#select-subtema-id"),
 		select_anio = $("#anio"),
 		select_anio_na = $("#anio-na"),
+		select_anio_municipio = $("#anio-municipio"),
 		select_metodo = $("#select-metodo"),
 		select_na = $("#select-na"),
 		btn_excel = $("#icono-excel"),
@@ -554,6 +569,26 @@ var servicioMap = (function() {
 		});
     }
 
+	var changeAnioMunicipio = function() {
+    	apiDataLateMunicipio.methods['municipio_infografia']['data'] = {
+    		anio: select_anio_municipio.val(),
+			id_estado: select_estado.val(),
+			id_municipio: $("#select-municipio-id").val()
+		}
+		console.log("apiDataLateMunicipio municipio_infografia");
+    	console.log(apiDataLateMunicipio);
+
+    	initMod.apiCall(apiDataLateMunicipio).then(function(res){
+    		console.log("ressssa municipio");
+    		console.log(res);
+    		$(".municipio").show(500);
+    		all_municipio = res.municipio;
+    		selectMunicipioInfografia();
+		}, function(reason, json){
+		 	initMod.debugThemes(reason, json);
+		});
+    }
+
     var id_source_collection;
 
     var active_map_btns = true;
@@ -566,6 +601,7 @@ var servicioMap = (function() {
 	    $("figure.depend-content").hide();
 	    $('#footable-list').hide();
 	    $('.anio-na').hide();
+		$('.anio-municipio').hide();
     	if (id_n == 1) {
     		
 	    	//selectNa();
@@ -573,7 +609,11 @@ var servicioMap = (function() {
 	    	changeAnioNA();
 
 	    	
-    	}else if (id_n == 2) {
+    	}else if (id_n == 3) {
+			
+			$('.anio-municipio').show(500);
+
+		}else if (id_n == 2) {
 	    	$(".mapats").show(500, function() {
 	    		console.log("bout");
 		    	mapProp = {
@@ -901,6 +941,91 @@ var servicioMap = (function() {
 	                    i++;
 					});
       				$("#infografia").html(html_infog);
+      				printInfog();
+      			}, function(reason, json){
+					console.log("non");
+				 	initMod.debugThemes(reason, json);
+				});
+          	},
+        });
+    };
+
+	select_anio_municipio = $('#select-municipio-infografia');
+    var selectMunicipioInfografia = function() {
+    	var indata = $.map(all_na, function( item ) {
+			return {
+             	nucleo: item.NOM_NUCLEO,
+	            id_nucleo: item.ID,
+				tipo: item.TIPO,
+            }
+        });
+        var keys = ['id_nucleo', 'nucleo', 'tipo', select_na, indata];
+        var selectForm = resetSelect(keys[3]);
+        selectForm.selectize({
+            valueField: keys[0],labelField: keys[1],searchField: keys[1], options: keys[4],
+            persist: false,
+            create: false,
+            sortField: "id_localidad",
+            render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + " (" + escape(item[keys[2]]) + ")" + '</span></div>' } },
+            onInitialize: function () {
+                var selectize = this;
+                //selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+                //callSetTime(selectize, -1);
+            },
+			onChange: function(value) {
+				/*console.log("valll");
+				console.log(value);
+				var selectize = this;
+				if (value == null) {
+					console.log("vacio");
+					selectize.addOption({id_localidad: -1, localidad: 'Todos'});
+				}else if (value.indexOf(-1) != -1 && value.length == 1) {
+					console.log("encontrado");
+				}else if (value.length > 1) {
+					console.log("tiene 2");
+					selectize.removeItem(-1);
+				}*/
+				console.log("value");
+				console.log(value);
+				//return;
+				apiDataInfografia.methods['infografias_municipio']['data'] = {
+					id: value,
+					anio: $("#anio").val()
+				}
+				/*console.log("changueii");
+				return;*/
+				initMod.apiCall(apiDataInfografiaMunicipio).then(function(res){
+      				console.log("res infograf");
+					console.log(res);
+
+					var infografia = res.infografia;
+
+      				var html_infog = ``;
+      				
+      				var color = ["#ff007d","#8800ff","#ff8b00","#930000","#005593","#00936a","#930045","#116469"],i=0;
+                    $.each(infografia, function(k, v) {
+					  	html_infog+= `
+					  	<article class="content-infografia">
+	                        <div class="title-infografia" style="background:` + color[i] + `;"><div>` + k + `</div></div>
+	                        <div class="content-data-infografia">
+	                            <!--<div class="subtitle-infografia">Factor carencia de bienes y medios de comunicación</div>-->`;
+	                            console.log("k");
+								console.log(k);
+	                            console.log("v");
+								console.log(v);
+                            	$.each(v, function(k_i, v_i) {
+                            		console.log("k_i");
+									console.log(k_i);
+									console.log("v_i");
+									console.log(v_i);
+	                              	html_infog+= `
+	                              	<div><i style="background:` + color[i] + `;"></i>` + v_i.label + `:<span>` + v_i.value + `</span></div>`;
+	                            });
+	                        html_infog+= `</div>
+	                    </article>`;
+	                    i++;
+					});
+      				$("#infografia_municipio").html(html_infog);
       				printInfog();
       			}, function(reason, json){
 					console.log("non");
@@ -1277,6 +1402,7 @@ var servicioMap = (function() {
         select_estado.on("change", changeEstado);
         select_anio.on("change", changeAnio);
         select_anio_na.on("change", changeAnioNA);
+		select_anio_municipio.on("change", changeAnioMunicipio);
         select_metodo.on("change", changeMetodo);
         select_tema.on("change", changeTema);
         select_subtema.on("change", changeSubtema);
