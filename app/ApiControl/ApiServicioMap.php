@@ -233,6 +233,7 @@ class ApiServicioMap extends ApiMain {
 	}
 
 	public function getNa($x) {
+		/* Obtiene el ID, los nombres y los tipos (ejido o comunidad) de los núcleos agrarios dentro del estado y municipio seleccionado por el usuario */
 		if ($x['anio'] == 2010) {
 			$ann = "na_" . 2010;
 		}else {
