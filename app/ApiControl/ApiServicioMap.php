@@ -238,7 +238,7 @@ class ApiServicioMap extends ApiMain {
 		}else {
 			$ann = "na_" . 2020;
 		}
-		$sql = 'SELECT a."ID","NOM_NUCLEO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID_MUN" = :id_municipio';
+		$sql = 'SELECT a."ID", "NOM_NUCLEO", "TIPO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID_MUN" = :id_municipio ORDER BY "NOM_NUCLEO"';
 		$sth = $this->conn->prepare($sql);
 		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
 

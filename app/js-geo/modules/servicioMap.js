@@ -831,16 +831,17 @@ var servicioMap = (function() {
 			return {
              	nucleo: item.NOM_NUCLEO,
 	            id_nucleo: item.ID,
+				tipo: item.TIPO,
             }
         });
-        var keys = ['id_nucleo', 'nucleo', select_na,indata];
-        var selectForm = resetSelect(keys[2]);
+        var keys = ['id_nucleo', 'nucleo', 'tipo', select_na, indata];
+        var selectForm = resetSelect(keys[3]);
         selectForm.selectize({
-            valueField: keys[0],labelField: keys[1],searchField: keys[1], options: keys[3],
+            valueField: keys[0],labelField: keys[1],searchField: keys[1], options: keys[4],
             persist: false,
             create: false,
             sortField: "id_localidad",
-            render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + '</span></div>' } },
+            render: { option: function(item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + " (" + escape(item[keys[2]]) + ")" + '</span></div>' } },
             onInitialize: function () {
                 var selectize = this;
                 //selectize.addOption({id_localidad: -1, localidad: 'Todos'});
