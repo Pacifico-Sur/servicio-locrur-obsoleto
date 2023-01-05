@@ -470,7 +470,7 @@ class ApiMapa extends ApiMain {
 			$id = '"ID"';
 		}
 
-		$sql = 'SELECT a.' . $id . ' AS "ID",b."CVE_ENT" AS "Estado",b."CVE_MUN" AS "Municipio",b."NOM_LOC" AS "Localidad" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT a.' . $id . ' AS "ID", b."CVE_ENT" AS "Estado", b."CVE_MUN" AS "Municipio", b."NOM_LOC" AS "Localidad", b."CGLOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
@@ -516,6 +516,7 @@ class ApiMapa extends ApiMain {
 				$row['Estado'] = utf8_decode($estado[$row['Estado']]);
 				$row['Municipio'] = utf8_decode($municipio[$kee]);
 				$row['Localidad'] = utf8_decode($row['Localidad']);
+				$row['CGLOC'] = utf8_decode($row['CGLOC']);
 				$this->items_arr['vulnerabilidad'][] = $row;
 			}
 		}
