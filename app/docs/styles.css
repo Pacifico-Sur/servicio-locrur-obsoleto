@@ -26,6 +26,11 @@ h3 {
   left: 100px;
 }
 
+h4 {
+  font-size: 26px;
+  left: 100px;
+}
+
 hr {
   height: 2px;
   background-color: black;

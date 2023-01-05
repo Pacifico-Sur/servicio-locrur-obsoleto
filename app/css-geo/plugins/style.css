@@ -809,6 +809,9 @@ figure.depend-content {
 .anio-na {
   display: none;
 }
+.anio-municipio {
+  display: none;
+}
 .hide-for-screenshot,.hide-infog-for-screenshot {
   height: 862px;
   opacity: 0.0;
