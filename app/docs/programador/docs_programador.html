@@ -340,19 +340,7 @@
                     </div>
 
                     <div>
-                        <h3>1.8 Botón Ver Indicadores</h3>
-
-                        <p>
-                            Cuando el usuario interactúa con el botón <b>Ver indicadores</b>, la función encargada de
-                            esta interacción es <tt>getInitResponse</tt>. Esta función utiliza la función
-                            <tt>apiDataAllFilter</tt> para filtrar todas las variables seleccionadas en la consulta.
-                        </p>
-
-                        <hr width="50%" size="50">
-                    </div>
-
-                    <div>
-                        <h3>1.9 Tema Desarrollo Local</h3>
+                        <h3>1.8 Tema Desarrollo Local</h3>
 
                         <p>
                             A diferencia del resto de los temas, el tema de <b>Desarrollo Local</b> tiene 12 subtemas.
@@ -376,6 +364,31 @@
                             (<tt>if (choice_tab == "desarrollo_local")</tt>, que hace que se muestre la tabla.
                         </p>
                     </div>
+                    
+                    <div>
+                        <h3>1.9 Botón Ver Indicadores</h3>
+
+                        <p>
+                            Cuando el usuario interactúa con el botón <b>Ver indicadores</b>, la función encargada de
+                            esta interacción es <tt>getInitResponse</tt>. Esta función utiliza la función
+                            <tt>apiDataAllFilter</tt> para filtrar todas las variables seleccionadas en la consulta.
+                        </p>
+
+                        <hr width="50%" size="50">
+                    </div>
+
+                    <div>
+                        <h3>1.10 Botón Exportar</h3>
+
+                        <p>
+                            El botón Exportar genera tres productos que se descargan en la computadora del usuario. Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a la BD en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este archivo realiza la consulta a la BD usando los elementos que el usuario seleccionó en el formulario. 
+                        </p>
+
+                        <p>
+                            
+                        </p>
+                    </div>
+
                 </section>
             </div>
 
@@ -490,6 +503,18 @@
                         </p>
 
                         <hr width="50%" size="50">
+
+                    <div>
+                        <h3>2.5 Botón Exportar</h3>
+
+                        <p>
+                            El botón Exportar genera cuatro productos que se descargan en la computadora del usuario. Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a la BD en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este archivo realiza la consulta a la BD usando los elementos que el usuario seleccionó en el formulario. 
+                        </p>
+
+                        <p>
+                            
+                        </p>
+                    </div>
                     </div>
                 </section>
             </div>
