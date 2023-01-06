@@ -59,7 +59,7 @@ if (isset($_GET["x"])) {
                             </select>
                         </div>
                         <div class="na hide-depend-nucleo">
-                            <div class="head-filter">Núcleo agrario o comunidad</div>
+                            <div class="head-filter">Ejido o comunidad</div>
                             <select name="id_na" id=select-na placeholder="Núcleo agrario">
                                 <option value="">Seleccione una opción</option>
                             </select>

@@ -233,12 +233,13 @@ class ApiServicioMap extends ApiMain {
 	}
 
 	public function getNa($x) {
+		/* Obtiene el ID, los nombres y los tipos (ejido o comunidad) de los núcleos agrarios dentro del estado y municipio seleccionado por el usuario */
 		if ($x['anio'] == 2010) {
 			$ann = "na_" . 2010;
 		}else {
 			$ann = "na_" . 2020;
 		}
-		$sql = 'SELECT a."ID","NOM_NUCLEO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID_MUN" = :id_municipio';
+		$sql = 'SELECT a."ID", "NOM_NUCLEO", "TIPO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID_MUN" = :id_municipio ORDER BY "NOM_NUCLEO"';
 		$sth = $this->conn->prepare($sql);
 		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
 

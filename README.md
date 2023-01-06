@@ -12,5 +12,5 @@ Esta aplicación ofrece un servicio de consulta y descarga de datos de vulnerabi
   - Para la opción con ssh ```git clone git@github.com:macer-tech/servicio-locrur.git```
 - Crea una rama ```git checkout -b <branch name>```
 - Consigna tus cambios en la rama creada.
-- Realiza un _push_ hacia el repositorio.
-- Solicita un _Pull Request_ hacia la rama ```main```.
+- Realiza un _push_ de tu rama hacia el repositorio.
+- Solicita un _Pull Request_ hacia la rama ```develop```.
