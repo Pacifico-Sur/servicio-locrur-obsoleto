@@ -49,7 +49,7 @@ var servicioMap = (function() {
 		apiDataLateMunicipio = {
 			controller: module_upper,
 			methods: {
-				'municipio':  { data: ''},
+				'municipio_infografia':  { data: ''},
             	'json': ''
             },
 		},
@@ -133,6 +133,7 @@ var servicioMap = (function() {
 		all_subtemas,
 		all_indicadores,
 		all_na,
+		all_municipios_infografia,
 		all_descindicadores,
 		all_estados_format,
 		all_municipios_format,
@@ -550,6 +551,7 @@ var servicioMap = (function() {
     }
 
     var changeAnioNA = function() {
+		console.log("Andas buscando el núcleo");
     	apiDataLateNA.methods['na']['data'] = {
     		anio: select_anio_na.val(),
 			id_estado: select_estado.val(),
@@ -557,7 +559,7 @@ var servicioMap = (function() {
 		}
 		console.log("apiDataLateNA na");
     	console.log(apiDataLateNA);
-
+		
     	initMod.apiCall(apiDataLateNA).then(function(res){
     		console.log("ressssa na");
     		console.log(res);
@@ -570,19 +572,20 @@ var servicioMap = (function() {
     }
 
 	var changeAnioMunicipio = function() {
+		console.log("Por aquí andas");
     	apiDataLateMunicipio.methods['municipio_infografia']['data'] = {
-    		anio: select_anio_municipio.val(),
+    		anio_municipio: select_anio_na.val(),
 			id_estado: select_estado.val(),
 			id_municipio: $("#select-municipio-id").val()
 		}
 		console.log("apiDataLateMunicipio municipio_infografia");
     	console.log(apiDataLateMunicipio);
-
+		
     	initMod.apiCall(apiDataLateMunicipio).then(function(res){
     		console.log("ressssa municipio");
     		console.log(res);
-    		$(".municipio").show(500);
-    		all_municipio = res.municipio;
+    		$(".anio-municipio").show(500);
+    		all_municipios_infografia = res.municipio_info;
     		selectMunicipioInfografia();
 		}, function(reason, json){
 		 	initMod.debugThemes(reason, json);
@@ -604,7 +607,6 @@ var servicioMap = (function() {
 		$('.anio-municipio').hide();
     	if (id_n == 1) {
     		
-	    	//selectNa();
 	    	$('.anio-na').show(500);
 	    	changeAnioNA();
 
@@ -612,6 +614,7 @@ var servicioMap = (function() {
     	}else if (id_n == 3) {
 			
 			$('.anio-municipio').show(500);
+			changeAnioMunicipio();
 
 		}else if (id_n == 2) {
 	    	$(".mapats").show(500, function() {
@@ -1025,7 +1028,7 @@ var servicioMap = (function() {
 	                    </article>`;
 	                    i++;
 					});
-      				$("#infografia_municipio").html(html_infog);
+      				$("#municipio_info").html(html_infog);
       				printInfog();
       			}, function(reason, json){
 					console.log("non");
@@ -1058,6 +1061,36 @@ var servicioMap = (function() {
 		            var link=document.createElement("a");
 		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
 		            link.download = 'infografia.jpg';
+		            link.click();
+		            generateExport();
+		      	}
+		    });
+        },1000);
+    }
+
+	var printInfogMunicipio = function() {
+    	setTimeout(function(){
+        	var mapsyeahyeahs = $('#municipio_info');
+            html2canvas([mapsyeahyeahs.get(0)], {
+            	useCORS: true,
+		        optimized: false,
+		        allowTaint: false,
+		      	onrendered: function (canvas) {
+		        	/*document.body.appendChild(canvas);
+		        	var a = document.createElement('a');
+		        	// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+		        	a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+		        	a.download = 'somefilename.jpg';
+		        	a.click();*/
+
+		        	var tempcanvas=document.createElement('canvas');
+		            tempcanvas.width=1450;
+		            tempcanvas.height=620;
+		            var context=tempcanvas.getContext('2d');
+		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+		            var link=document.createElement("a");
+		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
+		            link.download = 'infografia_municipio.jpg';
 		            link.click();
 		            generateExport();
 		      	}

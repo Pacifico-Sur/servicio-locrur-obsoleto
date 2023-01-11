@@ -269,6 +269,7 @@ class ApiServicioMap extends ApiMain {
 		$sql = 'SELECT a.*,b."NOM_NUCLEO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID" = :id';
 		$sth = $this->conn->prepare($sql);
 		$sth->bindValue(':id', $x['id'], PDO::PARAM_STR);
+		print($sql);
 
 		$sth->execute();
 		$rows = $sth->rowCount();
@@ -301,17 +302,17 @@ class ApiServicioMap extends ApiMain {
 		$sth = null;
 	}
 
-	public function getInfografiasMunicipio($x) {
+	public function getMunicipioInfografia($x) {
 		/*print_r($x);
 		exit;*/
-		if ($x['anio'] == 2010) {
+		if ($x['anio_municipio'] == 2010) {
 			$ann = "loc_rur_mpio_" . 2010;
 		}else {
 			$ann = "loc_rur_mpio_" . 2020;
 		}
-		$sql = 'SELECT a.*, b."NOMGEO" FROM ivp.' . $ann . ' a INNER JOIN edo_mun.municipios b ON a."ID_MUN_2010" = b."ID_MUN" WHERE b."ID_MUN" = :id';
+		$sql = 'SELECT a.*, b."NOMGEO" FROM ivp.' . $ann . ' a INNER JOIN edo_mun.municipios b ON a."ID_MUN_2010" = b."ID_MUN" WHERE b."ID_MUN" = :id_municipio';
 		$sth = $this->conn->prepare($sql);
-		$sth->bindValue(':id', $x['id'], PDO::PARAM_STR);
+		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
 
 		$sth->execute();
 		$rows = $sth->rowCount();
@@ -336,10 +337,10 @@ class ApiServicioMap extends ApiMain {
 						$res[$row_t['tema']][] = array("label" => $row_t['indicadores'], "value" => $value);
 					}
 				}
-				$this->items_arr["infografia_municipio"] = $res;
+				$this->items_arr["municipio_info"] = $res;
 			}
 		}else{
-			$this->items_arr["infografia_municipio"] = array("mensaje" => "Sin coincidencias encontradass.");
+			$this->items_arr["municipio_info"] = array("mensaje" => "Sin coincidencias encontradass.");
 		}
 		$sth = null;
 	}
