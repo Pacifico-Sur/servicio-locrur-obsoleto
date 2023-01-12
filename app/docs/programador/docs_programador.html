@@ -509,6 +509,7 @@
                             Esta casilla cuenta con tres opciones que el usuario puede escoger: Propiedad social,
                             Propiedad privada y Municipio. Las opciones de Municipio y Propiedad social le descargan al usuario una infografía que se guarda en formato <tt>JPG</tt>, la opción de Propiedad social permite al usuario acceder a la información a nivel de localidad (tal como la búsqueda por localidades), pero escogiendo una agrupación de propiedad privada dentro del municipio seleccionado. Este formulario se encuentra en el archivo <tt>app/servicio-map.php</tt>.
                         </p>
+                        
                         <h4>2.4.1 Propiedad social</h4>
                         <p>
                             La opción de <b>Propiedad social</b> se ejecuta a través de la función <tt>changeAnioNA</tt> que usa los valores de estado y municipio, escogidos en las primeras casillas, para comenzar a realizar el filtrado de los núcleos agrarios. Esta función usa, a su vez, a las funciones <tt>apiDataLateNA</tt> y <tt>selectNA</tt>. que sirve como API para la búsqueda de los datos usando el ID <tt>na</tt>.
@@ -520,7 +521,24 @@
                             La función <tt>selectNA</tt> llama a la función <tt>ApiDataInfografia</tt> la cual usa el ID <tt>infografias</tt> para llamar a la función <tt>getInfografia</tt>, en el archivo <tt>ApiServicioMap</tt>, por medio del método <tt>infografia</tt>. La función <tt>getInfografia</tt> realiza una consulta a la BD para obtener la información del índice de vulnerabilidad poblacional para cada núcleo agrario.
                         </p>
 
+                        <h4>2.4.2 Municipio</h4>
+
+                        <p>
+                            Cuando el usuario interactúa con la casilla de <b>Tenencia o territorio y su contorno</b>, la función que se encarga de esta interacción es <tt>changeMetodo</tt>. Cuando el usuario selecciona la opción <i>Municipio</i>, con valor 2, dado desde el <i>script</i> <tt>servicio-map.php</tt>, se ejecuta la función <tt>changeAnioMunicipio</tt>, que usa los valores de estado y municipio escogidos en las primeras casillas y usa por defecto el año 2010. 
+                        </p>
+                        <p>
+                            La función <tt>changeAnioMunicipio</tt> llama la API <tt>apiDataLateMunicipio</tt>, que usa el método <tt>municipio_infografia</tt> para llamar la función <tt>getMunicipioInfografia</tt> en el <i>script</i> <tt>ApiServicioMap.php</tt>. Esta última función realiza una consulta en la base de datos para obtener los valores del índice de vulnerabilidad poblacional del municipio seleccionado y lo regresa con la respuesta <tt>res</tt>.
+                        </p>
+                        <p>
+                            Al mismo tiempo, la función <tt>changeAnioMunicipio</tt> usa el método <tt>.anio_municipio</tt> para mostrar la casilla <b>Año de consulta</b> una vez que la opción <i>Municipio</i> es seleccionada y, se muestra de la misma forma el botón <b>Exportar</b> utilizando el método <tt>btn_export_municipio</tt>.
+                        </p>
+                        <p>
+                            El método <tt>btn_export_municipio</tt> se utiliza dentro de la función <tt>bindFilters</tt> para llamar a la función <tt>selectMunicipioInfografia</tt>. De esta forma, esta función es la que se encarga de recrear el HTML para la infografía usando nuevamente la función <tt>changeAnioMunicipio</tt> y llama a la función <tt>printInfogMunicipio</tt> para imprimirla
+                        </p>
+
                         <hr width="50%" size="50">
+                        
+                        </div>
 
                         <div>
                             <h3>2.5 Botón Exportar</h3>
