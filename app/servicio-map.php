@@ -42,7 +42,7 @@ if (isset($_GET["x"])) {
                             <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
                         </div>
                         <div>
-                            <div class="head-filter">Territorio o tenencia</div>
+                            <div class="head-filter">Territorio o tenencia y su contorno</div>
                             <select name="id_metodo" id="select-metodo" placeholder="metodo">
                                 <option value="">Seleccione una opción</option>
                                 <option value="1">Propiedad social</option>
