@@ -586,7 +586,7 @@ var servicioMap = (function() {
     		console.log(res);
     		$(".anio-municipio").show(500);
     		all_municipios_infografia = res.municipio_info;
-			btn_export.show();
+			btn_export_municipio.show();
 		}, function(reason, json){
 		 	initMod.debugThemes(reason, json);
 		});
