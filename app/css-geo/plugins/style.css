@@ -826,6 +826,12 @@ figure.depend-content {
   padding: 20px;
   width: 1450px;
 }
+#infografia_muni {
+  background: white;
+  height: 862px;
+  padding: 20px;
+  width: 1450px;
+}
 .title-map-carto {
   height: 40px;
   position: absolute;

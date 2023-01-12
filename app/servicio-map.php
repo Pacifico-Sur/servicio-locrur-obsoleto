@@ -146,6 +146,10 @@ if (isset($_GET["x"])) {
         display: inline-block;
         width: 620px;
     }
+    #infografia_muni article {
+        display: inline-block;
+        width: 620px;
+    }
     .title-infografia {
         border-radius: 85px 0px 0px 85px;
         color: white;
@@ -176,6 +180,9 @@ if (isset($_GET["x"])) {
 </style>
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia"></div>
+                    </div>
+                    <div class="hide-infog-for-screenshot">
+                        <div id="infografia_muni"></div>
                     </div>
 
                 </div>

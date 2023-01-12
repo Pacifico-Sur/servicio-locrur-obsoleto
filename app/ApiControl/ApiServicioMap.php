@@ -269,7 +269,6 @@ class ApiServicioMap extends ApiMain {
 		$sql = 'SELECT a.*,b."NOM_NUCLEO" FROM ivp.' . $ann . ' a INNER JOIN public.na b ON a."ID_NA" = b."ID_NA" WHERE "ID" = :id';
 		$sth = $this->conn->prepare($sql);
 		$sth->bindValue(':id', $x['id'], PDO::PARAM_STR);
-		print($sql);
 
 		$sth->execute();
 		$rows = $sth->rowCount();
@@ -337,10 +336,10 @@ class ApiServicioMap extends ApiMain {
 						$res[$row_t['tema']][] = array("label" => $row_t['indicadores'], "value" => $value);
 					}
 				}
-				$this->items_arr["municipio_info"] = $res;
+				$this->items_arr["municipio_infografia"] = $res;
 			}
 		}else{
-			$this->items_arr["municipio_info"] = array("mensaje" => "Sin coincidencias encontradass.");
+			$this->items_arr["municipio_infografia"] = array("mensaje" => "Sin coincidencias encontradass.");
 		}
 		$sth = null;
 	}
