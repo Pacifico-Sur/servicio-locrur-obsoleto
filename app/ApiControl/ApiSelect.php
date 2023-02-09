@@ -149,7 +149,7 @@ class ApiSelect extends ApiMain {
 
 	public function getLocalidades($x) {
 		//$sql = 'SELECT "NOM_LOC","ID_MUN","CGLOC" FROM loc.localidades  WHERE "ID_MUN" = :id_municipio ORDER BY "NOM_LOC" ASC';
-		$sql = 'SELECT "NOM_LOC","ID_MUN","CGLOC" FROM loc.localidades ORDER BY "NOM_LOC" ASC';
+		$sql = 'SELECT "NOM_LOC", localidades."ID_MUN", localidades."CGLOC", "ID_ENT" FROM loc.localidades INNER JOIN edo_mun.municipios ON municipios."ID_MUN" = localidades."ID_MUN" ORDER BY localidades."NOM_LOC" ASC';
 		$sth = $this->conn->prepare($sql);
 		//$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_INT);
 		$sth->execute();

@@ -449,9 +449,6 @@ var select = (function () {
 			sortField: "id_localidad",
 			render: { option: function (item, escape) { return '<div><span class="name">' + escape(item[keys[1]]) + '</span></div>' } },
 			onInitialize: function () {
-				var selectize = this;
-				selectize.addOption({ id_localidad: -1, localidad: 'Todas' });
-				callSetTime(selectize, -1);
 			},
 			onChange: function (value) {
 				console.log("valll");
