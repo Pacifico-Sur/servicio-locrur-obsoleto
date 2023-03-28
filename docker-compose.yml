@@ -39,3 +39,25 @@ services:
       - "8080:80"
     depends_on:
       - database
+
+  rstudio:
+    image: davidmacer/rstudio
+    container_name: rstudio-locrur
+    restart: always
+    volumes:
+      - type: volume
+        source: rstudio
+        target: /app
+      - type: bind
+        source: $PWD
+        target: /home/rstudio
+    networks: 
+      - default
+    environment:
+      - PASSWORD=rstudio10
+    ports:
+      - "8787:8787"
+
+volumes:
+  www:
+  rstudio:
