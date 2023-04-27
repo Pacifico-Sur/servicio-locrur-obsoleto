@@ -544,7 +544,6 @@ var servicioMap = (function() {
     }
 
     var changeAnioNA = function() {
-		console.log("Andas buscando el núcleo");
     	apiDataLateNA.methods['na']['data'] = {
     		anio: select_anio_na.val(),
 			id_estado: select_estado.val(),
@@ -552,7 +551,7 @@ var servicioMap = (function() {
 		}
 		console.log("apiDataLateNA na");
     	console.log(apiDataLateNA);
-		
+
     	initMod.apiCall(apiDataLateNA).then(function(res){
     		console.log("ressssa na");
     		console.log(res);
@@ -600,16 +599,16 @@ var servicioMap = (function() {
 		$('.anio-municipio').hide();
     	if (id_n == 1) {
     		
+	    	//selectNa();
 	    	$('.anio-na').show(500);
 	    	changeAnioNA();
 
-	    	
-    	}else if (id_n == 3) {
+		}else if (id_n == 3) {
 			
 			$('.anio-municipio').show(500);
 			changeAnioMunicipio();
 
-		}else if (id_n == 2) {
+    	}else if (id_n == 2) {
 	    	$(".mapats").show(500, function() {
 	    		console.log("bout");
 		    	mapProp = {
@@ -912,8 +911,8 @@ var servicioMap = (function() {
 					var infografia = res.infografia;
 
       				var html_infog = ``;
-      				
-      				var color = ["#ff007d","#8800ff","#ff8b00","#930000","#005593","#00936a","#930045","#116469"],i=0;
+      				/*#D885A3*/
+      				var color = ["#F4BFBF","#D885A3","#90C8AC","#EEC373","#9DAD7F","#BFA2DB","#99C4C8","#CE97B0"],i=0;
                     $.each(infografia, function(k, v) {
 					  	html_infog+= `
 					  	<article class="content-infografia">
@@ -924,13 +923,16 @@ var servicioMap = (function() {
 								console.log(k);
 	                            console.log("v");
 								console.log(v);
+/* style="color:` + color[i] + `;" */
+								
                             	$.each(v, function(k_i, v_i) {
                             		console.log("k_i");
 									console.log(k_i);
 									console.log("v_i");
 									console.log(v_i);
 	                              	html_infog+= `
-	                              	<div><i style="background:` + color[i] + `;"></i>` + v_i.label + `:<span>` + v_i.value + `</span></div>`;
+	                              	<div><i style="background:` + color[i] + `;"></i>` +   v_i.label + `:<span>` +  v_i.value + `</span></div>`;
+									  
 	                            });
 	                        html_infog+= `</div>
 	                    </article>`;
@@ -957,7 +959,7 @@ var servicioMap = (function() {
 
 			var html_infog_municipio = ``;
 			
-			var color = ["#ff007d","#8800ff","#ff8b00","#930000","#005593","#00936a","#930045","#116469"],i=0;
+			var color = ["#F4BFBF","#D885A3","#90C8AC","#EEC373","#9DAD7F","#BFA2DB","#99C4C8","#CE97B0"], i=0;
 
 			$.each(municipio_infografia, function(k, v) {
 				html_infog_municipio+= `
@@ -975,7 +977,7 @@ var servicioMap = (function() {
 							console.log("v_i");
 							console.log(v_i);
 							html_infog_municipio+= `
-							<div><i style="background:` + color[i] + `;"></i>` + v_i.label + `:<span>` + v_i.value + `</span></div>`;
+							<div><i style="background:` + color[i] + `;"></i>` +   v_i.label + `:<span>` +  v_i.value + `</span></div>`;
 						});
 						html_infog_municipio+= `</div>
 				</article>`;
@@ -1005,14 +1007,14 @@ var servicioMap = (function() {
 
 		        	var tempcanvas=document.createElement('canvas');
 		            tempcanvas.width=1450;
-		            tempcanvas.height=620;
+		            tempcanvas.height=900;
 		            var context=tempcanvas.getContext('2d');
-		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+		            context.drawImage(canvas,0,0,1450,900,0,0,1450,900);
 		            var link=document.createElement("a");
 		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
 		            link.download = 'infografia.jpg';
 		            link.click();
-		            //generateExport();
+		            generateExport();
 		      	}
 		    });
         },1000);
@@ -1036,9 +1038,9 @@ var servicioMap = (function() {
 
 		        	var tempcanvas=document.createElement('canvas');
 		            tempcanvas.width=1450;
-		            tempcanvas.height=620;
+		            tempcanvas.height=900;
 		            var context=tempcanvas.getContext('2d');
-		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+		            context.drawImage(canvas,0,0,1450,900,0,0,1450,900);
 		            var link=document.createElement("a");
 		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
 		            link.download = 'infografia_municipio.jpg';
@@ -1397,6 +1399,7 @@ var servicioMap = (function() {
         btn_pdf.on('click', generatePdf);*/
         btn_export.on('click', generateExport);
 		btn_export_municipio.on('click', selectMunicipioInfografia);
+
         $(document).on('mousemove', 'poligonoaaaa', map_mousemove);
         $(document).on('mouseleave', 'poligonoaaaa', map_mouseleave);
         $(document).on('click', 'poligonoaaaa', map_click);
