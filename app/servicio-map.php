@@ -155,6 +155,15 @@ if (isset($_GET["x"])) {
         text-align: center;
     }
 
+    /*todo el recuadro*/
+    #infografia_muni article {
+        display: inline-block;
+        width: 620px; 
+        /*background-color: lightblue;*/
+        align-items: center;
+        text-align: center;
+    }
+
     /*tema*/
     .title-infografia {
         border-radius: 15px 15px 0px 0px;
