@@ -13,8 +13,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ${PWD}/app/Database/siclr_db_respaldo.tar:/docker-entrypoint-initdb.d/siclr_db_respaldo.tar
-      - ${PWD}/app/Database/psql.sh:/docker-entrypoint-initdb.d/psql.sh
+      - ./app/Database/siclr_db_respaldo.tar:/docker-entrypoint-initdb.d/siclr_db_respaldo.tar
+      - ./app/Database/psql.sh:/docker-entrypoint-initdb.d/psql.sh
 
   www:
     container_name: cont-apache
@@ -22,7 +22,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - $PWD/app:/var/www/html
+      - ./app:/var/www/html
     links:
       - database
     networks:
