@@ -15,14 +15,14 @@
         <main>
             <section id="#introduccion">
                 <h2>
-                    Documentación para el programdor
+                    Documentación sobre el código y programación
                 </h2>
 
                 <p>
                     El servicio de información y conocimiento de localidades rurales (SICLR) es una aplicación que está
-                    hecha en <tt>PHP</tt>, que se usa para la vista y para el controlador. Existen también archivos
-                    <tt>JavaScript</tt>, los cuales sirven para dar interactividad
-                    a la aplicación a medida que el usuario está navegando dentro de ella. Finalmente, hay archivos
+                    hecha en <tt>PHP</tt>, que se usa para la vista y para el controlador y <tt>APACHE</tt> como
+                    servidor. Existen también archivos <tt>JavaScript</tt>, los cuales sirven para dar interactividad a
+                    la aplicación a medida que el usuario está navegando dentro de ella. Finalmente, hay archivos
                     <tt>CSS</tt> que le dan el estilo a la aplicación.
                 </p>
                 <p>Enseguida se muestra la estructura de la aplicación y la descripción de cada uno de sus archivos y
@@ -141,12 +141,15 @@
                 </ul>
 
                 <div>
-                    <p>El SICLR cuenta con dos opciones o formas de acceso a la información y descarga de datos: opción
-                        1, de búsqueda por localidad, y opción 2, de búsqueda por territorio o tipo de tenencia de la
-                        tierra.
+                    <p>El SICLR cuenta con dos formas de acceso a la información y descarga de datos; ambas formas o
+                        acercamientos presentan la misma información pero a distinto nivel. El primer acercamiento es de
+                        búsqueda por localidad, el segundo acercamiento es de búsqueda por territorio o tipo de tenencia
+                        de la tierra. En el primero, el usuario puede obtener la información de una, varias o todas las
+                        localidades de un municipio, en el segundo, el usuario puede obtener la información a nivel de
+                        municipio, núcleo agrario o agrupación de áreas de control de propiedad privada.
                     </p>
                     <p>
-                        En ambas opciones, el usuario accede a la información a través de un formulario en donde, en los
+                        En ambas formas, el usuario accede a la información a través de un formulario, donde los
                         primeros dos elementos, el usuario debe escoger el estado y municipio de interés. Después de
                         eso, la aplicación muestra distintos modos de acceso a la información.
                     </p>
@@ -203,7 +206,7 @@
                                 <tt>btnSalir</tt>. Esta función fue creada en el caso futuro de que exista una página de
                                 inicio donde el usuario pueda iniciar sesión (<i>log in</i>) en el servicio.
                             </li>
-                            <li><tt>themeSelect</tt>. <b>Esta aún no sé qué hace.</b></li>
+                            <li><tt>themeSelect</tt>.</li>
                         </ul>
 
 
@@ -364,7 +367,7 @@
                             (<tt>if (choice_tab == "desarrollo_local")</tt>, que hace que se muestre la tabla.
                         </p>
                     </div>
-                    
+
                     <div>
                         <h3>1.9 Botón Ver Indicadores</h3>
 
@@ -381,11 +384,15 @@
                         <h3>1.10 Botón Exportar</h3>
 
                         <p>
-                            El botón Exportar genera tres productos que se descargan en la computadora del usuario. Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a la BD en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este archivo realiza la consulta a la BD usando los elementos que el usuario seleccionó en el formulario. 
+                            El botón Exportar genera tres productos que se descargan en la computadora del usuario.
+                            Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones
+                            <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a la BD
+                            en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este archivo
+                            realiza la consulta a la BD usando los elementos que el usuario seleccionó en el formulario.
                         </p>
 
                         <p>
-                            
+
                         </p>
                     </div>
 
@@ -499,22 +506,56 @@
                         <h3>2.4 Casilla Territorio o tenencia</h3>
 
                         <p>
+                            Esta casilla cuenta con tres opciones que el usuario puede escoger: Propiedad social,
+                            Propiedad privada y Municipio. Las opciones de Municipio y Propiedad social le descargan al usuario una infografía que se guarda en formato <tt>JPG</tt>, la opción de Propiedad social permite al usuario acceder a la información a nivel de localidad (tal como la búsqueda por localidades), pero escogiendo una agrupación de propiedad privada dentro del municipio seleccionado. Este formulario se encuentra en el archivo <tt>app/servicio-map.php</tt>.
+                        </p>
+                        
+                        <h4>2.4.1 Propiedad social</h4>
+                        <p>
+                            La opción de <b>Propiedad social</b> se ejecuta a través de la función <tt>changeAnioNA</tt> que usa los valores de estado y municipio, escogidos en las primeras casillas, para comenzar a realizar el filtrado de los núcleos agrarios. Esta función usa, a su vez, a las funciones <tt>apiDataLateNA</tt> y <tt>selectNA</tt>. que sirve como API para la búsqueda de los datos usando el ID <tt>na</tt>.
+                        </p>
+                        <p>
+                            La función <tt>apiDataLateNA</tt> llama a la función <tt>getNA</tt> dentro del archivo <tt>ApiServicioMap.php</tt>, la cual realiza la consulta para obtener el ID, nombre y tipo de núcleo agrario (ejido o comunidad), esta información la manda a la función <tt>selectNA</tt>, la cual coloca el nombre del núcleo agrario y el tipo en la casilla donde el usuario selecciona el núcleo agrario de interés.
+                        </p>
+                        <p>
+                            La función <tt>selectNA</tt> llama a la función <tt>ApiDataInfografia</tt> la cual usa el ID <tt>infografias</tt> para llamar a la función <tt>getInfografia</tt>, en el archivo <tt>ApiServicioMap</tt>, por medio del método <tt>infografia</tt>. La función <tt>getInfografia</tt> realiza una consulta a la BD para obtener la información del índice de vulnerabilidad poblacional para cada núcleo agrario.
+                        </p>
 
+                        <h4>2.4.2 Municipio</h4>
+
+                        <p>
+                            Cuando el usuario interactúa con la casilla de <b>Tenencia o territorio y su contorno</b>, la función que se encarga de esta interacción es <tt>changeMetodo</tt>. Cuando el usuario selecciona la opción <i>Municipio</i>, con valor 2, dado desde el <i>script</i> <tt>servicio-map.php</tt>, se ejecuta la función <tt>changeAnioMunicipio</tt>, que usa los valores de estado y municipio escogidos en las primeras casillas y usa por defecto el año 2010. 
+                        </p>
+                        <p>
+                            La función <tt>changeAnioMunicipio</tt> llama la API <tt>apiDataLateMunicipio</tt>, que usa el método <tt>municipio_infografia</tt> para llamar la función <tt>getMunicipioInfografia</tt> en el <i>script</i> <tt>ApiServicioMap.php</tt>. Esta última función realiza una consulta en la base de datos para obtener los valores del índice de vulnerabilidad poblacional del municipio seleccionado y lo regresa con la respuesta <tt>res</tt>.
+                        </p>
+                        <p>
+                            Al mismo tiempo, la función <tt>changeAnioMunicipio</tt> usa el método <tt>.anio_municipio</tt> para mostrar la casilla <b>Año de consulta</b> una vez que la opción <i>Municipio</i> es seleccionada y, se muestra de la misma forma el botón <b>Exportar</b> utilizando el método <tt>btn_export_municipio</tt>.
+                        </p>
+                        <p>
+                            El método <tt>btn_export_municipio</tt> se utiliza dentro de la función <tt>bindFilters</tt> para llamar a la función <tt>selectMunicipioInfografia</tt>. De esta forma, esta función es la que se encarga de recrear el HTML para la infografía usando nuevamente la función <tt>changeAnioMunicipio</tt> y llama a la función <tt>printInfogMunicipio</tt> para imprimirla
                         </p>
 
                         <hr width="50%" size="50">
+                        
+                        </div>
 
-                    <div>
-                        <h3>2.5 Botón Exportar</h3>
+                        <div>
+                            <h3>2.5 Botón Exportar</h3>
 
-                        <p>
-                            El botón Exportar genera cuatro productos que se descargan en la computadora del usuario. Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a la BD en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este archivo realiza la consulta a la BD usando los elementos que el usuario seleccionó en el formulario. 
-                        </p>
+                            <p>
+                                El botón Exportar genera cuatro productos que se descargan en la computadora del
+                                usuario. Utiliza la función <tt>callMapPrint</tt>, que a su vez, usa las funciones
+                                <tt>generateExcel</tt>, <tt>genetarePDF</tt>. Estas dos funciones hacen una consulta a
+                                la BD en el archivo <tt>ApiMapa.php</tt> en el directorio <tt>ApiControl</tt>. Este
+                                archivo realiza la consulta a la BD usando los elementos que el usuario seleccionó en el
+                                formulario.
+                            </p>
 
-                        <p>
-                            
-                        </p>
-                    </div>
+                            <p>
+
+                            </p>
+                        </div>
                     </div>
                 </section>
             </div>

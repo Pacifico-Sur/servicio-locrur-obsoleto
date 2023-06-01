@@ -301,6 +301,48 @@ class ApiServicioMap extends ApiMain {
 		$sth = null;
 	}
 
+	public function getMunicipioInfografia($x) {
+		/* Obtiene los indicadores para escribir la infografía del municipio */
+		if ($x['anio_municipio'] == 2010) {
+			$ann = "loc_rur_mpio_" . 2010;
+		}else {
+			$ann = "loc_rur_mpio_" . 2020;
+		}
+		$sql = 'SELECT a.*, b."NOMGEO" FROM ivp.' . $ann . ' a INNER JOIN edo_mun.municipios b ON a."ID_MUN_2010" = b."ID_MUN" WHERE b."ID_MUN" = :id_municipio';
+		$sth = $this->conn->prepare($sql);
+		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
+
+		$sth->execute();
+		$rows = $sth->rowCount();
+		if ($rows > 0) {
+			$res = array();
+			$row = $sth->fetch(PDO::FETCH_ASSOC);
+
+			//$this->items_arr["indi"] = $row;
+
+			foreach ($row as $key => $value) {
+
+				$sql1 = 'SELECT tema,indicadores FROM catalogo.indicadores a INNER JOIN catalogo.tema b ON a."cve_tem" = b."cve_tem" WHERE "cve_ind" = :key AND b."cve_tem" != 1';
+				$sth_t = $this->conn->prepare($sql1);
+				$sth_t->bindValue(':key', $key, PDO::PARAM_STR);
+				$sth_t->execute();
+				$row_t = $sth_t->fetch(PDO::FETCH_ASSOC);
+				$rows_t = $sth_t->rowCount();
+				if ($rows_t > 0) {
+					if (isset($res[$row_t['tema']])) {
+						array_push($res[$row_t['tema']], array("label" => $row_t['indicadores'], "value" => $value));
+					}else {
+						$res[$row_t['tema']][] = array("label" => $row_t['indicadores'], "value" => $value);
+					}
+				}
+				$this->items_arr["municipio_infografia"] = $res;
+			}
+		}else{
+			$this->items_arr["municipio_infografia"] = array("mensaje" => "Sin coincidencias encontradass.");
+		}
+		$sth = null;
+	}
+
 	public function getCoords($x) {
 		$sql = 'SELECT "NOMGEO","ID_ENT",ST_AsGeoJSON(ST_Transform("GEOM",4326)) AS "COORDS"
 		FROM edo_mun.estados WHERE "ID_ENT" = :id_estado ORDER BY "NOMGEO" ASC';

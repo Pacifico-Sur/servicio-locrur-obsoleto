@@ -19,6 +19,7 @@ services:
   www:
     container_name: cont-apache
     build: .
+    image: davidmacer/cont-apache
     ports:
       - "8000:80"
     volumes:

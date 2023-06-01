@@ -46,6 +46,14 @@ var servicioMap = (function() {
             	'json': ''
             },
 		},
+		apiDataLateMunicipio = {
+			/* Api para la llamada de getMunicipioInfografia en ApiServicioMap.php */
+			controller: module_upper,
+			methods: {
+				'municipio_infografia':  { data: ''},
+            	'json': ''
+            },
+		},
 		apiDataLateMore = {
 			controller: module_upper,
 			methods: {
@@ -132,11 +140,13 @@ var servicioMap = (function() {
 		select_subtema_id = $("#select-subtema-id"),
 		select_anio = $("#anio"),
 		select_anio_na = $("#anio-na"),
+		select_anio_municipio = $("#anio-municipio"), /* Llama a la función selectMunicipioInfografia */
 		select_metodo = $("#select-metodo"),
 		select_na = $("#select-na"),
 		btn_excel = $("#icono-excel"),
 		btn_pdf = $("#icono-pdf"),
 		btn_export = $("#icono-export"),
+		btn_export_municipio = $("#icono-export"),
 		check_all = $("#check-all"),
 		loc_pp,
 		check_indicadores = $("#check-indicadores");
@@ -542,13 +552,33 @@ var servicioMap = (function() {
 		}
 		console.log("apiDataLateNA na");
     	console.log(apiDataLateNA);
-
+		
     	initMod.apiCall(apiDataLateNA).then(function(res){
     		console.log("ressssa na");
     		console.log(res);
     		$(".na").show(500);
     		all_na = res.na;
     		selectNa();
+		}, function(reason, json){
+		 	initMod.debugThemes(reason, json);
+		});
+    }
+
+	var changeAnioMunicipio = function() {
+    	apiDataLateMunicipio.methods['municipio_infografia']['data'] = {
+    		anio_municipio: select_anio_na.val(),
+			id_estado: select_estado.val(),
+			id_municipio: $("#select-municipio-id").val()
+		}
+		console.log("apiDataLateMunicipio municipio_infografia");
+    	console.log(apiDataLateMunicipio);
+		
+    	initMod.apiCall(apiDataLateMunicipio).then(function(res){
+    		console.log("ressssa municipio");
+    		console.log(res);
+    		$(".anio-municipio").show(500);
+    		//all_municipios_infografia = res.municipio_info;
+			btn_export_municipio.show();
 		}, function(reason, json){
 		 	initMod.debugThemes(reason, json);
 		});
@@ -566,14 +596,19 @@ var servicioMap = (function() {
 	    $("figure.depend-content").hide();
 	    $('#footable-list').hide();
 	    $('.anio-na').hide();
+		$('.anio-municipio').hide();
     	if (id_n == 1) {
     		
-	    	//selectNa();
 	    	$('.anio-na').show(500);
 	    	changeAnioNA();
 
 	    	
-    	}else if (id_n == 2) {
+    	}else if (id_n == 3) {
+			
+			$('.anio-municipio').show(500);
+			changeAnioMunicipio();
+
+		}else if (id_n == 2) {
 	    	$(".mapats").show(500, function() {
 	    		console.log("bout");
 		    	mapProp = {
@@ -910,6 +945,48 @@ var servicioMap = (function() {
         });
     };
 
+	select_anio_municipio = $();
+    var selectMunicipioInfografia = function() {
+		console.log("res infografia municipio");
+		initMod.apiCall(apiDataLateMunicipio).then(function(res){
+			console.log("res infograf");
+		  	console.log(res);
+
+			var municipio_infografia = res.municipio_infografia;
+
+			var html_infog_municipio = ``;
+			
+			var color = ["#ff007d","#8800ff","#ff8b00","#930000","#005593","#00936a","#930045","#116469"],i=0;
+
+			$.each(municipio_infografia, function(k, v) {
+				html_infog_municipio+= `
+				<article class="content-infografia">
+					<div class="title-infografia" style="background:` + color[i] + `;"><div>` + k + `</div></div>
+					<div class="content-data-infografia">
+						<!--<div class="subtitle-infografia">Factor carencia de bienes y medios de comunicación</div>-->`;
+						console.log("k");
+						console.log(k);
+						console.log("v");
+						console.log(v);
+						$.each(v, function(k_i, v_i) {
+							console.log("k_i");
+							console.log(k_i);
+							console.log("v_i");
+							console.log(v_i);
+							html_infog_municipio+= `
+							<div><i style="background:` + color[i] + `;"></i>` + v_i.label + `:<span>` + v_i.value + `</span></div>`;
+						});
+						html_infog_municipio+= `</div>
+				</article>`;
+				i++;
+			});
+			console.log("Ensename todo");
+			console.log(html_infog_municipio);
+			$('#infografia_muni').html(html_infog_municipio);
+			printInfogMunicipio();
+		})
+	};
+
     var printInfog = function() {
     	setTimeout(function(){
         	var mapsyeahyeahs = $('#infografia');
@@ -933,6 +1010,30 @@ var servicioMap = (function() {
 		            var link=document.createElement("a");
 		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
 		            link.download = 'infografia.jpg';
+		            link.click();
+		            //generateExport();
+		      	}
+		    });
+        },1000);
+    }
+
+	var printInfogMunicipio = function() {
+    	setTimeout(function(){
+        	var mapsmunicipioinfografia = $('#infografia_muni');
+			console.log(mapsmunicipioinfografia);
+            html2canvas([mapsmunicipioinfografia.get(0)], {
+            	useCORS: true,
+		        optimized: false,
+		        allowTaint: false,
+		      	onrendered: function (canvas) {
+		        	var tempcanvas=document.createElement('canvas');
+		            tempcanvas.width=1450;
+		            tempcanvas.height=620;
+		            var context=tempcanvas.getContext('2d');
+		            context.drawImage(canvas,0,0,1350,700,0,0,1350,700);
+		            var link=document.createElement("a");
+		            link.href=tempcanvas.toDataURL('image/jpg');   //function blocks CORS
+		            link.download = 'infografia_municipio.jpg';
 		            link.click();
 		            generateExport();
 		      	}
@@ -1189,7 +1290,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1223,7 +1324,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1277,16 +1378,15 @@ var servicioMap = (function() {
         select_estado.on("change", changeEstado);
         select_anio.on("change", changeAnio);
         select_anio_na.on("change", changeAnioNA);
+		select_anio_municipio.on("change", changeAnioMunicipio);
         select_metodo.on("change", changeMetodo);
         select_tema.on("change", changeTema);
         select_subtema.on("change", changeSubtema);
         select_descsubtema.on("change", changeDescSubtema);
         check_all.on("click", checkAllIndicadores);
         $(document).on('click','.indicadores-check', checkVisible);
-        /*btn_excel.on('click', generateExcel);
-        btn_pdf.on('click', generatePdf);*/
         btn_export.on('click', generateExport);
-
+		btn_export_municipio.on('click', selectMunicipioInfografia);
         $(document).on('mousemove', 'poligonoaaaa', map_mousemove);
         $(document).on('mouseleave', 'poligonoaaaa', map_mouseleave);
         $(document).on('click', 'poligonoaaaa', map_click);

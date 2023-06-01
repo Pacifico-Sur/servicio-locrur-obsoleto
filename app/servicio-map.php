@@ -42,7 +42,7 @@ if (isset($_GET["x"])) {
                             <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
                         </div>
                         <div>
-                            <div class="head-filter">Territorio o tenencia</div>
+                            <div class="head-filter">Territorio o tenencia y su contorno</div>
                             <select name="id_metodo" id="select-metodo" placeholder="metodo">
                                 <option value="">Seleccione una opción</option>
                                 <option value="1">Propiedad social</option>
@@ -62,6 +62,14 @@ if (isset($_GET["x"])) {
                             <div class="head-filter">Ejido o comunidad</div>
                             <select name="id_na" id=select-na placeholder="Núcleo agrario">
                                 <option value="">Seleccione una opción</option>
+                            </select>
+                        </div>
+                        <div class="anio-municipio">
+                            <div class="head-filter">Año de consulta</div>
+                            <select name="anio_municipio" id="anio-municipio">
+                                <option value="2010">2010</option>
+                                <option value="2020">2020</option>
+                                <!--<option value="20102020">2010-2020</option>-->
                             </select>
                         </div>
 
@@ -86,7 +94,6 @@ if (isset($_GET["x"])) {
                                 <select name="anio" id=anio>
                                     <option value="2010">2010</option>
                                     <option value="2020">2020</option>
-                                    <!--<option value="20102020">2010-2020</option>-->
                                 </select>
                             </div>
                             <div class="subtema">
@@ -139,6 +146,10 @@ if (isset($_GET["x"])) {
         display: inline-block;
         width: 620px;
     }
+    #infografia_muni article {
+        display: inline-block;
+        width: 620px;
+    }
     .title-infografia {
         border-radius: 85px 0px 0px 85px;
         color: white;
@@ -169,6 +180,9 @@ if (isset($_GET["x"])) {
 </style>
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia"></div>
+                    </div>
+                    <div class="hide-infog-for-screenshot">
+                        <div id="infografia_muni"></div>
                     </div>
 
                 </div>

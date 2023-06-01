@@ -175,14 +175,14 @@ body.modal-open {
 }
 .footable .footable-header th {
   border-bottom: 1px solid #afafaf;
-
-  font-weight: 500;
+  /* width: 30% !important; Tamaño de celdas de la tabla */
+  font-weight: 100;
+  font-size: 16px !important; /* Tamaño de letra de los atributos de la tabla */
   color: #3a3a3a;
-    font-family: 'BebasNeue-Regular';
-    font-size: 34px;
-    line-height: 38px;
-    text-align: center;
-    padding: 5px !important;
+  font-family: 'BebasNeue-Regular';
+  line-height: 18px;
+  text-align: center;
+  padding: 2px !important;
 }
 .footable .label-default {
   font-size: 14px !important;
@@ -190,9 +190,9 @@ body.modal-open {
   margin-left: 16px;
   padding: 10px 15px !important;
 }
-.footable tbody>tr>td {
+.footable tbody>tr>td { 
   color: #282828;
-  font-size: 16px;
+  font-size: 16px; /* Tamaño de letra para el contenido de la tabla */
   padding: 8px 10px;
   text-align: center;
   text-transform: uppercase;
@@ -343,7 +343,7 @@ tfoot>tr.footable-editing {
   width: 0px !important;
 }
 .ibox-title, .breadcrumb {
-  font-size: 22px !important;
+  font-size: 22px !important; /* Tamaño de texto para el título del servicio */
   text-transform: uppercase;
 }
 .is-apartado {
@@ -713,12 +713,12 @@ body#app-site-2 {
   text-align: left;
   width: 38%;
 }
-.head-filter {
+.head-filter { /* Bloque para todos los elementos de filtrado */
   display: inline-block;
   padding-right: 1%;
   text-align: right;
   vertical-align: top;
-  width: 20%;
+  width: 30%;
 }
 .head-indicadores {
   vertical-align: top;
@@ -809,6 +809,9 @@ figure.depend-content {
 .anio-na {
   display: none;
 }
+.anio-municipio {
+  display: none;
+}
 .hide-for-screenshot,.hide-infog-for-screenshot {
   height: 862px;
   opacity: 0.0;
@@ -818,6 +821,12 @@ figure.depend-content {
   z-index: -1;
 }
 #infografia {
+  background: white;
+  height: 862px;
+  padding: 20px;
+  width: 1450px;
+}
+#infografia_muni {
   background: white;
   height: 862px;
   padding: 20px;
@@ -857,8 +866,8 @@ figure.depend-content {
 }
 .content-tab-problemas {
   display: none;
-  margin-bottom: -30px;
-  width: 80%;
+  margin-bottom: -20px;
+  width: 10%;
 }
 .content-tab-problemas>div {
   border: 1px solid #989898;
