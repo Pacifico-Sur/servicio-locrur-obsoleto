@@ -302,8 +302,7 @@ class ApiServicioMap extends ApiMain {
 	}
 
 	public function getMunicipioInfografia($x) {
-		/*print_r($x);
-		exit;*/
+		/* Obtiene los indicadores para escribir la infografía del municipio */
 		if ($x['anio_municipio'] == 2010) {
 			$ann = "loc_rur_mpio_" . 2010;
 		}else {

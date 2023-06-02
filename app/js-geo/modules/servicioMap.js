@@ -47,6 +47,7 @@ var servicioMap = (function() {
             },
 		},
 		apiDataLateMunicipio = {
+			/* Api para la llamada de getMunicipioInfografia en ApiServicioMap.php */
 			controller: module_upper,
 			methods: {
 				'municipio_infografia':  { data: ''},
@@ -139,7 +140,7 @@ var servicioMap = (function() {
 		select_subtema_id = $("#select-subtema-id"),
 		select_anio = $("#anio"),
 		select_anio_na = $("#anio-na"),
-		select_anio_municipio = $("#anio-municipio"),
+		select_anio_municipio = $("#anio-municipio"), /* Llama a la función selectMunicipioInfografia */
 		select_metodo = $("#select-metodo"),
 		select_na = $("#select-na"),
 		btn_excel = $("#icono-excel"),
@@ -564,7 +565,6 @@ var servicioMap = (function() {
     }
 
 	var changeAnioMunicipio = function() {
-		console.log("Por aquí andas");
     	apiDataLateMunicipio.methods['municipio_infografia']['data'] = {
     		anio_municipio: select_anio_na.val(),
 			id_estado: select_estado.val(),
@@ -1029,13 +1029,6 @@ var servicioMap = (function() {
 		        optimized: false,
 		        allowTaint: false,
 		      	onrendered: function (canvas) {
-		        	/*document.body.appendChild(canvas);
-		        	var a = document.createElement('a');
-		        	// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-		        	a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-		        	a.download = 'somefilename.jpg';
-		        	a.click();*/
-
 		        	var tempcanvas=document.createElement('canvas');
 		            tempcanvas.width=1450;
 		            tempcanvas.height=900;
@@ -1300,7 +1293,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1334,7 +1327,7 @@ var servicioMap = (function() {
 			if ($("#debug").val() == 'debug') {
 				$(".res-error-2").html("Error-2 msg: " + reason.responseText).show(1000);
 			}else {
-				//$(".res-error-2").html("Error en la consulta").show(1000);
+
 			}
 		 	initMod.debugThemes(reason, json);
 
@@ -1395,8 +1388,6 @@ var servicioMap = (function() {
         select_descsubtema.on("change", changeDescSubtema);
         check_all.on("click", checkAllIndicadores);
         $(document).on('click','.indicadores-check', checkVisible);
-        /*btn_excel.on('click', generateExcel);
-        btn_pdf.on('click', generatePdf);*/
         btn_export.on('click', generateExport);
 		btn_export_municipio.on('click', selectMunicipioInfografia);
 
