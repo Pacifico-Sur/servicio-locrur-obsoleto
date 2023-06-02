@@ -564,7 +564,7 @@ class ApiSelect extends ApiMain {
 			$id = '"ID"';
 		}
 
-		$sql = 'SELECT a.' . $id .  ' AS "ID", b."ID_MUN" AS "Municipio", d."ID_ENT" AS "Estado", b."NOM_LOC" AS "Localidad", b."CGLOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
+		$sql = 'SELECT b."ID_MUN" AS "Municipio", d."ID_ENT" AS "Estado", b."NOM_LOC" AS "Localidad", b."CGLOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		INNER JOIN edo_mun.municipios c ON b."ID_MUN" = c."ID_MUN"
 		INNER JOIN edo_mun.estados d ON c."ID_ENT" = d."ID_ENT"

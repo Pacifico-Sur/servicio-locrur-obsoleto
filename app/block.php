@@ -2391,7 +2391,7 @@
   <body class="u-body">
 <header class="u-black u-clearfix u-header u-header" id="sec-5d34"><div class="u-align-left u-clearfix u-sheet u-sheet-1">
         <h3 class="u-align-left-xs u-headline u-text u-text-1">
-          <a href="/">Adesur</a>
+          <a href="/"></a>
         </h3>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" data-responsive-from="XL">
           <div class="menu-collapse">

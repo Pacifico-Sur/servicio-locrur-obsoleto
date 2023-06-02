@@ -72,9 +72,8 @@ if (isset($_GET["x"])) {
                                 <!--<option value="20102020">2010-2020</option>-->
                             </select>
                         </div>
-
                         <div class="mapats hide-depend-nucleo">
-                            <div id="poligonos-maps"> meipin</div>
+                            <div id="poligonos-maps"> Cargando...</div>
                             <div class="conentent-click-map">
                                 <div id="res-click-map">
                                     Results
@@ -130,61 +129,89 @@ if (isset($_GET["x"])) {
                     <table id="footable-list" class="tab-list get-module" data-module="servicioMap" data-paging="true" data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
 
 <style type="text/css">
-    .content-data-infografia {
-        border-radius: 0px 10px 10px 0px;
+
+/* cuadro indicadores */
+.content-data-infografia {
+        border-radius: 0px 0px 10px 10px;
         box-shadow: inset 2px 2px 0px 0px white, inset -1px -1px 10px 0px rgb(0 0 0 / 25%);
-        color: #585858;
+        color: #7C8080;
         display: grid;
-        font-size: 12px;
-        height: 140px;
+        font-size: 10px;
+        height: 145px;
         line-height: 17px;
-        float: left;
         padding: 1% 1% 1% 5px;
-        width: 74%;
+        width: auto;
+        border: #B2B2B2 0.5px solid;
+        align-items: center; 
+        text-align: center;
     }
+    
+    /*todo el recuadro*/
     #infografia article {
         display: inline-block;
-        width: 620px;
+        width: 620px; 
+        /*background-color: lightblue;*/
+        align-items: center;
+        text-align: center;
     }
+
+    /*todo el recuadro*/
     #infografia_muni article {
         display: inline-block;
+        width: 620px; 
+        /*background-color: lightblue;*/
+        align-items: center;
+        text-align: center;
+    }
+
+    /*tema*/
+    .title-infografia {
+        border-radius: 15px 15px 0px 0px;
+        color: black;
+        display: inline-block;
+        font-size: 12px;
+        font-family: 'Montserrat', sans-serif;
+        height: auto;
+        padding: 2% 2% 2% 2%;
+        text-align: center;
         width: 620px;
     }
-    .title-infografia {
-        border-radius: 85px 0px 0px 85px;
-        color: white;
-        display: grid;
-        float: left;
-        font-size: 13px;
-        font-family: "San Francisco Display Medium";
-        height: 140px;
-        padding: 2% 2% 2% 5%;
-        text-align: center;
-        width: 24%;
-    }
+    
     .title-infografia>div {
         margin: auto;
         text-transform: uppercase;
+        align-items: center;
+        text-align: center;
     }
+
+    /*resultados*/
     .content-data-infografia span {
-        font-weight: 700;
+        font-weight: 900;
         margin-left: 5px;
+        color:black;
+        align-items: center;
+        font-size: 16px;
     }
+    /*puntitos*/
     .content-data-infografia i {
         border-radius: 2px;
         height: 5px;
         width: 5px !important;
         display: inline-block;
         margin: 0px 5px 2px 0px;
-    }
+        align-items: center;
+    } 
+
+
 </style>
+                    <!-- Infografía para núcleo agrario -->
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia"></div>
                     </div>
+                     <!-- Infografía para el municipio -->
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia_muni"></div>
                     </div>
-
                 </div>
             </div>
         </div>

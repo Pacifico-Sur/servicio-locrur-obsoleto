@@ -124,7 +124,7 @@ if (isset($_GET["x"])) {
                             <div class="title-map-edo">Estado de <span></span></div>
                             <div class="title-map-mun">Municipio de <span></span></div>
                             <div class="title-map-carto"><img src="images/brujula.jpg"></div>
-                            <div class="title-map-fuente">Fuente de datos: ADESUR</div>
+                            <div class="title-map-fuente"></div>
                         </div>
                     </div>
 
