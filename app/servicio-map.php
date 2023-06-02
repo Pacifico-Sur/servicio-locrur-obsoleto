@@ -23,7 +23,9 @@ if (isset($_GET["x"])) {
             <div class="ibox ">
                 <div class="ibox-title">
                     <div class="search-field">
-                        <div><h5></h5></div>
+                        <div>
+                            <h5></h5>
+                        </div>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -38,8 +40,10 @@ if (isset($_GET["x"])) {
                         </div>
                         <div>
                             <div class="head-filter">Municipio</div>
-                            <input name="municipio" id="select-municipio" disabled placeholder=" Seleccione un municipio">
-                            <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
+                            <input name="municipio" id="select-municipio" disabled
+                                placeholder=" Seleccione un municipio">
+                            <input type="hidden" name="id_municipio" id="select-municipio-id"
+                                placeholder=" Seleccione un municipio">
                         </div>
                         <div>
                             <div class="head-filter">Territorio o tenencia y su contorno</div>
@@ -80,8 +84,8 @@ if (isset($_GET["x"])) {
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                         <figure class="depend-content">
                             <div>
                                 <div class="head-filter">Tema</div>
@@ -99,13 +103,14 @@ if (isset($_GET["x"])) {
                                 <div class="head-filter">Subtema</div>
                                 <!--<select name="id_subtema" id="select-subtema1" disabled>
                                 </select>-->
-                                <input name="subtema" id="select-subtema"  readonly="readonly">
+                                <input name="subtema" id="select-subtema" readonly="readonly">
                                 <input type="hidden" name="id_subtema" id="select-subtema-id">
                             </div>
                             <div>
                                 <div class="head-filter head-indicadores">Indicadores</div>
                                 <div class="content-indicadores">
-                                    <div><input type="checkbox" class="indicadores-check" id="check-all">Seleccionar todos</div>
+                                    <div><input type="checkbox" class="indicadores-check" id="check-all">Seleccionar
+                                        todos</div>
                                     <div id="check-indicadores"></div>
                                 </div>
                             </div>
@@ -123,92 +128,91 @@ if (isset($_GET["x"])) {
                     <!--<div id="icono-excel"><img src="images/excel.png"> Exportar a excel</div>
                     <div id="icono-pdf"><img src="images/pdf.png"> Exportar a pdf</div>-->
 
-                    <button id="icono-export"> Exportar  <img src="images/export.png"></button>
+                    <button id="icono-export"> Exportar <img src="images/export.png"></button>
 
                     <!--<font>NOTA:</font> Si no se encuentra el n&uacute;mero de expediente, cerci&oacute;rese de haberlo subido antes.-->
-                    <table id="footable-list" class="tab-list get-module" data-module="servicioMap" data-paging="true" data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
+                    <table id="footable-list" class="tab-list get-module" data-module="servicioMap" data-paging="true"
+                        data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
 
-<style type="text/css">
+                    <style type="text/css">
+                        /* cuadro indicadores */
+                        .content-data-infografia {
+                            border-radius: 0px 0px 10px 10px;
+                            box-shadow: inset 2px 2px 0px 0px white, inset -1px -1px 10px 0px rgb(0 0 0 / 25%);
+                            color: #7C8080;
+                            display: grid;
+                            font-size: 10px;
+                            height: 145px;
+                            line-height: 17px;
+                            padding: 1% 1% 1% 5px;
+                            width: auto;
+                            border: #B2B2B2 0.5px solid;
+                            align-items: center;
+                            text-align: center;
+                        }
 
-/* cuadro indicadores */
-.content-data-infografia {
-        border-radius: 0px 0px 10px 10px;
-        box-shadow: inset 2px 2px 0px 0px white, inset -1px -1px 10px 0px rgb(0 0 0 / 25%);
-        color: #7C8080;
-        display: grid;
-        font-size: 10px;
-        height: 145px;
-        line-height: 17px;
-        padding: 1% 1% 1% 5px;
-        width: auto;
-        border: #B2B2B2 0.5px solid;
-        align-items: center; 
-        text-align: center;
-    }
-    
-    /*todo el recuadro*/
-    #infografia article {
-        display: inline-block;
-        width: 620px; 
-        /*background-color: lightblue;*/
-        align-items: center;
-        text-align: center;
-    }
+                        /*todo el recuadro*/
+                        #infografia article {
+                            display: inline-block;
+                            width: 620px;
+                            /*background-color: lightblue;*/
+                            align-items: center;
+                            text-align: center;
+                        }
 
-    /*todo el recuadro*/
-    #infografia_muni article {
-        display: inline-block;
-        width: 620px; 
-        /*background-color: lightblue;*/
-        align-items: center;
-        text-align: center;
-    }
+                        /*todo el recuadro*/
+                        #infografia_muni article {
+                            display: inline-block;
+                            width: 620px;
+                            /*background-color: lightblue;*/
+                            align-items: center;
+                            text-align: center;
+                        }
 
-    /*tema*/
-    .title-infografia {
-        border-radius: 15px 15px 0px 0px;
-        color: black;
-        display: inline-block;
-        font-size: 12px;
-        font-family: 'Montserrat', sans-serif;
-        height: auto;
-        padding: 2% 2% 2% 2%;
-        text-align: center;
-        width: 620px;
-    }
-    
-    .title-infografia>div {
-        margin: auto;
-        text-transform: uppercase;
-        align-items: center;
-        text-align: center;
-    }
+                        /*tema*/
+                        .title-infografia {
+                            border-radius: 15px 15px 0px 0px;
+                            color: black;
+                            display: inline-block;
+                            font-size: 12px;
+                            font-family: 'Montserrat', sans-serif;
+                            height: auto;
+                            padding: 2% 2% 2% 2%;
+                            text-align: center;
+                            width: 620px;
+                        }
 
-    /*resultados*/
-    .content-data-infografia span {
-        font-weight: 900;
-        margin-left: 5px;
-        color:black;
-        align-items: center;
-        font-size: 16px;
-    }
-    /*puntitos*/
-    .content-data-infografia i {
-        border-radius: 2px;
-        height: 5px;
-        width: 5px !important;
-        display: inline-block;
-        margin: 0px 5px 2px 0px;
-        align-items: center;
-    } 
+                        .title-infografia>div {
+                            margin: auto;
+                            text-transform: uppercase;
+                            align-items: center;
+                            text-align: center;
+                        }
 
+                        /*resultados*/
+                        .content-data-infografia span {
+                            font-weight: 900;
+                            margin-left: 5px;
+                            color: black;
+                            align-items: center;
+                            font-size: 16px;
+                        }
 
-</style>
+                        /*puntitos*/
+                        .content-data-infografia i {
+                            border-radius: 2px;
+                            height: 5px;
+                            width: 5px !important;
+                            display: inline-block;
+                            margin: 0px 5px 2px 0px;
+                            align-items: center;
+                        }
+                    </style>
                     <!-- Infografía para núcleo agrario -->
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia"></div>
                     </div>
-                     <!-- Infografía para el municipio -->
+                    <!-- Infografía para el municipio -->
                     <div class="hide-infog-for-screenshot">
                         <div id="infografia_muni"></div>
                     </div>

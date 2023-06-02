@@ -23,7 +23,9 @@ if (isset($_GET["x"])) {
             <div class="ibox ">
                 <div class="ibox-title">
                     <div class="search-field">
-                        <div><h5></h5></div>
+                        <div>
+                            <h5></h5>
+                        </div>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -38,8 +40,10 @@ if (isset($_GET["x"])) {
                         </div>
                         <div>
                             <div class="head-filter">Municipio</div>
-                            <input name="municipio" id="select-municipio" disabled placeholder=" Seleccione un municipio">
-                            <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
+                            <input name="municipio" id="select-municipio" disabled
+                                placeholder=" Seleccione un municipio">
+                            <input type="hidden" name="id_municipio" id="select-municipio-id"
+                                placeholder=" Seleccione un municipio">
                         </div>
                         <!--<div>
                             <div class="head-filter">Seleccione el Localidad</div>
@@ -48,7 +52,7 @@ if (isset($_GET["x"])) {
                         </div>-->
                         <div>
                             <div class="head-filter">Localidad</div>
-                            <select name="id_localidad" id="select-localidad" placeholder="Localidad" multiple ></select>
+                            <select name="id_localidad" id="select-localidad" placeholder="Localidad" multiple></select>
                         </div>
                         <div>
                             <div class="head-filter">Tema</div>
@@ -67,7 +71,7 @@ if (isset($_GET["x"])) {
                             <div class="head-filter">Subtema</div>
                             <!--<select name="id_subtema" id="select-subtema1" disabled>
                             </select>-->
-                            <input name="subtema" id="select-subtema"  readonly="readonly">
+                            <input name="subtema" id="select-subtema" readonly="readonly">
                             <input type="hidden" name="id_subtema" id="select-subtema-id">
                         </div>
                         <div class="descsubtema">
@@ -79,11 +83,13 @@ if (isset($_GET["x"])) {
                             <div class="head-filter head-indicadores">Indicadores</div>
                             <div class="content-indicadores">
                                 <div id="check-ind-var">
-                                    <div><input type="checkbox" class="indicadores-check-var" id="check-all-var">Seleccionar todos</div>
+                                    <div><input type="checkbox" class="indicadores-check-var"
+                                            id="check-all-var">Seleccionar todos</div>
                                     <div id="check-indicadores-var"></div>
                                 </div>
                                 <div id="check-ind-none">
-                                    <div><input type="checkbox" class="indicadores-check" id="check-all">Seleccionar todos</div>
+                                    <div><input type="checkbox" class="indicadores-check" id="check-all">Seleccionar
+                                        todos</div>
                                     <div id="check-indicadores"></div>
                                 </div>
                             </div>
@@ -112,12 +118,14 @@ if (isset($_GET["x"])) {
                         <div>7.SIN INFORMACIÓN</div>
                     </div>
 
-                    <button id="icono-export"> Exportar  <img src="images/export.png"></button>
+                    <button id="icono-export"> Exportar <img src="images/export.png"></button>
 
                     <!--<font>NOTA:</font> Si no se encuentra el n&uacute;mero de expediente, cerci&oacute;rese de haberlo subido antes.-->
-                    <table id="footable-list" class="tab-list get-module" data-module="select" data-paging="true" data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
+                    <table id="footable-list" class="tab-list get-module" data-module="select" data-paging="true"
+                        data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
 
-                    <table id="footable-list-cube" class="tab-lis" data-paging="true" data-filtering="true" data-sorting="true" data-filter-placeholder="Buscar"></table>
+                    <table id="footable-list-cube" class="tab-lis" data-paging="true" data-filtering="true"
+                        data-sorting="true" data-filter-placeholder="Buscar"></table>
 
                     <div class="hide-for-screenshot">
                         <div id="poligonos-maps">
@@ -128,7 +136,7 @@ if (isset($_GET["x"])) {
                         </div>
                     </div>
 
-                    
+
 
                 </div>
             </div>
