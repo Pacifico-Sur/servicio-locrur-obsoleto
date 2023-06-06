@@ -55,7 +55,7 @@ services:
         source: rstudio
         target: /app
       - type: bind
-        source: $PWD
+        source: ./
         target: /home/rstudio
     networks: 
       network:
