@@ -41,11 +41,6 @@ if (isset($_GET["x"])) {
                             <input name="municipio" id="select-municipio" disabled placeholder=" Seleccione un municipio">
                             <input type="hidden" name="id_municipio" id="select-municipio-id" placeholder=" Seleccione un municipio">
                         </div>
-                        <!--<div>
-                            <div class="head-filter">Seleccione el Localidad</div>
-                            <input name="localidad" id="select-localidad" disabled>
-                            <input type="hidden" name="id_localidad" id="select-localidad-id">
-                        </div>-->
                         <div>
                             <div class="head-filter">Localidad</div>
                             <select name="id_localidad" id="select-localidad" placeholder="Localidad" multiple ></select>
