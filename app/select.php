@@ -97,10 +97,7 @@ if (isset($_GET["x"])) {
                     <div class="res-sql"></div>
                     <div class="res-error"></div>
                     <div class="res-error-2"></div>
-
-                    <!--<div id="icono-excel"><img src="images/excel.png"> Exportar a excel</div>
-                    <div id="icono-pdf"><img src="images/pdf.png"> Exportar a pdf</div>-->
-
+                    
                     <div class="content-tab-problemas">
                         <div class="tab-prob-title">Posibles problemas principales declarados por el informante</div>
                         <div>1.CARENCIA DE AGUA Y MALA CALIDAD</div>
