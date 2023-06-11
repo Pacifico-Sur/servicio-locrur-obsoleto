@@ -18,16 +18,10 @@ class ApiSelect extends ApiMain {
 	private $asa;
 	
 	function __construct() {
-		//$this->asa = new ApiSessionSecurity();
-		/*$this->asa->sessionValidator();
-		$this->items_arr['security_data_apply'] = $this->asa->evaluatePrivilege(array(1,2));*/
 		parent::__construct();
 	}
 
 	public function getAllFilterSelect($x) {
-		//print_r($x);
-		//exit;
-		/*exit;*/
 		if ($x['anio'] == 2020) {
 			$anio = 2020;
 		}elseif ($x['anio'] == 2010) {
@@ -42,7 +36,6 @@ class ApiSelect extends ApiMain {
 		}
 
 		if ($x['tab'] == 'desarrollo_local') {
-			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
 		}else {
@@ -50,16 +43,12 @@ class ApiSelect extends ApiMain {
 			$id = '"ID"';
 		}
 
-		//$sql = 'SELECT a."ID",a."CGLOC",b."ID_ENT",b."ID_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
 		$sql = 'SELECT b."NOM_LOC" ' . ' ' . $x['indicadores'] . '   FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."CGLOC" = b."CGLOC"
 		';
 
 		$sql_loc = 'WHERE "ID_MUN" = :id_municipio ';
-		/*if ($x['id_localidad'] != "") {
-			$sql_loc = ' WHERE a."CGLOC" = :id_localidad';
-		}*/
-
+		
 		if ($x['localidades'] != "") {
 
 			if ($x['localidades'][0] == "-1") {
@@ -74,16 +63,10 @@ class ApiSelect extends ApiMain {
 			}
 		}
 
-		//$sql.= $sql_loc . ' LIMIT :limit_in,:limit_data';
 		$sql.= $sql_loc . ' ORDER BY a.' . $id . ' LIMIT :limit_data OFFSET :limit_in';
-		//$sql.= $sql_loc . ' ';
 		
 		$sth = $this->conn->prepare($sql);
 
-		/*if ($x['id_localidad'] != "") {
-			$sth->bindValue(':id_localidad', $x['id_localidad'], PDO::PARAM_STR);
-			
-		}*/
 		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_INT);
 		$sth->bindValue(':limit_in', intval($x['limit_in']), PDO::PARAM_INT);
 		$sth->bindValue(':limit_data', intval($x['limit_data']), PDO::PARAM_INT);
@@ -97,16 +80,10 @@ class ApiSelect extends ApiMain {
 		
 		$this->items_arr['vulnerabilidad'] = array();//se debe llamar segun nuestro modulo
 		if ($rows > 0) {
-			//$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-			//$this->items_arr['vulnerabilidad'] = $sth->fetchAll(PDO::FETCH_ASSOC);//se debe llamar segun nuestro modulo
-
+		
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-				/*$row['clave_estado'] = $row['ID_ENT'];
-				$row['clave_municipio'] = $row['ID_MUN'];*/
 				$this->items_arr['vulnerabilidad'][] = $row;
 			}
-			//$this->items_arr['number-records'] = $rows;
 		}
 		$sth = null;
 	}
@@ -118,8 +95,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['estados'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['estados'][] = $row;
 			}
@@ -136,8 +111,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['municipios'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['municipios'][] = $row;
 			}
@@ -148,7 +121,6 @@ class ApiSelect extends ApiMain {
 	}
 
 	public function getLocalidades($x) {
-		//$sql = 'SELECT "NOM_LOC","ID_MUN","CGLOC" FROM loc.localidades  WHERE "ID_MUN" = :id_municipio ORDER BY "NOM_LOC" ASC';
 		$sql = 'SELECT "NOM_LOC", localidades."ID_MUN", localidades."CGLOC", "ID_ENT" FROM loc.localidades INNER JOIN edo_mun.municipios ON municipios."ID_MUN" = localidades."ID_MUN" ORDER BY localidades."NOM_LOC" ASC';
 		$sth = $this->conn->prepare($sql);
 		//$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_INT);
@@ -156,8 +128,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['localidades'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['localidades'][] = $row;
 			}
@@ -174,8 +144,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['temas'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['temas'][] = $row;
 			}
@@ -183,19 +151,6 @@ class ApiSelect extends ApiMain {
 			$this->items_arr['temas'] = array("mensaje" => "Sin coincidencias encontradas.");
 		}
 		$sth = null;
-
-		/*$sql = 'SELECT * FROM catalogo.des_soc_tema WHERE tema IS NOT NULL';
-		$sth = $this->conn->prepare($sql);
-		$sth->execute();
-		$rows = $sth->rowCount();
-		if ($rows > 0) {
-			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-				$this->items_arr['temas'][] = $row;
-			}
-		}else{
-			$this->items_arr['temas'] = array("mensaje" => "Sin coincidencias encontradas.");
-		}
-		$sth = null;*/
 	}
 
 	public function getSubtemas($x) {
@@ -205,8 +160,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['subtemas'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['subtemas'][] = $row;
 			}
@@ -223,8 +176,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['indicadores'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$main = explode(" ", $row['indicadores']);
 				if ($main[0] == "Índice" || $main[0] == "Grado" || $main[0] == "Nivel") {
@@ -248,8 +199,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['descsubtemas'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['descsubtemas'][] = $row;
 			}
@@ -266,8 +215,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$this->items_arr['descindicadores'] = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$this->items_arr['descindicadores'][] = $row;
 			}
@@ -294,28 +241,16 @@ class ApiSelect extends ApiMain {
 			$tab = ' ivp.loc_rur_' . $anio;
 			$id = '"ID"';
 
-		//$sql = 'SELECT a."ID",a."CGLOC",b."ID_ENT",b."ID_MUN",b."NOM_LOC" ' . $x['indicadores'] . '  FROM ivp.loc_rur_' . $anio . ' a 
 		$sql = 'SELECT ST_AsGeoJSON(ST_Transform(b."GEOM",4326)) AS "COORDS"  FROM ' . $tab . ' a 
 		INNER JOIN loc.localidades b ON a."ID_LOC" = b."ID_LOC"
 		INNER JOIN edo_mun.municipios c ON b."ID_MUN" = c."ID_MUN"
 		';
 
 		$sql_loc = ' WHERE c."ID_MUN" = :id_municipio ';
-		/*if ($x['id_localidad'] != "") {
-			$sql_loc = ' WHERE a."CGLOC" = :id_localidad';
-		}*/
-
-		
-		//$sql.= $sql_loc . ' LIMIT :limit_in,:limit_data';
 		$sql.= $sql_loc . ' ';
-		//$sql.= $sql_loc . ' ';
 		
 		$sth = $this->conn->prepare($sql);
 
-		/*if ($x['id_localidad'] != "") {
-			$sth->bindValue(':id_localidad', $x['id_localidad'], PDO::PARAM_STR);
-			
-		}*/
 		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
 
 		$sth->execute();
@@ -499,8 +434,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$estados_format = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$estados_format[$row['ID_ENT']] = $row['NOMGEO'];
 			}
@@ -518,8 +451,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$municipios_format = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$kee = $row['ID_ENT'] . "-" . $row['ID_MUN'];
 				$municipios_format[$kee] = $row['NOMGEO'];
@@ -556,7 +487,6 @@ class ApiSelect extends ApiMain {
 		}
 
 		if ($x['tab'] == 'desarrollo_local') {
-			//$tab = ' ivp.des_local_' . $anio;
 			$tab = ' ivp.des_local_2020';
 			$id = '"id"';
 		}else {
@@ -571,10 +501,7 @@ class ApiSelect extends ApiMain {
 		';
 
 		$sql.= 'WHERE b."ID_MUN" = :id_municipio ';
-		/*if ($x['id_localidad'] != "") {
-			$sql.= ' WHERE a."CGLOC" = :id_localidad';
-		}*/
-
+		
 		if ($x['localidades'] != "") {
 
 			if ($x['localidades'][0] == "-1") {
@@ -594,10 +521,6 @@ class ApiSelect extends ApiMain {
 		$sth = $this->conn->prepare($sql);
 
 		$sth->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
-
-		/*if ($x['id_localidad'] != "") {
-			$sth->bindValue(':id_localidad', $x['id_localidad'], PDO::PARAM_STR);
-		}*/
 
 		$estado = self::getEstadosFormat();
 		$municipio = self::getMunicipiosFormat();;
@@ -622,35 +545,13 @@ class ApiSelect extends ApiMain {
 
 		
 		$arrayName = array('', '', utf8_decode(''));
-		/*$this->items_arr['vulnerabilidad'][] = $arrayName;
-
-
-		$this->items_arr['vulnerabilidad'][] = array('ID', 'ID', '');
-		$this->items_arr['vulnerabilidad'][] = array('Estado', 'Estado', '');
-		$this->items_arr['vulnerabilidad'][] = array('Municipio', 'Municipio', '');
-		$this->items_arr['vulnerabilidad'][] = array('Localidad', 'Localidad', '');
-		$this->items_arr['vulnerabilidad'][] = array('NOM_LOC', 'Localidad', '');
-		$this->items_arr['vulnerabilidad'][] = array('ID_ENT', 'Estado', '');
-		$this->items_arr['vulnerabilidad'][] = array('ID_MUN', 'Municipio', '');
-
-		if ($x['indicadores'] != "") {
-			$ind = explode(",", $ind_fi);
-
-			$res_in = self::getIndicadoresRing();
-
-			foreach ($ind as $key => $value) {
-				$bet = $res_in[$value];
-				$this->items_arr['vulnerabilidad'][] = array($value, utf8_decode($bet), '');
-			}
-		}*/
-
+		
 		$res = self::ExportFile($this->items_arr['vulnerabilidad']);
 		$file = "geo-" . self::generateRandomString() .time() . ".xls";
 		$filename = "../temp-excel/" . $file;
-		/*$fileEndEnd = mb_convert_encoding($res, 'ISO-8859-1', "UTF-8");*/
+		
 		file_put_contents($filename, $res);
 
-		//echo json_encode(array("file_name" => $file, "deb" =>1349));
 		return array("file_name" => $file, "deb" =>1349);
 	}
 
@@ -663,7 +564,7 @@ class ApiSelect extends ApiMain {
 			$a = "";
 		  	foreach($records as $row) {
 				if(!$heading) {
-					//$a.= implode("\t", array_keys($row)) . "\n";
+					
 					$asd = array();
 					for ($i=0; $i < count(array_keys($row)); $i++) {
 						if (array_keys($row)[$i] != "ID" && array_keys($row)[$i] != "Estado" && array_keys($row)[$i] != "Municipio" && array_keys($row)[$i] != "Localidad" && array_keys($row)[$i] != "CGLOC" && array_keys($row)[$i] != "PRP_0101") {
@@ -689,8 +590,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$res = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$res['"'.$row['cve_ind'].'"'] = $row['indicadores'];
 			}
@@ -706,8 +605,6 @@ class ApiSelect extends ApiMain {
 		$rows = $sth->rowCount();
 		if ($rows > 0) {
 			$res = array();//se debe llamar segun nuestro modulo
-			/*$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($result as $row) {*/
 			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 				$res['"'.$row['cve_ind'].'"'] = $row['indicadores'];
 			}
@@ -756,10 +653,6 @@ class ApiSelect extends ApiMain {
 
 		$sql.= ' WHERE "ID_MUN" = :id_municipio ';
 
-		/*if ($x['id_localidad'] != "") {
-			$sql.= ' WHERE a."CGLOC" = :id_localidad';
-		}*/
-
 		$sql.= ' ORDER BY a.' . $id;
 
 		$sth = $this->conn->prepare($sql);
@@ -770,11 +663,6 @@ class ApiSelect extends ApiMain {
 
 		$sth2->bindValue(':id_municipio', $x['id_municipio'], PDO::PARAM_STR);
 
-		/*if ($x['id_localidad'] != "") {
-			$sth->bindValue(':id_localidad', $x['id_localidad'], PDO::PARAM_STR);
-			$sth2->bindValue(':id_localidad', $x['id_localidad'], PDO::PARAM_STR);
-		}*/
-
 		$estado = self::getEstadosFormat();
 		$municipio = self::getMunicipiosFormat();;
 
@@ -783,48 +671,13 @@ class ApiSelect extends ApiMain {
 		$sth2->execute();
 		$rows2 = $sth2->rowCount();
 		$this->items_arr['vulnerabilidad'] = array();//se debe llamar segun nuestro modulo
-		/*$this->items_arr['header'] = array();//se debe llamar segun nuestro modulo
-		$this->items_arr['vals'] = array();//se debe llamar segun nuestro modulo
-		if ($rows > 0) {
-			while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-				$kee = $row['ID_ENT'] . "-" . $row['ID_MUN'];
-				$row['Estado'] = utf8_decode($estado[$row['ID_ENT']]);
-				$row['Municipio'] = utf8_decode($municipio[$kee]);
-				$row['Localidad'] = utf8_decode($row['NOM_LOC']);
-				$row['NOM_LOC'] = utf8_decode($row['NOM_LOC']);
-				$this->items_arr['vulnerabilidad'][] = $row;
-				$this->items_arr['header'] = array_keys($row);
-			}
-		}
-		//$sth = null;
-
-		if ($rows2 > 0) {
-			while ($row = $sth2->fetch(PDO::FETCH_NUM)) {
-				$kee = $row[2] . "-" . $row[3];
-				$row[] = utf8_decode($estado[$row[2]]);
-				$row[] = utf8_decode($municipio[$kee]);
-				$row[] = utf8_decode($row[1]);
-				$row[1] = utf8_decode($row[1]);
-				$this->items_arr['vals'][] = $row;
-			}
-		}
-		$sth = null;*/
-
-		/*$empty = array("");
-		array_push($this->items_arr['vulnerabilidad'], $empty, $empty);*/
-
 		
 		$headeer = array('NEMONICO', 'NOMBRE', utf8_decode('DESCRIPCIÓN'));
-		//$this->items_arr['vulnerabilidad'][] = $arrayName;
-
 
 		$this->items_arr['vulnerabilidad'][] = array('ID', 'ID', '');
 		$this->items_arr['vulnerabilidad'][] = array('Estado', 'Estado', '');
 		$this->items_arr['vulnerabilidad'][] = array('Municipio', 'Municipio', '');
 		$this->items_arr['vulnerabilidad'][] = array('Localidad', 'Localidad', '');
-		/*$this->items_arr['vulnerabilidad'][] = array('NOM_LOC', 'Localidad', '');
-		$this->items_arr['vulnerabilidad'][] = array('ID_ENT', 'Estado', '');
-		$this->items_arr['vulnerabilidad'][] = array('ID_MUN', 'Municipio', '');*/
 
 		if ($x['indicadores'] != "") {
 			$ind = explode(",", $ind_fi);
@@ -852,7 +705,6 @@ class ApiSelect extends ApiMain {
 		$pdf->AddPage();
 		$pdf->Output($urlFile,'F');
 
-		//echo json_encode(array("file_name" => $urlFile, "deb" =>1349));
 		return array("file_name" => $urlFile, "deb" =>1349);
 	}
 
