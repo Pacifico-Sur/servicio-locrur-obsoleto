@@ -32,11 +32,14 @@ basemaps::set_defaults(
   map_res = 0.5)
 
 # Llama la función png para inicializar el gráfico
-png(file = paste0("www/imgs/mi_mapa.png"), # El directorio para guardar el archivo
+save_path <- "../www/imgs/"
+dir.create(save_path)
+# El directorio para guardar el archivo
+png(file = paste0(save_path, "mi_mapa.png"), 
     width = 30, # The width of the plot in cm
     height = 27, # The height of the plot in cm
     units = "cm",  # The units to save the plot
-    res = 300)
+    res = 100)
 
 # Crea la gráfica con el diseño necesario
 municipio <- municipio %>% st_transform(crs = st_crs(3857))
