@@ -49,7 +49,7 @@ var select = (function () {
 				'json': ''
 			},
 		},
-		apiDataCoords = {
+		apiGetMap = {
 			controller: module_upper,
 			methods: {
 				['coords']: { data: "" },
@@ -475,109 +475,16 @@ var select = (function () {
 		/*var coords_estados = res.estados.features;
 		id_source_collection.features = id_source_collection.features.concat(coords_estados);
 		getPoligonShapes(id_source_collection);*/
-		apiDataCoords.methods['coords']['data'] = {
-			localidades: $("#select-localidad").val(),
+		apiGetMap.methods['coords']['data'] = {
 			id_municipio: $("#select-municipio-id").val(),
-			id_estado: select_estado.val(),
-			anio: $("#anio").val()
 		}
-		mapProp = {
-			container: 'poligonos-maps',
-			style: 'https://api.maptiler.com/maps/streets-v2/style.json?key=06zOCKtkxeyIoiFMws3p',
-			center: [-91.97363682, 17.91143118],
-			zoom: 5,
-			preserveDrawingBuffer: true
-		};
-		map = $("#poligonos-maps").length ? new maplibregl.Map(mapProp) : false;
-		var id_source_collection = { type: 'FeatureCollection', features: [] };
-		initMod.apiCall(apiDataCoords).then(function (res) {
+			
+		initMod.apiCall(apiGetMap).then(function (res) {
 			console.log("res mmm");
-			console.log(res);
-			var coords_municipios = res.municipios.features;
-
-			$(".title-map-edo span").html($('#select-estado').find(":selected").text());
-			$(".title-map-mun span").html($('#select-municipio').val());
-
-			id_source_collection.features = id_source_collection.features.concat(coords_municipios);
-
-			setTimeout(function () {
-				getPoligonShapes(id_source_collection);
-				mapFlyTo(res.municipios_center, 10.5, 0, 0);
-			}, 300);
-
-
-			/*setTimeout(function() {
-				var coords_estado = res.estados.features;
-
-				id_source_collection.features = id_source_collection.features.concat(coords_estado);
-				getPoligonShapesAddLoop(id_source_collection);
-			}, 1500);*/
-
-
-
-			setTimeout(function () {
-				var coords_loc = res.lodalidades_1349.features;
-				id_source_collection.features = id_source_collection.features.concat(coords_loc);
-				getPoligonShapesAddLoop(id_source_collection);
-			}, 600);
-			//return;
-			setTimeout(function () {
-				var mapsyeahyeahs = $('#poligonos-maps');
-				html2canvas([mapsyeahyeahs.get(0)], {
-					useCORS: true,
-					optimized: false,
-					allowTaint: false,
-					onrendered: function (canvas) {
-						/*document.body.appendChild(canvas);
-						var a = document.createElement('a');
-						// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-						a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-						a.download = 'somefilename.jpg';
-						a.click();*/
-
-						var tempcanvas = document.createElement('canvas');
-						tempcanvas.width = 700;
-						tempcanvas.height = 500;
-						var context = tempcanvas.getContext('2d');
-						context.drawImage(canvas, 0, 0, 1350, 700, 0, 0, 1350, 700);
-						var link = document.createElement("a");
-						link.href = tempcanvas.toDataURL('image/jpg');   //function blocks CORS
-						link.download = 'mapa.jpg';
-						link.click();
-						generateExport();
-					}
-				});
-			}, 1000);
-
-		}, function (reason, json) {
-			initMod.debugThemes(reason, json);
-		});
-		return;
-		setTimeout(function () {
-			html2canvas([mapsyeahyeahs.get(0)], {
-				useCORS: true,
-				optimized: false,
-				allowTaint: false,
-				onrendered: function (canvas) {
-					/*document.body.appendChild(canvas);
-					var a = document.createElement('a');
-					// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-					a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-					a.download = 'somefilename.jpg';
-					a.click();*/
-
-					var tempcanvas = document.createElement('canvas');
-					tempcanvas.width = 1350;
-					tempcanvas.height = 700;
-					var context = tempcanvas.getContext('2d');
-					context.drawImage(canvas, 0, 0, 1350, 700, 0, 0, 1350, 700);
-					var link = document.createElement("a");
-					link.href = tempcanvas.toDataURL('image/jpg');   //function blocks CORS
-					link.download = 'fdsa.jpg';
-					link.click();
-				}
-			});
 		}, 3000);
+
+		generateExport();
+
 	}
 
 
@@ -1138,7 +1045,6 @@ var select = (function () {
 	}
 
 	var generateExport = function () {
-		//callMapPrint();
 		var sList = [];
 		$('#check-indicadores input').each(function () {
 			if (this.checked) {
