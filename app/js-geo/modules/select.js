@@ -482,6 +482,17 @@ var select = (function () {
 
 		generateExport();
 
+		setTimeout(() => { 
+			showMap(); },
+			10000); // Espera 10 segundos para ejecutar la función
+
+	}
+
+	var showMap = function() {
+		// Abre el mapa creado en una nueva ventana
+		$(document).ready(function(){
+			window.open("http://172.16.238.1:8000/temp-img/mi_mapa.png", "_blank"); // will this open url new tab on then document ready
+		});
 	}
 
 	var split = function (val) {
@@ -960,6 +971,7 @@ var select = (function () {
 
 
 		});
+
 	}
 
 	/* Realiza el filtrado de las variables a medida que el usuario va seleccionando en el formulario */
