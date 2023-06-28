@@ -229,6 +229,10 @@ class ApiSelect extends ApiMain {
 		$municipio_id = $x['id_municipio'];
 		echo exec("Rscript ../www/scripts/grafica_municipio_localidades.R $municipio_id");
 
+		$url = 'http://172.16.238.1:8000/temp-img/mi_mapa.png';
+		$img = '../temp-img/mapa_descargado.png';
+		file_put_contents($img, file_get_contents($url));
+
 	}
 
 	public function getEstadosFormat() {
