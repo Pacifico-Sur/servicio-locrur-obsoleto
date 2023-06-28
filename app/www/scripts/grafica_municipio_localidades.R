@@ -65,6 +65,3 @@ ggplot() +
 
 # Cierra la gráfica que se guardó
 dev.off()
-
-download.file("http://172.16.238.1:8000/temp-img/mi_mapa.png",
-              "../temp-img/mapa_descargado.png")
