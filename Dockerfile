@@ -20,3 +20,7 @@ RUN apt-get install --yes r-base
 # Instala librerías necesarias para trabajar con datos espaciales y bases de datos en PostgreSQL
 RUN R -e "install.packages(c('DBI', 'ggplot2', 'RPostgres', 'remotes', 'basemaps'), dependencies = TRUE)"
 RUN R -e "remotes::install_gitlab('davidmacer/ipa')"
+
+RUN mkdir temp-excel && chmod -R 777 temp-excel
+RUN mkdir temp-pdf && chmod -R 777 temp-pdf
+RUN mkdir temp-img && chmod -R 777 temp-img

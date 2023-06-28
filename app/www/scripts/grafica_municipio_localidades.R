@@ -32,10 +32,10 @@ basemaps::set_defaults(
   map_res = 0.5)
 
 # Llama la función png para inicializar el gráfico
-save_path <- "../www/imgs/"
+save_path <- "../temp-img/"
 dir.create(save_path)
 # El directorio para guardar el archivo
-png(file = paste0(save_path, "mi_mapa.png"), 
+png(file = paste0(save_path, "mi_mapa.png"),
     width = 30, # The width of the plot in cm
     height = 27, # The height of the plot in cm
     units = "cm",  # The units to save the plot
@@ -65,3 +65,6 @@ ggplot() +
 
 # Cierra la gráfica que se guardó
 dev.off()
+
+download.file("http://172.16.238.1:8000/temp-img/mi_mapa.png",
+              "../temp-img/mapa_descargado.png")
