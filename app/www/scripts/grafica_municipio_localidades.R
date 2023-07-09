@@ -18,8 +18,7 @@ con <- DBI::dbConnect(RPostgres::Postgres(), dbname = "siclr_db",
 
 # Toma como argumento el ID del municipio seleccionado por el usuario
 args <- commandArgs(TRUE)
-# id_muni <- args[1]
-id_muni <- 1458
+id_muni <- args[1]
 
 # Extrae los datos de municipio, estado, localidades (puntos) y localidades 
 # (polígonos)
@@ -63,7 +62,7 @@ png(file = paste0(save_path, "mi_mapa.png"),
     width = 30, # The width of the plot in cm
     height = 27, # The height of the plot in cm
     units = "cm",  # The units to save the plot
-    res = 100)
+    res = 150)
 
 # Crea la gráfica con el diseño necesario
 ggplot() +
